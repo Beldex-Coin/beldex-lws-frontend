@@ -1,7 +1,11 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
+import theme from "../../../theme";
 
 export default function Registration() {
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log("isMobileMode ::", isMobileMode);
+
   return (
     <Box
       className="registration"
@@ -14,7 +18,7 @@ export default function Registration() {
       <Box
         sx={{
           backgroundColor: "#2B2B3C",
-          width: '694px',
+          width: "694px",
           height: "100%",
           padding: "35px",
           display: "flex",
@@ -22,7 +26,7 @@ export default function Registration() {
           alignItems: "center",
           flexDirection: "column",
           marginTop: "112px",
-          borderRadius:'20px'
+          borderRadius: "20px",
         }}
       >
         <Typography
@@ -34,9 +38,9 @@ export default function Registration() {
         <Box position="relative">
           <Box
             sx={{
-              width: "125px",
+              width: isMobileMode ? "75px" : "125px",
               position: "absolute",
-              left: "-416px",
+              left: isMobileMode ? "-209px" : "-416px",
             }}
           >
             <img
@@ -54,16 +58,16 @@ export default function Registration() {
           />
           {/* <EmptyScreenImageDark styles={{ fontSize: "6rem" }} /> */}
         </Box>
-        <Typography sx={{ color: "#AFAFBE", fontWeight: 400 }}>
+        <Typography sx={{ color: "#AFAFBE", fontWeight: 400,fontSize:isMobileMode?'0.8rem':'1rem' }}>
           Welcome to MyBeldex! Let’s get started :)
         </Typography>
 
         <Box position="relative">
           <Box
             sx={{
-              width: "84px",
+              width: isMobileMode ? "55px" : "84px",
               position: "absolute",
-              left: "313px",
+              left: isMobileMode ? "140px" : "313px",
               top: "-68px",
             }}
           >
@@ -78,7 +82,12 @@ export default function Registration() {
           <Button
             variant="contained"
             color="info"
-            sx={{ fontWeight: 600, borderRadius: "10px", height: "50px" }}
+            sx={{
+              width: isMobileMode?"100%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
+              fontWeight: 600,
+              height: "50px",
+            }}
           >
             Use Existing Wallet
           </Button>
@@ -87,10 +96,13 @@ export default function Registration() {
             color="primary"
             sx={{
               fontWeight: 600,
-              borderRadius: "10px",
+              // borderRadius: "10px",
               color: "white",
               height: "50px",
-              marginLeft: "10px",
+              marginLeft:isMobileMode? '0':"10px",
+              marginTop:isMobileMode?'10px':'0',
+              width: isMobileMode?"100%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
             }}
           >
             Create New Wallet

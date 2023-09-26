@@ -19,7 +19,7 @@ function App() {
         <Header />
         <Box sx={{ paddingTop: '75px', display: 'flex', gap: '20px', minHeight: 'calc(100vh - 45px)' }}>
           {!isMobileMode && <NavBar />}
-          <Box sx={{ width: '100%', background: '#242433', borderRadius: '25px' }}>
+          <Box sx={{ width: '100%', background:isMobileMode? '':'#242433', borderRadius: '25px' }}>
           <Routes>
             {RouteList.map((route: any)=> <Route key={route.id} path={route.path} element={route.component}/>)}
           </Routes>
