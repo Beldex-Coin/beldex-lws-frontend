@@ -15,6 +15,14 @@ export default function DisplaySeed() {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [language, setLanguage] = useState("English");
+  const [isCopied, setIsCopied] = useState(false);
+
+  const seed =
+    "inflamed dehydrate adhesive bawled vegan mice aztec prying oozed seismic video cider sixteen sleepless snug ripped snout rover onward wetsuit vane lakes viking volcano sleep";
+  function copyText(text: string) {
+    navigator.clipboard.writeText(text);
+    setIsCopied(true)
+  }
   return (
     <Box
       className="DisplaySeed"
@@ -33,9 +41,9 @@ export default function DisplaySeed() {
           padding: isMobileMode ? "15px" : "35px",
           display: "flex",
           justifyContent: "center",
-            alignItems: "center",
+          alignItems: "center",
           flexDirection: "column",
-          marginTop:isMobileMode?'40px': "70px",
+          marginTop: isMobileMode ? "40px" : "70px",
           borderRadius: "20px",
         }}
       >
@@ -51,7 +59,7 @@ export default function DisplaySeed() {
         <Typography
           sx={{ fontWeight: 300, textAlign: "center", color: "#B9B9CC" }}
         >
-          You’ll confirm this sequence on the next screen.
+          You'll confirm this sequence on the next screen.
         </Typography>
 
         <Box mt={4} display="flex" flexDirection="row">
@@ -67,19 +75,20 @@ export default function DisplaySeed() {
               fontWeight: 400,
               display: "flex",
               alignItems: "center",
-              fontSize:isMobileMode?'11px':'1rem'
+              fontSize: isMobileMode ? "11px" : "1rem",
 
               //   marginTop: "10px",
             }}
+          >{seed}</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            inflamed dehydrate adhesive bawled vegan mice aztec prying oozed
-            seismic video cider sixteen sleepless snug ripped snout rover onward
-            wetsuit vane lakes viking volcano sleep
-          </Typography>
-          <Box sx={{ display: "flex",
-                justifyContent: "center",
-                alignItems: "center",}}>
             <Box
+              onClick={() => copyText(seed)}
               sx={{
                 backgroundColor: "#128B17",
                 boxShadow:
@@ -90,8 +99,8 @@ export default function DisplaySeed() {
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: "50px",
-               
-                marginLeft:isMobileMode?"8px":"20px",
+
+                marginLeft: isMobileMode ? "8px" : "20px",
                 cursor: "pointer",
               }}
             >
@@ -105,7 +114,10 @@ export default function DisplaySeed() {
           </Box>
         </Box>
 
-        <Typography sx={{ fontWeight: 400, fontSize:isMobileMode?'12px':'1rem' }} mt={3}>
+        <Typography
+          sx={{ fontWeight: 400, fontSize: isMobileMode ? "12px" : "1rem" }}
+          mt={3}
+        >
           <Typography component="span" sx={{ color: "#FF2424" }} mr={1}>
             Note :
           </Typography>
@@ -172,6 +184,13 @@ export default function DisplaySeed() {
           flexDirection={"row"}
           flexWrap={"wrap"}
           alignContent="center"
+
+          sx={{
+           '& .Mui-disabled':{
+            backgroundColor:'#444455 !important',
+            color:'#606071 !important'
+           }
+          }}
         >
           <Button
             variant="contained"
@@ -188,6 +207,7 @@ export default function DisplaySeed() {
           <Button
             variant="contained"
             color="primary"
+            disabled={!isCopied}
             sx={{
               fontWeight: 600,
               // borderRadius: "10px",
@@ -197,6 +217,7 @@ export default function DisplaySeed() {
               marginTop: isMobileMode ? "10px" : "0",
               width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
+              
             }}
           >
             Next
