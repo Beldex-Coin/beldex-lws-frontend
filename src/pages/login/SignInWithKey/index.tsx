@@ -1,8 +1,11 @@
 import React from "react";
-import { Box, Button, Input, Typography } from "@mui/material";
+import { Box, Button, Input, Typography,useMediaQuery } from "@mui/material";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import theme from "../../../theme";
 
 export default function SignInWithKey() {
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       className="SignInWithKey"
@@ -18,12 +21,12 @@ export default function SignInWithKey() {
           backgroundColor: "#2B2B3C",
           width: "694px",
           height: "100%",
-          padding: "35px",
+          padding:isMobileMode?"15px": "35px",
           display: "flex",
           justifyContent: "center",
           //   alignItems: "center",
           flexDirection: "column",
-          marginTop: "50px",
+          marginTop: "20px",
           borderRadius: "20px",
         }}
       >
@@ -33,7 +36,7 @@ export default function SignInWithKey() {
         >
           Existing Wallet
         </Typography>
-        <Typography sx={{fontWeight:700}}>Address <InfoOutlinedIcon  sx={{fontSize: "0.9rem" }}/> </Typography>
+        <Typography mt={3} sx={{fontWeight:700}}>Address <InfoOutlinedIcon  sx={{fontSize: "0.9rem" }}/> </Typography>
         <Box mt={1} display="flex" flexDirection="row">
           <Input
             placeholder="Enter address"
@@ -98,33 +101,39 @@ export default function SignInWithKey() {
         <Typography mt={3} textAlign={'center'}>
           or Use the <Typography component={'span'} sx={{fontWeight:500,color:'#289AFB',textDecoration:'underline'}}>or Use the Recovery Seed</Typography>
         </Typography>
-        <Box mt={3} 
-         display= "flex"
+        <Box mt={5} 
+        width={'100%'}
+        display= "flex"
          justifyContent= "center"
-        >
-           <Button
+         flexDirection={'row'}
+         flexWrap={'wrap'}
+         alignContent='center'
+
+         >
+          <Button
             variant="contained"
             color="secondary"
             sx={{
+              width: isMobileMode?"70%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
-              borderRadius: "10px",
-              height: '55px',
-              width: '35%'
-          
+              height: "50px",
             }}
-          >
-            Cancel
+          >Cancel
+             
           </Button>
           <Button
             variant="contained"
             color="primary"
             sx={{
               fontWeight: 600,
-              borderRadius: "10px",
+              // borderRadius: "10px",
               color: "white",
-              marginLeft: "10px",
-              height: '55px',
-              width: '35%'
+              height: "50px",
+              marginLeft:isMobileMode? '0':"10px",
+              marginTop:isMobileMode?'10px':'0',
+              width: isMobileMode?"70%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
             }}
           >
             Next

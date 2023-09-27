@@ -1,8 +1,11 @@
 import React from "react";
-import { Box, Button, Input, Typography } from "@mui/material";
+import { Box, Button, Input, Typography ,useMediaQuery} from "@mui/material";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import theme from "../../../theme";
 
 export default function SignIn() {
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       className="SignIn"
@@ -18,12 +21,12 @@ export default function SignIn() {
           backgroundColor: "#2B2B3C",
           width: "694px",
           height: "100%",
-          padding: "35px",
+          padding:isMobileMode?"15px":"35px",
           display: "flex",
           justifyContent: "center",
           //   alignItems: "center",
           flexDirection: "column",
-          marginTop: "112px",
+          marginTop:isMobileMode?'70px': "112px",
           borderRadius: "20px",
         }}
       >
@@ -33,7 +36,7 @@ export default function SignIn() {
         >
           Existing Wallet
         </Typography>
-        <Typography>Recovery Seed</Typography>
+        <Typography mt={3}>Recovery Seed</Typography>
         <Box mt={1} display="flex" flexDirection="row">
           <Input
             placeholder="Enter Recovery Seed from Existing wallet"
@@ -82,7 +85,45 @@ export default function SignIn() {
         <Typography mt={3} textAlign={'center'}>
           or Use the <Typography component={'span'} sx={{fontWeight:500,color:'#289AFB',textDecoration:'underline'}}>Address and Recovery Keys</Typography>
         </Typography>
-        <Box mt={20} 
+        <Box mt={5} 
+        width={'100%'}
+        display= "flex"
+         justifyContent= "center"
+         flexDirection={'row'}
+         flexWrap={'wrap'}
+         alignContent='center'
+
+         >
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{
+              width: isMobileMode?"70%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
+              fontWeight: 600,
+              height: "50px",
+            }}
+          >Cancel
+             
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              fontWeight: 600,
+              // borderRadius: "10px",
+              color: "white",
+              height: "50px",
+              marginLeft:isMobileMode? '0':"10px",
+              marginTop:isMobileMode?'10px':'0',
+              width: isMobileMode?"70%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
+            }}
+          >
+            Next
+          </Button>
+        </Box>
+        {/* <Box mt={20} 
          display= "flex"
          justifyContent= "center"
         >
@@ -113,7 +154,7 @@ export default function SignIn() {
           >
             Next
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

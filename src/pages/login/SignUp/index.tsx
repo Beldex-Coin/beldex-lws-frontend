@@ -1,9 +1,12 @@
 import React from "react";
-import { Box, Button, Typography, Checkbox } from "@mui/material";
+import { Box, Button, Typography, Checkbox,useMediaQuery } from "@mui/material";
 import UncheckRectIcon from "../../../icons/uncheckRectIcon";
 import CheckedCheckBox from "../../../icons/checkedCheckbox"
+import theme from "../../../theme";
 
 export default function SignUp() {
+ const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       className="SignUp"
@@ -19,12 +22,12 @@ export default function SignUp() {
           backgroundColor: "#2B2B3C",
           width: "694px",
           height: "100%",
-          padding: "35px",
+          padding:isMobileMode?'15px': "35px",
           display: "flex",
           justifyContent: "center",
           //   alignItems: "center",
           flexDirection: "column",
-          marginTop: "50px",
+          marginTop:isMobileMode?"20px":"50px",
           borderRadius: "20px",
         }}
       >
@@ -198,30 +201,39 @@ export default function SignUp() {
           />
           <Typography>Yes, I Understand.</Typography>
         </Box>
-        <Box mt={3} display="flex" justifyContent="center">
-        <Button
+        <Box mt={5} 
+        width={'100%'}
+        display= "flex"
+         justifyContent= "center"
+         flexDirection={'row'}
+         flexWrap={'wrap'}
+         alignContent='center'
+
+         >
+          <Button
             variant="contained"
             color="secondary"
             sx={{
+              width: isMobileMode?"70%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
-              borderRadius: "10px",
-              height: '55px',
-              width: '35%'
-          
+              height: "50px",
             }}
-          >
-            Cancel
+          >Cancel
+             
           </Button>
           <Button
             variant="contained"
             color="primary"
             sx={{
               fontWeight: 600,
-              borderRadius: "10px",
+              // borderRadius: "10px",
               color: "white",
-              marginLeft: "10px",
-              height: '55px',
-              width: '35%'
+              height: "50px",
+              marginLeft:isMobileMode? '0':"10px",
+              marginTop:isMobileMode?'10px':'0',
+              width: isMobileMode?"70%":'200px',
+              borderRadius: isMobileMode ? "40px" : "10px",
             }}
           >
             Next

@@ -16,8 +16,8 @@ const Login = () => {
         // sx={{width:'100%',height:'100%'}}
         >
             {/* <Typography  sx={{color: 'white',fontSize: '20px',textAlign: 'center',fontWeight: 500,margin: '40px'}}>Login Page</Typography> */}
-            {/* <Registration /> */}
-         <SignIn />
+            <Registration />
+         {/* <SignIn /> */}
         {/* <SignInWithKey /> */}
         {/* <SignUp /> */}
         {/* <DisplaySeed />  */}

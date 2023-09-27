@@ -5,11 +5,15 @@ import {
   MenuItem,
   Select,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import theme from "../../../theme";
 
 export default function DisplaySeed() {
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [language, setLanguage] = useState("English");
   return (
     <Box
@@ -26,12 +30,12 @@ export default function DisplaySeed() {
           backgroundColor: "#2B2B3C",
           width: "694px",
           height: "100%",
-          padding: "35px",
+          padding: isMobileMode ? "15px" : "35px",
           display: "flex",
           justifyContent: "center",
-          //   alignItems: "center",
+            alignItems: "center",
           flexDirection: "column",
-          marginTop: "70px",
+          marginTop:isMobileMode?'40px': "70px",
           borderRadius: "20px",
         }}
       >
@@ -54,15 +58,16 @@ export default function DisplaySeed() {
           <Typography
             sx={{
               width: "100%",
-              height: "100px",
+              // height: "100px",
               color: "#B9B9CC",
               background: "#303045",
-              padding: "0 20px",
+              padding: "10px 20px",
               borderRadius: "18px",
               overflow: "auto",
               fontWeight: 400,
               display: "flex",
               alignItems: "center",
+              fontSize:isMobileMode?'11px':'1rem'
 
               //   marginTop: "10px",
             }}
@@ -71,58 +76,70 @@ export default function DisplaySeed() {
             seismic video cider sixteen sleepless snug ripped snout rover onward
             wetsuit vane lakes viking volcano sleep
           </Typography>
-          <Box
-            sx={{
-              backgroundColor: "#128B17",
-              boxShadow:
-                "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-              width: "40px",
-              height: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "50px",
-              marginTop: "25px",
-              marginLeft: "20px",
-              cursor: "pointer",
-            }}
-          >
-            <ContentCopyIcon
+          <Box sx={{ display: "flex",
+                justifyContent: "center",
+                alignItems: "center",}}>
+            <Box
               sx={{
-                fill: "#FFF",
-                fontSize: "1rem",
+                backgroundColor: "#128B17",
+                boxShadow:
+                  "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                width: "40px",
+                height: "40px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "50px",
+               
+                marginLeft:isMobileMode?"8px":"20px",
+                cursor: "pointer",
               }}
-            />
+            >
+              <ContentCopyIcon
+                sx={{
+                  fill: "#FFF",
+                  fontSize: "1rem",
+                }}
+              />
+            </Box>
           </Box>
         </Box>
 
-        <Typography sx={{ fontWeight: 400 }} mt={3}>
-          <Typography component="span" sx={{ color: "#FF2424" }} mr={1}> 
-            Note : 
+        <Typography sx={{ fontWeight: 400, fontSize:isMobileMode?'12px':'1rem' }} mt={3}>
+          <Typography component="span" sx={{ color: "#FF2424" }} mr={1}>
+            Note :
           </Typography>
-           This is the way to use the access your wallet if you switch devices,
+          This is the way to use the access your wallet if you switch devices,
           use another Beldex wallet app, or lose your data.
         </Typography>
 
-        <Box className="drop-down-wrapper" mt={3} textAlign='center'>
-          <Typography component="span" sx={{color:'#B9B9CC'}}>Language</Typography>
+        <Box className="drop-down-wrapper" mt={3} textAlign="center">
+          <Typography component="span" sx={{ color: "#B9B9CC" }}>
+            Language
+          </Typography>
           <Select
             disableUnderline
-            SelectDisplayProps={{ style: { paddingTop: '10px', paddingBottom: '10px' ,backgroundColor: "#303045",borderRadius:'5px',fontWeight: 400} }}
-
-            // className="currency-dropdown"
-            IconComponent={KeyboardArrowDownIcon }
-           
-            sx={{
-                color: "white",
+            SelectDisplayProps={{
+              style: {
+                paddingTop: "10px",
+                paddingBottom: "10px",
                 backgroundColor: "#303045",
-                borderRadius: "10px",
-                marginLeft:'10px',
-                marginTop:'16px',
-                "& .MuiSelect-icon": {
-                  fill: "white",
-                  color: "white",
-                },
+                borderRadius: "5px",
+                fontWeight: 400,
+              },
+            }}
+            // className="currency-dropdown"
+            IconComponent={KeyboardArrowDownIcon}
+            sx={{
+              color: "white",
+              backgroundColor: "#303045",
+              borderRadius: "10px",
+              marginLeft: "10px",
+              marginTop: "16px",
+              "& .MuiSelect-icon": {
+                fill: "white",
+                color: "white",
+              },
             }}
             variant="filled"
             inputProps={{
@@ -146,18 +163,24 @@ export default function DisplaySeed() {
             <MenuItem value={"Russian"}>Russian</MenuItem>
             {/* ))} */}
           </Select>
-        
         </Box>
-        <Box mt={6} display="flex" justifyContent="center">
+        <Box
+          mt={5}
+          width={"100%"}
+          display="flex"
+          justifyContent="center"
+          flexDirection={"row"}
+          flexWrap={"wrap"}
+          alignContent="center"
+        >
           <Button
             variant="contained"
             color="secondary"
             sx={{
+              width: isMobileMode ? "70%" : "200px",
+              borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
-              borderRadius: "10px",
-              height: '55px',
-              width: '35%'
-          
+              height: "50px",
             }}
           >
             Cancel
@@ -167,11 +190,13 @@ export default function DisplaySeed() {
             color="primary"
             sx={{
               fontWeight: 600,
-              borderRadius: "10px",
+              // borderRadius: "10px",
               color: "white",
-              marginLeft: "10px",
-              height: '55px',
-              width: '35%'
+              height: "50px",
+              marginLeft: isMobileMode ? "0" : "10px",
+              marginTop: isMobileMode ? "10px" : "0",
+              width: isMobileMode ? "70%" : "200px",
+              borderRadius: isMobileMode ? "40px" : "10px",
             }}
           >
             Next
