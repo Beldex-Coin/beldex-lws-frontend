@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-
 const Privacy = () => {
     return (
         <Box>

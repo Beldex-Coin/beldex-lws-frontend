@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-
 const Terms = () => {
     return (
         <Box>
@@ -272,5 +271,4 @@ const Terms = () => {
         </Box>
     )
 }
-
 export default Terms;
