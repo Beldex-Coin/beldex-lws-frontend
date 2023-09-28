@@ -7,6 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import theme from "../../../theme";
@@ -17,6 +18,7 @@ export default function DisplaySeed() {
   const [language, setLanguage] = useState("English");
   const [isCopied, setIsCopied] = useState(false);
 
+  const navigate = useNavigate();
   const seed =
     "inflamed dehydrate adhesive bawled vegan mice aztec prying oozed seismic video cider sixteen sleepless snug ripped snout rover onward wetsuit vane lakes viking volcano sleep";
   function copyText(text: string) {
@@ -195,6 +197,7 @@ export default function DisplaySeed() {
           <Button
             variant="contained"
             color="secondary"
+            onClick={() => navigate('/createNewWallet')}
             sx={{
               width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
@@ -208,6 +211,7 @@ export default function DisplaySeed() {
             variant="contained"
             color="primary"
             disabled={!isCopied}
+            onClick={() => navigate('/authSeed')}
             sx={{
               fontWeight: 600,
               // borderRadius: "10px",

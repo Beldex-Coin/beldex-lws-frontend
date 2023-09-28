@@ -60,7 +60,7 @@ const EmptyScreenImageDark = (props: any) => {
         <g id="Group_1117" data-name="Group 1117" transform="translate(0 20.513)">
           <g id="Group_1116" data-name="Group 1116">
             <g id="Group_1115" data-name="Group 1115" clip-path="url(#clip-path-3)">
-              <path id="Path_4715" data-name="Path 4715" d="M591.874,347.363s51.042-95.663-9.039-141.318c-33.524-25.474-72.757-6.4-106.749-74.776C456.3,91.479,387.078,79.4,352.46,133.726s-48.525,88.852-94.8,70.158c-27.554-11.131-39.426-46.211-82.3-38.876-49.556,8.478-42.921,59.873-79.438,50.924C25.5,198.672-26.676,297.273,22,348.042Z" transform="translate(-2.348 -96.458)" fill="none" stroke="#515165" stroke-miterlimit="10" stroke-width="2" stroke-dasharray="7 8"/>
+              <path id="Path_4715" data-name="Path 4715" d="M591.874,347.363s51.042-95.663-9.039-141.318c-33.524-25.474-72.757-6.4-106.749-74.776C456.3,91.479,387.078,79.4,352.46,133.726s-48.525,88.852-94.8,70.158c-27.554-11.131-39.426-46.211-82.3-38.876-49.556,8.478-42.921,59.873-79.438,50.924C25.5,198.672-26.676,297.273,22,348.042Z" transform="translate(-2.348 -96.458)" fill="none" stroke="#515165" stroke-miterlimit="10" strokeWidth="2" stroke-dasharray="7 8"/>
             </g>
           </g>
         </g>

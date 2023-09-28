@@ -1,10 +1,15 @@
 import React from "react";
 import { Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import coinImg from '../../../icons/coin.png';
+import emptyScreenImg from "../../../icons/Empty_screen_image.png";
+import blueImg from "../../../icons/blue.png";
 import theme from "../../../theme";
 
 export default function Registration() {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   console.log("isMobileMode ::", isMobileMode);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -44,7 +49,7 @@ export default function Registration() {
             }}
           >
             <img
-              src={require("../../../icons/coin.png")}
+              src={coinImg}
               style={{ width: "100%", height: "100%" }}
               alt="coin"
             />
@@ -52,7 +57,7 @@ export default function Registration() {
         </Box>
         <Box sx={{ width: "87%", height: "auto" }} mt={5}>
           <img
-            src={require("../../../icons/Empty_screen_image.png")}
+            src={emptyScreenImg}
             style={{ width: "100%", height: "100%" }}
             alt="display"
           />
@@ -72,7 +77,7 @@ export default function Registration() {
             }}
           >
             <img
-              src={require("../../../icons/blue.png")}
+              src={blueImg}
               style={{ width: "100%", height: "100%" }}
               alt="coin"
             />
@@ -88,6 +93,7 @@ export default function Registration() {
               fontWeight: 600,
               height: "50px",
             }}
+            onClick={() => navigate('/login')}
           >
             Use Existing Wallet
           </Button>
@@ -104,6 +110,8 @@ export default function Registration() {
               width: isMobileMode?"100%":'200px',
               borderRadius: isMobileMode ? "40px" : "10px",
             }}
+            onClick={() => navigate('/createNewWallet')}
+
           >
             Create New Wallet
           </Button>

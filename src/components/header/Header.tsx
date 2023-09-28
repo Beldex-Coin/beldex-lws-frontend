@@ -25,6 +25,7 @@ const styles = {
   },
   appbar: {
     boxShadow: 'none',
+    background: '#1C1C26',
     padding: '10px 30px',
     zIndex: theme.zIndex.modal + 1,
   },
@@ -37,8 +38,7 @@ const DesktopNavigation = () => {
     <Box sx={{ display: 'flex', padding: '0 0 0 20px', width: '100%', justifyContent: 'space-between' }}>
       <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>Home</Typography>
       <Box>
-        <BaseButton label="LOGOUT" variant='contained' />
-
+        <BaseButton label="LOGOUT" variant='contained' cbFunction={() => navigate('/')} />
         <IconButton sx={styles.menuIconContainer} onClick={() => navigate('/settings')}>
           <SettingIconDark />
         </IconButton>
@@ -307,7 +307,7 @@ const MobileNavigation = () => {
 
 const Header = () => {
   const isMobileMode = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const navigate = useNavigate();
   return (
     <Fragment>
       <AppBar
@@ -317,7 +317,7 @@ const Header = () => {
         elevation={9}
       >
         <Toolbar disableGutters={true}>
-          <Box sx={styles.logoContainer} >
+          <Box sx={styles.logoContainer} onClick={() => navigate('/')}>
             <LogoDark />
             <Box>
               <Typography sx={{ color: 'white', fontSize: '18px', fontWeight: 'bold' }}>MyBeldex</Typography>

@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Button, Typography, Checkbox,useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import UncheckRectIcon from "../../../icons/uncheckRectIcon";
 import CheckedCheckBox from "../../../icons/checkedCheckbox"
 import theme from "../../../theme";
 
 export default function SignUp() {
+  const [checkAgreeTerm, setAgreeTerm] = useState(false);
  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
+ const agreeTerm = (e: any) => {
+  setAgreeTerm(e.target.checked)
+ }
   return (
     <Box
       className="SignUp"
@@ -198,6 +204,8 @@ export default function SignUp() {
             }}
             icon={<UncheckRectIcon styles={{fontSize:'1.5rem'}}/>}
             checkedIcon={<CheckedCheckBox styles={{fontSize:'1.5rem'}}/>}
+            onClick={agreeTerm}
+            value={checkAgreeTerm}
           />
           <Typography>Yes, I Understand.</Typography>
         </Box>
@@ -213,6 +221,7 @@ export default function SignUp() {
           <Button
             variant="contained"
             color="secondary"
+            onClick={() => navigate('/')}
             sx={{
               width: isMobileMode?"70%":'200px',
               borderRadius: isMobileMode ? "40px" : "10px",
@@ -225,6 +234,8 @@ export default function SignUp() {
           <Button
             variant="contained"
             color="primary"
+            disabled={!checkAgreeTerm}
+            onClick={() => navigate('/displaySeed')}
             sx={{
               fontWeight: 600,
               // borderRadius: "10px",

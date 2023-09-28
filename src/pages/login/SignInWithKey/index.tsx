@@ -3,7 +3,7 @@ import { Box, Button, Input, Typography,useMediaQuery } from "@mui/material";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import theme from "../../../theme";
 
-export default function SignInWithKey() {
+export default function SignInWithKey(props: any) {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
@@ -99,7 +99,7 @@ export default function SignInWithKey() {
           
         </Box>
         <Typography mt={3} textAlign={'center'}>
-          or Use the <Typography component={'span'} sx={{fontWeight:500,color:'#289AFB',textDecoration:'underline'}}>or Use the Recovery Seed</Typography>
+          or Use the <Typography component={'span'} onClick={() => props.cbFunction(false)} sx={{fontWeight:500,color:'#289AFB',textDecoration:'underline', cursor: 'pointer'}}>or Use the Recovery Seed</Typography>
         </Typography>
         <Box mt={5} 
         width={'100%'}
