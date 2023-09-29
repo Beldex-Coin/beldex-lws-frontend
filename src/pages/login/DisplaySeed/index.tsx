@@ -34,20 +34,24 @@ export default function DisplaySeed() {
         justifyContent: "center",
         alignItems: "center",
         color: "#fff",
+        height:'100%',
+        width:'100%'
       }}
     >
       <Box
         sx={{
+          width: isMobileMode ? "98%" : "70%",
+          // height: "80%",
+          height: isMobileMode?"100%": "80%",
           backgroundColor: theme.palette.secondary.main,
-          width: "694px",
-          height: "100%",
           padding: isMobileMode ? "15px" : "35px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: isMobileMode ? "40px" : "70px",
+          // display: "flex",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // flexDirection: "column",
+          // marginTop: isMobileMode ? "40px" : "70px",
           borderRadius: "20px",
+          overflow:'auto'
         }}
       >
         <Typography
@@ -187,8 +191,8 @@ export default function DisplaySeed() {
           flexDirection={"row"}
           flexWrap={"wrap"}
           alignContent="center"
-
           sx={{
+            columnGap: "10px" ,
            '& .Mui-disabled':{
             backgroundColor:'#444455 !important',
             color:'#606071 !important'
@@ -204,6 +208,7 @@ export default function DisplaySeed() {
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
+              marginTop: "10px",
             }}
           >
             Cancel
@@ -218,8 +223,8 @@ export default function DisplaySeed() {
               // borderRadius: "10px",
               color: "white",
               height: "50px",
-              marginLeft: isMobileMode ? "0" : "10px",
-              marginTop: isMobileMode ? "10px" : "0",
+              marginTop: "10px",
+              
               width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
               

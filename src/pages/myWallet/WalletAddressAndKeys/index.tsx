@@ -2,15 +2,17 @@ import React, { useState } from "react";
 
 import "./styles.scss";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box } from "@mui/material";
+import { Box,useMediaQuery } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import theme from "../../../theme";
 // import Accordion from "@mui/material/Accordion";
 // import AccordionSummary from "@mui/material/AccordionSummary";
 // import AccordionDetails from "@mui/material/AccordionDetails";
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function WalletAddressAndKeys() {
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [seedVisible, setSeedVisible] = useState(false);
   let address =
     "bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6";
@@ -18,7 +20,7 @@ export default function WalletAddressAndKeys() {
     return text.slice(0, 20) + "...";
   }
   return (
-    <div className="WalletAddressAndKeys">
+    <div className="WalletAddressAndKeys" style={{backgroundColor:isMobileMode?'#24242F':''}}>
       {/* <Accordion sx={{backgroundColor: "#1C1C26" }} > */}
       {/* <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -30,7 +32,7 @@ export default function WalletAddressAndKeys() {
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
-        sx={{ width: "100%", color: "white" }}
+        sx={{ width: "100%", color: "white", }}
         // mt={2}
       >
         <Box className={!seedVisible ? "address-wrapper" : ""}>

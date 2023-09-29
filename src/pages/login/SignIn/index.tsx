@@ -102,6 +102,7 @@ export default function SignIn() {
             flexDirection={'row'}
             flexWrap={'wrap'}
             alignContent='center'
+            sx={{columnGap:'10px'}}
 
           >
             <Button
