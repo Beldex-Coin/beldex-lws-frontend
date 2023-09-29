@@ -19,7 +19,7 @@ import { useTheme } from "@emotion/react";
 export default function AuthSeed() {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-  const[seedValue,setSeedValue]=useState('')
+  const [seedValue, setSeedValue] = useState('')
   const navigate = useNavigate();
   const verifySeed = [
     "inflamed",
@@ -46,15 +46,15 @@ export default function AuthSeed() {
         sx={{
           width: "70%",
           height: "80%",
-          backgroundColor:(theme) => theme.palette.secondary.main
-          padding:isMobileMode?'15px': "35px",
+          backgroundColor: (theme) => theme.palette.secondary.main,
+          padding: isMobileMode ? '15px' : "35px",
           // display: "flex",
           // justifyContent: "center",
           // //   alignItems: "center",
           // flexDirection: "column",
           // marginTop:isMobileMode?"30px":"70px",
           borderRadius: "20px",
-          overflow:'auto'
+          overflow: 'auto'
         }}
       >
         <Typography
@@ -89,7 +89,7 @@ export default function AuthSeed() {
 
               //   marginTop: "10px",
             }}
-            
+
           />
         </Box>
 
@@ -178,7 +178,7 @@ export default function AuthSeed() {
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
-              marginTop:"10px" ,
+              marginTop: "10px",
             }}
           >
             Cancel
@@ -192,7 +192,7 @@ export default function AuthSeed() {
               // borderRadius: "10px",
               color: "white",
               height: "50px",
-              marginTop:"10px" ,
+              marginTop: "10px",
               width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
             }}

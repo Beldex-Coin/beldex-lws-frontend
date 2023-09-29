@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box, Button, Typography, Checkbox, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UncheckRectIcon from "../../../icons/uncheckRectIcon";
-import theme from "../../../theme";
 import CheckedCheckBox from "../../../icons/checkedCheckbox"
 import { useTheme } from "@emotion/react";
 
@@ -23,33 +22,31 @@ export default function SignUp() {
         justifyContent: "center",
         alignItems: "center",
         color: "#fff",
-        height:'100%',
-        width:'100%'
+        height: '100%',
+        width: '100%'
       }}
     >
       <Box
         sx={{
-          backgroundColor: "#2B2B3C",
           // width: "694px",
           // height: "100%",
           width: isMobileMode ? "98%" : "70%",
-          height: isMobileMode?"100%": "650px",
+          height: isMobileMode ? "100%" : "650px",
           padding: isMobileMode ? "15px" : "35px",
-         
           // display: "flex",
           // justifyContent: "center",
           //   alignItems: "center",
           // flexDirection: "column",
           // marginTop: isMobileMode ? "20px" : "50px",
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: (theme) => theme.palette.secondary.main,
           borderRadius: "20px",
-          overflow:'auto'
+          overflow: 'auto'
         }}
       >
-      
+
         <Typography
           textAlign="center"
-          sx={{ color:  theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Create New Wallet
         </Typography>
@@ -217,7 +214,7 @@ export default function SignUp() {
             onClick={agreeTerm}
             value={checkAgreeTerm}
           />
-          <Typography sx={{color:  theme.palette.text.primary}}>Yes, I Understand.</Typography>
+          <Typography sx={{ color: theme.palette.text.primary }}>Yes, I Understand.</Typography>
         </Box>
 
         <Box

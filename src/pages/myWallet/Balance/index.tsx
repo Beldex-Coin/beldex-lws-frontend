@@ -1,10 +1,10 @@
-import { Box, Typography, Button, useMediaQuery } from "@mui/material";
+import { Box, Typography, Button, useMediaQuery, useTheme } from "@mui/material";
 import "./styles.scss";
 import SendIcon from "@mui/icons-material/Send";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import theme from "../../../theme";
 
 export default function Balance() {
+  const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (

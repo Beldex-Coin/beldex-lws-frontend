@@ -5,13 +5,14 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Box,useMediaQuery } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import theme from "../../../theme";
+import { useTheme } from "@emotion/react";
 // import Accordion from "@mui/material/Accordion";
 // import AccordionSummary from "@mui/material/AccordionSummary";
 // import AccordionDetails from "@mui/material/AccordionDetails";
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function WalletAddressAndKeys() {
+  const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [seedVisible, setSeedVisible] = useState(false);
   let address =
