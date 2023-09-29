@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Box, Button, Typography, Checkbox,useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UncheckRectIcon from "../../../icons/uncheckRectIcon";
-import CheckedCheckBox from "../../../icons/checkedCheckbox"
+import CheckedCheckBox from "../../../icons/checkedCheckbox";
 import theme from "../../../theme";
 
 export default function SignUp() {
@@ -21,24 +21,32 @@ export default function SignUp() {
         justifyContent: "center",
         alignItems: "center",
         color: "#fff",
+        height:'100%',
+        width:'100%'
       }}
     >
       <Box
         sx={{
           backgroundColor: "#2B2B3C",
-          width: "694px",
-          height: "100%",
-          padding:isMobileMode?'15px': "35px",
-          display: "flex",
-          justifyContent: "center",
+          // width: "694px",
+          // height: "100%",
+          width: isMobileMode ? "98%" : "70%",
+          height: isMobileMode?"100%": "650px",
+          padding: isMobileMode ? "15px" : "35px",
+         
+          // display: "flex",
+          // justifyContent: "center",
           //   alignItems: "center",
-          flexDirection: "column",
-          marginTop:isMobileMode?"20px":"50px",
+          // flexDirection: "column",
+          // marginTop: isMobileMode ? "20px" : "50px",
           borderRadius: "20px",
+          overflow:'auto'
         }}
       >
+      
         <Typography
           textAlign="center"
+         
           sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Create New Wallet
@@ -196,7 +204,7 @@ export default function SignUp() {
             sx={{
               borderColor: "red",
               "&.Mui-checked": {
-                color: 'pink[600]',
+                color: "pink[600]",
               },
             }}
             inputProps={{
@@ -209,28 +217,31 @@ export default function SignUp() {
           />
           <Typography>Yes, I Understand.</Typography>
         </Box>
-        <Box mt={5} 
-        width={'100%'}
-        display= "flex"
-         justifyContent= "center"
-         flexDirection={'row'}
-         flexWrap={'wrap'}
-         alignContent='center'
-
-         >
+        <Box
+          mt={5}
+          width={"100%"}
+          display="flex"
+          justifyContent="center"
+          flexDirection={"row"}
+          flexWrap={"wrap"}
+          alignContent="center"
+          sx={{ columnGap: "10px" }}
+        >
           <Button
             variant="contained"
             color="secondary"
             onClick={() => navigate('/')}
             sx={{
-              width: isMobileMode?"70%":'200px',
+              width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
+              marginTop: "10px",
             }}
-          >Cancel
-             
+          >
+            Cancel
           </Button>
+          {/* {!isMobileMode &&<Box sx={{width:'50px',height:'20px'}}></Box>} */}
           <Button
             variant="contained"
             color="primary"
@@ -241,10 +252,11 @@ export default function SignUp() {
               // borderRadius: "10px",
               color: "white",
               height: "50px",
-              marginLeft:isMobileMode? '0':"10px",
-              marginTop:isMobileMode?'10px':'0',
-              width: isMobileMode?"70%":'200px',
+              // marginLeft:isMobileMode? '0':"10px",
+              // marginTop:isMobileMode?'10px':'0',
+              width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
+              marginTop: "10px",
             }}
           >
             Next

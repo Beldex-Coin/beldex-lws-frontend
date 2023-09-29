@@ -2,7 +2,12 @@ import { useState } from "react";
 import "./styles.scss";
 import { Box, Button, Typography } from "@mui/material";
 import TransactionList from '../TransactionList';
+import CustomPagination from '../../../components/CustomPagination'
+
+
 export default function TransactionHistrory() {
+  const[page,setPage]=useState(1);
+  
   return (
     <Box className='transactionHistrory' mt={2}>
       <Box
@@ -34,6 +39,7 @@ export default function TransactionHistrory() {
       <Box>
       <TransactionList />
       </Box>
+        <CustomPagination />
     </Box>
   );  
 }
