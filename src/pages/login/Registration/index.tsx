@@ -1,12 +1,12 @@
 import React from "react";
-import { Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import coinImg from '../../../icons/coin.png';
 import emptyScreenImg from "../../../icons/Empty_screen_image.png";
 import blueImg from "../../../icons/blue.png";
-import theme from "../../../theme";
 
 export default function Registration() {
+  const theme:any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   console.log("isMobileMode ::", isMobileMode);
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function Registration() {
     >
       <Box
         sx={{
-          backgroundColor: "#2B2B3C",
+          backgroundColor: theme.palette.secondary.main,
           width: "694px",
           height: "100%",
           padding: "35px",
@@ -36,7 +36,7 @@ export default function Registration() {
       >
         <Typography
           textAlign="center"
-          sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           MyBeldex
         </Typography>
@@ -63,7 +63,7 @@ export default function Registration() {
           />
           {/* <EmptyScreenImageDark styles={{ fontSize: "6rem" }} /> */}
         </Box>
-        <Typography sx={{ color: "#AFAFBE", fontWeight: 400,fontSize:isMobileMode?'0.8rem':'1rem' }}>
+        <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400,fontSize:isMobileMode?'0.8rem':'1rem' }}>
           Welcome to MyBeldex! Let’s get started :)
         </Typography>
 
@@ -91,6 +91,7 @@ export default function Registration() {
               width: isMobileMode?"100%":'200px',
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
+              color: "white",
               height: "50px",
             }}
             onClick={() => navigate('/login')}

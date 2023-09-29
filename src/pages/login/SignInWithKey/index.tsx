@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Button, Input, Typography,useMediaQuery } from "@mui/material";
+import { Box, Button, Input, Typography,useMediaQuery, useTheme } from "@mui/material";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import theme from "../../../theme";
 
 export default function SignInWithKey(props: any) {
+  const theme: any = useTheme();
+
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
@@ -18,7 +19,7 @@ export default function SignInWithKey(props: any) {
     >
       <Box
         sx={{
-          backgroundColor: "#2B2B3C",
+          backgroundColor: theme.palette.secondary.main,
           width: "694px",
           height: "100%",
           padding:isMobileMode?"15px": "35px",
@@ -32,7 +33,7 @@ export default function SignInWithKey(props: any) {
       >
         <Typography
           textAlign="center"
-          sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Existing Wallet
         </Typography>
@@ -98,7 +99,7 @@ export default function SignInWithKey(props: any) {
           />
           
         </Box>
-        <Typography mt={3} textAlign={'center'}>
+        <Typography color={theme.palette.text.primary} mt={3} textAlign={'center'}>
           or Use the <Typography component={'span'} onClick={() => props.cbFunction(false)} sx={{fontWeight:500,color:'#289AFB',textDecoration:'underline', cursor: 'pointer'}}>or Use the Recovery Seed</Typography>
         </Typography>
         <Box mt={5} 

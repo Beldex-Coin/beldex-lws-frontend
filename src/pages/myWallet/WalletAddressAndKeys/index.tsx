@@ -40,7 +40,7 @@ export default function WalletAddressAndKeys() {
               !seedVisible ? "address-without-key" : "address-with-key"
             }
             // sx={{
-            //   color: "#AFAFBE",
+            //   color: (theme) => theme.palette.text.secondary,
             //   wordBreak: "break-all",
             //   fontWeight: 400,
             //   width: "85%",
@@ -76,7 +76,7 @@ export default function WalletAddressAndKeys() {
             <Typography sx={{ fontWeight: 600 }}>Secret View Key</Typography>
             <Typography
               sx={{
-                color: "#AFAFBE",
+                color: (theme) => theme.palette.text.secondary,
                 wordBreak: "break-all",
                 fontWeight: 400,
                 width: "85%",
@@ -105,7 +105,7 @@ export default function WalletAddressAndKeys() {
             <Typography sx={{ fontWeight: 600 }}>Secret Spend Key</Typography>
             <Typography
               sx={{
-                color: "#AFAFBE",
+                color: (theme) => theme.palette.text.secondary,
                 wordBreak: "break-all",
                 fontWeight: 400,
                 width: "85%",
@@ -134,7 +134,7 @@ export default function WalletAddressAndKeys() {
             <Typography sx={{ fontWeight: 600 }}>Recovery Seed</Typography>
             <Typography
               sx={{
-                color: "#AFAFBE",
+                color: (theme) => theme.palette.text.secondary,
                 wordBreak: "break-word",
                 fontWeight: 400,
                 width: "85%",
