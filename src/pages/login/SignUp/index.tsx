@@ -1,18 +1,20 @@
-import React, {useState} from "react";
-import { Box, Button, Typography, Checkbox,useMediaQuery } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, Typography, Checkbox, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UncheckRectIcon from "../../../icons/uncheckRectIcon";
-import CheckedCheckBox from "../../../icons/checkedCheckbox";
 import theme from "../../../theme";
+import CheckedCheckBox from "../../../icons/checkedCheckbox"
+import { useTheme } from "@emotion/react";
 
 export default function SignUp() {
+  const theme: any = useTheme();
   const [checkAgreeTerm, setAgreeTerm] = useState(false);
- const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
 
- const agreeTerm = (e: any) => {
-  setAgreeTerm(e.target.checked)
- }
+  const agreeTerm = (e: any) => {
+    setAgreeTerm(e.target.checked)
+  }
   return (
     <Box
       className="SignUp"
@@ -39,6 +41,7 @@ export default function SignUp() {
           //   alignItems: "center",
           // flexDirection: "column",
           // marginTop: isMobileMode ? "20px" : "50px",
+          backgroundColor: theme.palette.secondary.main,
           borderRadius: "20px",
           overflow:'auto'
         }}
@@ -46,8 +49,7 @@ export default function SignUp() {
       
         <Typography
           textAlign="center"
-         
-          sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color:  theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Create New Wallet
         </Typography>
@@ -72,7 +74,7 @@ export default function SignUp() {
           </Box>
           <Box>
             <Typography sx={{ fontWeight: 700 }}>Creating a Wallet</Typography>
-            <Typography sx={{ color: "#AFAFBE", fontWeight: 400 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
               Each Beldex wallet gets a unique word-sequence called a mnemonic.
             </Typography>
           </Box>
@@ -100,7 +102,7 @@ export default function SignUp() {
             <Typography sx={{ fontWeight: 700 }}>
               Write down your mnemonic
             </Typography>
-            <Typography sx={{ color: "#AFAFBE", fontWeight: 400 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
               It’s the only way to regain access, and it’s never sent to the
               server!
             </Typography>
@@ -129,7 +131,7 @@ export default function SignUp() {
             <Typography sx={{ fontWeight: 700 }}>
               Keep it secret and safe
             </Typography>
-            <Typography sx={{ color: "#AFAFBE", fontWeight: 400 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
               If you save it to an insecure location, copy, screenshot, or email
               it, it may be viewable by other apps.
             </Typography>
@@ -158,7 +160,7 @@ export default function SignUp() {
             <Typography sx={{ fontWeight: 700 }}>
               Use it like an actual wallet
             </Typography>
-            <Typography sx={{ color: "#AFAFBE", fontWeight: 400 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
               For large amounts and better privacy, make a cold-storage wallet
               or set your own server in Preferences.
             </Typography>
@@ -187,7 +189,7 @@ export default function SignUp() {
             <Typography sx={{ fontWeight: 700 }}>
               Web browsers are insecure
             </Typography>
-            <Typography sx={{ color: "#AFAFBE", fontWeight: 400 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
               The convenience of MyBeldex for web comes at a security cost.
             </Typography>
           </Box>
@@ -210,13 +212,14 @@ export default function SignUp() {
             inputProps={{
               "aria-label": "I Understand.",
             }}
-            icon={<UncheckRectIcon styles={{fontSize:'1.5rem'}}/>}
-            checkedIcon={<CheckedCheckBox styles={{fontSize:'1.5rem'}}/>}
+            icon={<UncheckRectIcon styles={{ fontSize: '1.5rem' }} />}
+            checkedIcon={<CheckedCheckBox styles={{ fontSize: '1.5rem' }} />}
             onClick={agreeTerm}
             value={checkAgreeTerm}
           />
-          <Typography>Yes, I Understand.</Typography>
+          <Typography sx={{color:  theme.palette.text.primary}}>Yes, I Understand.</Typography>
         </Box>
+
         <Box
           mt={5}
           width={"100%"}
@@ -232,7 +235,9 @@ export default function SignUp() {
             color="secondary"
             onClick={() => navigate('/')}
             sx={{
-              width: isMobileMode ? "70%" : "200px",
+
+              width: isMobileMode ? "70%" : '200px',
+
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
@@ -240,6 +245,7 @@ export default function SignUp() {
             }}
           >
             Cancel
+
           </Button>
           {/* {!isMobileMode &&<Box sx={{width:'50px',height:'20px'}}></Box>} */}
           <Button

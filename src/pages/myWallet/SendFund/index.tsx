@@ -12,9 +12,10 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import "./styles.scss";
+import { useTheme } from "@emotion/react";
 
 const SendFund = () => {
+  const theme = useTheme();
   const [currency, setCurrency] = useState("AUD");
   const [priority, setPriority] = useState("Flash");
   const exchangeCurrencyList = {
@@ -40,7 +41,7 @@ const SendFund = () => {
     ZAR: "ZAR",
   };
   return (
-    <Box className="SendFund">
+    <Box className="sendFund" sx={{padding: '30px 20px 50px', height: '100%', background:(theme) => theme.palette.secondary.main, '.MuiSelect-iconFilled': { fill: 'white', color: 'white' }}}>
       <Box
         display="flex"
         flexDirection="row"
@@ -120,7 +121,7 @@ const SendFund = () => {
           <Select
             className="currency-dropdown"
             disableUnderline
-            SelectDisplayProps={{ style: { paddingTop: '5px', paddingBottom: '5px' ,backgroundColor: "#303045",borderRadius:'10px',fontWeight: 600} }}
+            SelectDisplayProps={{ style: { paddingTop: '5px', paddingBottom: '5px', backgroundColor: "#303045", borderRadius: '10px', fontWeight: 600 } }}
             IconComponent={KeyboardArrowDownIcon}
             sx={{
               color: "white",
@@ -267,8 +268,11 @@ const SendFund = () => {
               color: "white",
             },
           }}
-          SelectDisplayProps={{ style: { paddingTop: '10px', paddingBottom: '10px' ,backgroundColor: "#303045",borderRadius:'10px',width: '77px'
-        } }}
+          SelectDisplayProps={{
+            style: {
+              paddingTop: '10px', paddingBottom: '10px', backgroundColor: "#303045", borderRadius: '10px', width: '77px'
+            }
+          }}
           variant="filled"
           disableUnderline
           IconComponent={KeyboardArrowDownIcon}

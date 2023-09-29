@@ -1,40 +1,27 @@
 .PreferenceSetting {
   padding: 30px;
-color:#fff;
-background-color: #2B2B3C;
-border-radius:15px;
-  .MuiSelect-iconFilled
-  {
-   fill: white;
-   color: white;
+  color: #fff;
+  background-color: #2B2B3C;
+  border-radius: 15px;
+  .MuiSelect-iconFilled {
+    fill: white;
+    color: white;
   }
-  .MuiSelect-multiple
-  {
+  .MuiSelect-multiple {
     padding-top: 0;
     padding-bottom: 0;
   }
   .header {
     font-family: "poppins-bold";
   }
- 
   .drop-down-wrapper {
     text-align: center;
-   
     span {
       padding-right: 10px;
       font-family: "poppins-bold";
     }
-  //   select {
-  //     border: none;
-  //     outline: none;
-  //     height: 35px;
-  //     width: 92px;
-  //     border-radius: 5px;
-  //     background-color: #303045;
-  //     color: white;
-  //     font-family: "poppins-medium";
-  //   }
   }
+
   .info-wrapper {
     :hover {
       text-decoration: underline;
@@ -48,7 +35,7 @@ border-radius:15px;
   .logout-btn-wrapper {
     display: flex;
     justify-content: center;
-   
+
     .logout-btn {
       height: 60px;
       width: 250px;

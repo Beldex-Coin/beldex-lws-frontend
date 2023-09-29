@@ -10,15 +10,17 @@ import {
 } from "@mui/material";
 import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
-import theme from "../../../theme";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 // import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 // import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 
 export default function AuthSeed() {
+  const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-
   const[seedValue,setSeedValue]=useState('')
+  const navigate = useNavigate();
   const verifySeed = [
     "inflamed",
     "dehydrate",
@@ -42,9 +44,9 @@ export default function AuthSeed() {
     >
       <Box
         sx={{
-          backgroundColor: "#2B2B3C",
           width: "70%",
           height: "80%",
+          backgroundColor:(theme) => theme.palette.secondary.main
           padding:isMobileMode?'15px': "35px",
           // display: "flex",
           // justifyContent: "center",
@@ -57,7 +59,7 @@ export default function AuthSeed() {
       >
         <Typography
           textAlign="center"
-          sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Create New Wallet
         </Typography>
@@ -143,6 +145,7 @@ export default function AuthSeed() {
           <Button
             variant="outlined"
             color="secondary"
+            onClick={() => navigate('/displaySeed')}
             sx={{
               fontWeight: 600,
               borderRadius: '30px',
@@ -169,6 +172,7 @@ export default function AuthSeed() {
           <Button
             variant="contained"
             color="secondary"
+            onClick={() => navigate('/')}
             sx={{
               width: isMobileMode ? "70%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",
@@ -182,6 +186,7 @@ export default function AuthSeed() {
           <Button
             variant="contained"
             color="primary"
+            onClick={() => navigate('/mywallet')}
             sx={{
               fontWeight: 600,
               // borderRadius: "10px",

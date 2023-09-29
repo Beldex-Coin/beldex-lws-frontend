@@ -10,9 +10,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import theme from "../../../theme";
+import { useTheme } from "@emotion/react";
 
 export default function DisplaySeed() {
+  const theme:any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [language, setLanguage] = useState("English");
@@ -39,11 +40,10 @@ export default function DisplaySeed() {
     >
       <Box
         sx={{
-          backgroundColor: "#2B2B3C",
           width: isMobileMode ? "98%" : "70%",
-
           // height: "80%",
           height: isMobileMode?"100%": "80%",
+          backgroundColor: theme.palette.secondary.main,
           padding: isMobileMode ? "15px" : "35px",
           // display: "flex",
             // justifyContent: "center",
@@ -56,7 +56,7 @@ export default function DisplaySeed() {
       >
         <Typography
           textAlign="center"
-          sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Create New Wallet
         </Typography>

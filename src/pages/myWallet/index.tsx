@@ -1,13 +1,13 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import theme from '../../theme';
 import SendFund from './SendFund';
 import Balance from './Balance';
 import WalletAddressAndKeys from './WalletAddressAndKeys';
 import TransactionHistrory from "./TransactionHistrory";
 import TransactionDetails from './TransactionDetails'
 const MyWallet = () => {
+    const theme: any = useTheme();
     const isMobileMode = useMediaQuery(theme.breakpoints.down('md'));
     console.log('--isMobileMode-', isMobileMode)
 
@@ -21,11 +21,10 @@ const MyWallet = () => {
                 <TransactionHistrory />
                 <TransactionDetails/>
             </Box>
-            <Box sx={{minWidth: '320px', background: '#2B2B3C', borderRadius: '25px'}}>
+            <Box sx={{minWidth: '320px', background:(theme) => theme.palette.secondary.main, borderRadius: '25px'}}>
                 <SendFund />
                 {/* <Typography>Fund transfer</Typography> */}
             </Box>
-            {/* <Typography  sx={{color: 'white',fontSize: '20px',textAlign: 'center',fontWeight: 500,margin: '40px'}}>MyWallet Page</Typography> */}
         </Box>
     )
 }

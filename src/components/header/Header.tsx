@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import { List, AppBar, ListItemButton, Box, ListItemIcon, ListItemText, Typography, Toolbar, Paper, Grow, Popper, IconButton } from '@mui/material';
+import { List, AppBar, ListItemButton, Box, ListItemIcon, ListItemText, Typography, Toolbar, Paper, Grow, Popper, IconButton, useTheme } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import theme from '../../theme';
 import InboxIcon from "@mui/icons-material/Inbox";
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -10,6 +9,7 @@ import SettingIconDark from '../../icons/SettingIconDark';
 import MoonDark from '../../icons/MoonDark';
 import MenuDark from '../../icons/MenuDark';
 import BaseButton from '../button/BaseButton';
+import { ColorContext } from '../../ColorContext';
 const styles = {
   logoContainer: {
     padding: 0,
@@ -25,9 +25,9 @@ const styles = {
   },
   appbar: {
     boxShadow: 'none',
-    background: '#1C1C26',
-    padding: '10px 30px',
-    zIndex: theme.zIndex.modal + 1,
+    background: (theme: any) => theme.palette.background.default,
+    padding: '10px 30px 5px 30px',
+    zIndex: (theme: any) => theme.zIndex.modal + 1,
   },
 };
 
@@ -36,7 +36,7 @@ const DesktopNavigation = () => {
 
   return (
     <Box sx={{ display: 'flex', padding: '0 0 0 20px', width: '100%', justifyContent: 'space-between' }}>
-      <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>Home</Typography>
+      <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>Home</Typography>
       <Box>
         <BaseButton label="LOGOUT" variant='contained' cbFunction={() => navigate('/')} />
         <IconButton sx={styles.menuIconContainer} onClick={() => navigate('/settings')}>
@@ -51,6 +51,7 @@ const MobileNavigation = () => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
+  const colorMode = React.useContext(ColorContext);
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === 'Tab') {
@@ -105,7 +106,7 @@ const MobileNavigation = () => {
               // width: "100%",
               maxWidth: 200,
               padding: 2,
-              bgcolor: "#242433",
+              background: (theme: any) => theme.palette.background.paper,
               borderRadius: '25px',
               height: "100%",
               display: "flex",
@@ -119,10 +120,11 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: "#32324A",
+                        // theme.palette.mode
+                        background: (theme: any) =>theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                         borderRadius: "15px",
                         "&:hover": {
-                          background: "#32324A"
+                          background: (theme: any) =>theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
                         }
                       }
                     }}
@@ -135,7 +137,7 @@ const MobileNavigation = () => {
                     </ListItemIcon>
                     <ListItemText
                       sx={{
-                        color: "#AFAFBE",
+                        color: (theme) => theme.palette.text.secondary,
                         ".MuiListItemText-primary": {
                           fontWeight: "400"
                         }
@@ -149,10 +151,10 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: "#32324A",
+                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                         borderRadius: "15px",
                         "&:hover": {
-                          background: "#32324A"
+                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
                         }
                       }
                     }}
@@ -166,7 +168,7 @@ const MobileNavigation = () => {
                     </ListItemIcon>
                     <ListItemText
                       sx={{
-                        color: "#AFAFBE",
+                        color: (theme) => theme.palette.text.secondary,
                         ".MuiListItemText-primary": {
                           fontWeight: "400"
                         }
@@ -180,10 +182,10 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: "#32324A",
+                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                         borderRadius: "15px",
                         "&:hover": {
-                          background: "#32324A"
+                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
                         }
                       }
                     }}
@@ -197,7 +199,7 @@ const MobileNavigation = () => {
                     </ListItemIcon>
                     <ListItemText
                       sx={{
-                        color: "#AFAFBE",
+                        color: (theme) => theme.palette.text.secondary,
                         ".MuiListItemText-primary": {
                           fontWeight: "400"
                         }
@@ -211,10 +213,10 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: "#32324A",
+                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                         borderRadius: "15px",
                         "&:hover": {
-                          background: "#32324A"
+                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
                         }
                       }
                     }}
@@ -226,7 +228,7 @@ const MobileNavigation = () => {
                     </ListItemIcon>
                     <ListItemText
                       sx={{
-                        color: "#AFAFBE",
+                        color: (theme) => theme.palette.text.secondary,
                         ".MuiListItemText-primary": {
                           fontWeight: "400"
                         }
@@ -240,10 +242,10 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: "#32324A",
+                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                         borderRadius: "15px",
                         "&:hover": {
-                          background: "#32324A"
+                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
                         }
                       }
                     }}
@@ -255,7 +257,7 @@ const MobileNavigation = () => {
                     </ListItemIcon>
                     <ListItemText
                       sx={{
-                        color: "#AFAFBE",
+                        color: (theme) => theme.palette.text.secondary,
                         ".MuiListItemText-primary": {
                           fontWeight: "400"
                         }
@@ -283,7 +285,7 @@ const MobileNavigation = () => {
       </Popper>
 
       <IconButton
-        sx={styles.menuIconContainer}
+        sx={styles.menuIconContainer} onClick={colorMode.toggleColorMode}
       >
         <MoonDark styles={{ width: '20px', height: '20px' }} />
       </IconButton>
@@ -306,6 +308,7 @@ const MobileNavigation = () => {
 };
 
 const Header = () => {
+  const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   return (
@@ -313,15 +316,14 @@ const Header = () => {
       <AppBar
         position="fixed"
         sx={styles.appbar}
-        color="transparent"
         elevation={9}
       >
         <Toolbar disableGutters={true}>
           <Box sx={styles.logoContainer} onClick={() => navigate('/')}>
             <LogoDark />
             <Box>
-              <Typography sx={{ color: 'white', fontSize: '18px', fontWeight: 'bold' }}>MyBeldex</Typography>
-              <Typography sx={{ color: 'white', fontSize: '11px', fontWeight: 600 }}>V1.0.0</Typography>
+              <Typography sx={{ fontSize: '18px', fontWeight: 'bold' }}>MyBeldex</Typography>
+              <Typography sx={{ fontSize: '11px', fontWeight: 600 }}>V1.0.0</Typography>
             </Box>
           </Box>
           {isMobileMode ? <MobileNavigation /> : <DesktopNavigation />}

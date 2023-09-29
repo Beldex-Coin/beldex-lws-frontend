@@ -3,10 +3,11 @@ import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { useNavigate } from "react-router-dom";
 import SignInWithKey from "../SignInWithKey";
-import theme from "../../../theme";
+import { useTheme } from "@emotion/react";
 
 export default function SignIn() {
 
+  const theme: any = useTheme();
   const [showSignWithKey, setShowSignWithKey] = useState(false);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function SignIn() {
       >
         <Box
           sx={{
-            backgroundColor: "#2B2B3C",
+            backgroundColor: theme.palette.secondary.main,
             width: "694px",
             height: "100%",
             padding: isMobileMode ? "15px" : "35px",
@@ -42,7 +43,7 @@ export default function SignIn() {
         >
           <Typography
             textAlign="center"
-            sx={{ color: "white", fontWeight: "bold", fontSize: "1.5rem" }}
+            sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
           >
             Existing Wallet
           </Typography>
