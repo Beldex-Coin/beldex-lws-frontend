@@ -23,15 +23,16 @@ export default function Registration() {
       <Box
         sx={{
           backgroundColor: theme.palette.secondary.main,
-          width: "694px",
+          maxWidth: "694px",
           height: "100%",
           padding: "35px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          marginTop: "112px",
+          marginTop:isMobileMode ?"50px":"112px",
           borderRadius: "20px",
+          position: "relative"
         }}
       >
         <Typography
@@ -40,12 +41,12 @@ export default function Registration() {
         >
           MyBeldex
         </Typography>
-        <Box position="relative">
+        <Box>
           <Box
             sx={{
               width: isMobileMode ? "75px" : "125px",
               position: "absolute",
-              left: isMobileMode ? "-209px" : "-416px",
+              left: isMobileMode ? "-33px" : "-80px",
             }}
           >
             <img
@@ -67,13 +68,13 @@ export default function Registration() {
           Welcome to MyBeldex! Let’s get started :)
         </Typography>
 
-        <Box position="relative">
+        <Box>
           <Box
             sx={{
               width: isMobileMode ? "55px" : "84px",
               position: "absolute",
-              left: isMobileMode ? "140px" : "313px",
-              top: "-68px",
+              right: isMobileMode ? "-20px" : "-40px",
+              top: "46%",
             }}
           >
             <img

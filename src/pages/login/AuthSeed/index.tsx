@@ -44,7 +44,7 @@ export default function AuthSeed() {
     >
       <Box
         sx={{
-          width: "70%",
+          width:isMobileMode?"unset": "70%",
           height: "80%",
           backgroundColor: (theme) => theme.palette.secondary.main,
           padding: isMobileMode ? '15px' : "35px",
