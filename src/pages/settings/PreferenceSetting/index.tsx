@@ -56,7 +56,7 @@ export default function PreferenceSetting() {
           IconComponent={KeyboardArrowDownIcon}
           sx={{
             color: "white",
-            backgroundColor: "#303045",
+            backgroundColor: (theme: any) => theme.palette.secondary.main,
             height: "35px",
             borderRadius: "10px",
             boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;'
@@ -68,7 +68,7 @@ export default function PreferenceSetting() {
               MenuListProps: {
                 sx: {
                   color: "white",
-                  backgroundColor: "#303045",
+                  backgroundColor: (theme: any) => theme.palette.secondary.main,
                   height: "300px",
                   overflow: "auto",
                 },

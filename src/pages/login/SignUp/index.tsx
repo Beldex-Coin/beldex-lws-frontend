@@ -18,32 +18,18 @@ export default function SignUp() {
     <Box
       className="SignUp"
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#fff",
-        height: '100%',
-        width: '100%'
+        padding: isMobileMode ? "25px" : '30px 45px',
+        height: 'calc(100vh - 110px)',
+        overflow: 'auto',
       }}
     >
       <Box
         sx={{
-          // width: "694px",
-          // height: "100%",
-          width: isMobileMode ? "98%" : "70%",
-          height: isMobileMode ? "100%" : "650px",
-          padding: isMobileMode ? "15px" : "35px",
-          // display: "flex",
-          // justifyContent: "center",
-          //   alignItems: "center",
-          // flexDirection: "column",
-          // marginTop: isMobileMode ? "20px" : "50px",
-          backgroundColor: (theme) => theme.palette.secondary.main,
+          padding: isMobileMode ? "15px" : "20px 50px",
+          backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
-          overflow: 'auto'
         }}
       >
-
         <Typography
           textAlign="center"
           sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
@@ -70,7 +56,7 @@ export default function SignUp() {
             ></Typography>
           </Box>
           <Box>
-            <Typography sx={{ fontWeight: 700 }}>Creating a Wallet</Typography>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary, fontWeight: 700 }}>Creating a Wallet</Typography>
             <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
               Each Beldex wallet gets a unique word-sequence called a mnemonic.
             </Typography>
@@ -96,7 +82,7 @@ export default function SignUp() {
             ></Typography>
           </Box>
           <Box>
-            <Typography sx={{ fontWeight: 700 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary, fontWeight: 700 }}>
               Write down your mnemonic
             </Typography>
             <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
@@ -125,7 +111,7 @@ export default function SignUp() {
             ></Typography>
           </Box>
           <Box>
-            <Typography sx={{ fontWeight: 700 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary, fontWeight: 700 }}>
               Keep it secret and safe
             </Typography>
             <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
@@ -154,7 +140,7 @@ export default function SignUp() {
             ></Typography>
           </Box>
           <Box>
-            <Typography sx={{ fontWeight: 700 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary, fontWeight: 700 }}>
               Use it like an actual wallet
             </Typography>
             <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
@@ -183,7 +169,7 @@ export default function SignUp() {
             ></Typography>
           </Box>
           <Box>
-            <Typography sx={{ fontWeight: 700 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary, fontWeight: 700 }}>
               Web browsers are insecure
             </Typography>
             <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
@@ -218,23 +204,14 @@ export default function SignUp() {
         </Box>
 
         <Box
-          mt={5}
-          width={"100%"}
-          display="flex"
-          justifyContent="center"
-          flexDirection={"row"}
-          flexWrap={"wrap"}
-          alignContent="center"
-          sx={{ columnGap: "10px" }}
+          sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center" }}
         >
           <Button
             variant="contained"
             color="secondary"
             onClick={() => navigate('/')}
             sx={{
-
-              width: isMobileMode ? "70%" : '200px',
-
+              width: isMobileMode ? "70%" : '150px',
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
@@ -252,12 +229,9 @@ export default function SignUp() {
             onClick={() => navigate('/displaySeed')}
             sx={{
               fontWeight: 600,
-              // borderRadius: "10px",
               color: "white",
               height: "50px",
-              // marginLeft:isMobileMode? '0':"10px",
-              // marginTop:isMobileMode?'10px':'0',
-              width: isMobileMode ? "70%" : "200px",
+              width: isMobileMode ? "70%" : "150px",
               borderRadius: isMobileMode ? "40px" : "10px",
               marginTop: "10px",
             }}

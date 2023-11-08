@@ -1,27 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  IconButton,
   MenuItem,
   Select,
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useAppDispatch } from "../../../stores/hooks";
+import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
 import { useNavigate } from "react-router-dom";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useTheme } from "@emotion/react";
+import { useAppSelector } from "../../../stores/hooks";
+import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
+import { seedDetailSelector, seedDetailState } from "../../../stores/features/seedDetailSlice";
+const mnemonic_languages = require('@bdxi/beldex-locales')
 
 export default function DisplaySeed() {
-  const theme:any = useTheme();
+  const theme: any = useTheme();
+  const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [language, setLanguage] = useState("English");
   const [isCopied, setIsCopied] = useState(false);
+  const [seed, setSeed] = useState('');
 
   const navigate = useNavigate();
-  const seed =
-    "inflamed dehydrate adhesive bawled vegan mice aztec prying oozed seismic video cider sixteen sleepless snug ripped snout rover onward wetsuit vane lakes viking volcano sleep";
+  const dispatch = useAppDispatch();
+
+  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
+  useEffect(() => {
+    if (coreBridgeInstance.beldex_utils.newly_created_wallet) {
+      let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
+      const recSeed = coreBridgeInstance.beldex_utils.newly_created_wallet(compatibleLocaleCode, 1)
+      console.log('-dispatch recSeed---', recSeed);
+      dispatch(setSeedDetails(recSeed));
+      setSeed(recSeed.mnemonic_string);
+    }
+  }, [coreBridgeInstance.beldex_utils])
+
   function copyText(text: string) {
     navigator.clipboard.writeText(text);
     setIsCopied(true)
@@ -30,28 +50,16 @@ export default function DisplaySeed() {
     <Box
       className="DisplaySeed"
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#fff",
-        height:'100%',
-        width:'100%'
+        padding: isMobileMode ? "25px" : '30px 45px',
+        height: 'calc(100vh - 110px)',
+        overflow: 'auto',
       }}
     >
       <Box
         sx={{
-          width: isMobileMode ? "98%" : "70%",
-          // height: "80%",
-          height: isMobileMode?"100%": "80%",
-          backgroundColor: theme.palette.secondary.main,
-          padding: isMobileMode ? "15px" : "35px",
-          // display: "flex",
-            // justifyContent: "center",
-            // alignItems: "center",
-            // flexDirection: "column",
-          // marginTop: isMobileMode ? "40px" : "70px",
+          padding: isMobileMode ? "15px" : "20px 50px",
+          backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
-          overflow:'auto'
         }}
       >
         <Typography
@@ -73,18 +81,16 @@ export default function DisplaySeed() {
           <Typography
             sx={{
               width: "100%",
-              // height: "100px",
-              color: "#B9B9CC",
-              background: "#303045",
-              padding: "10px 20px",
+              color: (theme) => theme.palette.text.secondary,
+              backgroundColor: (theme) => theme.palette.secondary.main,
+              padding: isMobileMode ? "20px" : "20px 25px",
               borderRadius: "18px",
+              lineHeight: 1.75,
               overflow: "auto",
               fontWeight: 400,
               display: "flex",
               alignItems: "center",
               fontSize: isMobileMode ? "11px" : "1rem",
-
-              //   marginTop: "10px",
             }}
           >{seed}</Typography>
           <Box
@@ -94,8 +100,9 @@ export default function DisplaySeed() {
               alignItems: "center",
             }}
           >
-            <Box
+            <IconButton
               onClick={() => copyText(seed)}
+              disabled={seed.length === 0}
               sx={{
                 backgroundColor: "#128B17",
                 boxShadow:
@@ -117,7 +124,7 @@ export default function DisplaySeed() {
                   fontSize: "1rem",
                 }}
               />
-            </Box>
+            </IconButton>
           </Box>
         </Box>
 
@@ -142,7 +149,7 @@ export default function DisplaySeed() {
               style: {
                 paddingTop: "10px",
                 paddingBottom: "10px",
-                backgroundColor: "#303045",
+                // backgroundColor: "#303045",
                 borderRadius: "5px",
                 fontWeight: 400,
               },
@@ -151,7 +158,7 @@ export default function DisplaySeed() {
             IconComponent={KeyboardArrowDownIcon}
             sx={{
               color: "white",
-              backgroundColor: "#303045",
+              backgroundColor: (theme: any) => theme.palette.secondary.main,
               borderRadius: "10px",
               marginLeft: "10px",
               marginTop: "16px",
@@ -166,7 +173,7 @@ export default function DisplaySeed() {
                 MenuListProps: {
                   sx: {
                     color: "white",
-                    backgroundColor: "#303045",
+                    backgroundColor: (theme: any) => theme.palette.secondary.main,
                     // height: "300px",
                     // overflow: "auto",
                   },
@@ -177,34 +184,19 @@ export default function DisplaySeed() {
             defaultValue={language}
             onChange={(event) => setLanguage(event.target.value)}
           >
-            {/* {Object.values(exchangeCurrencyList).map((item, key) => ( */}
             <MenuItem value={"English"}>English</MenuItem>
             <MenuItem value={"Russian"}>Russian</MenuItem>
-            {/* ))} */}
           </Select>
         </Box>
         <Box
-          mt={5}
-          width={"100%"}
-          display="flex"
-          justifyContent="center"
-          flexDirection={"row"}
-          flexWrap={"wrap"}
-          alignContent="center"
-          sx={{
-            columnGap: "10px" ,
-           '& .Mui-disabled':{
-            backgroundColor:'#444455 !important',
-            color:'#606071 !important'
-           }
-          }}
+          sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center" }}
         >
           <Button
             variant="contained"
             color="secondary"
             onClick={() => navigate('/createNewWallet')}
             sx={{
-              width: isMobileMode ? "70%" : "200px",
+              width: isMobileMode ? "70%" : '150px',
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
@@ -219,15 +211,12 @@ export default function DisplaySeed() {
             disabled={!isCopied}
             onClick={() => navigate('/authSeed')}
             sx={{
-              fontWeight: 600,
-              // borderRadius: "10px",
-              color: "white",
-              height: "50px",
-              marginTop: "10px",
-              
-              width: isMobileMode ? "70%" : "200px",
+              width: isMobileMode ? "70%" : '150px',
               borderRadius: isMobileMode ? "40px" : "10px",
-              
+              fontWeight: 600,
+              height: "50px",
+              color:"#FFF",
+              marginTop: "10px",
             }}
           >
             Next

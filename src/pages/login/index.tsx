@@ -17,9 +17,7 @@ const Home = () => {
   }
 
   return (
-    <Box>
       <Registration />
-    </Box>
   )
 }
 

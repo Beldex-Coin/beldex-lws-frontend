@@ -10,56 +10,47 @@ export default function SignInWithKey(props: any) {
     <Box
       className="SignInWithKey"
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#fff",
-        height: "100%",
-        width: "100%",
+        // display: "flex",
+        // justifyContent: "center",
+        // alignItems: "center",
+        // width: "100%",
+        padding: isMobileMode ? "25px" : '30px 45px',
+        height: 'calc(100vh - 110px)',
+        overflow: 'auto'
       }}
     >
       <Box
         sx={{
-
-          // width: "694px",
-          // height: "100%",
-          width: isMobileMode ? "98%" : "70%",
-          height: "90%",
-          padding: isMobileMode ? "15px" : "35px",
-          backgroundColor: theme.palette.secondary.main,
-          display: "flex",
-          justifyContent: "center",
-          //   alignItems: "center",
-          flexDirection: "column",
+          // minWidth: "70%",
+          // maxWidth: "95%",
+          padding: isMobileMode ? "15px" : "20px 50px",
+          backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
-          overflow: "auto",
+
         }}
       >
         <Typography
-          mt={3}
           textAlign="center"
           sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
         >
           Existing Wallet
         </Typography>
-        <Typography mt={3} sx={{ fontWeight: 700 }}>
+        <Typography mt={2} sx={{ fontWeight: 700 }}>
           Address <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "}
         </Typography>
-        <Box mt={1} display="flex" flexDirection="row">
+        <Box mt={1}>
           <Input
             placeholder="Enter address"
             disableUnderline={true}
             multiline
             sx={{
               width: "100%",
-              height: "100px",
-              color: "white",
-              background: "#303045",
+              height: "70px",
+              color: (theme) => theme.palette.text.secondary,
+              backgroundColor: (theme) => theme.palette.secondary.main,
               padding: "0 20px",
               borderRadius: "18px",
               overflow: "auto",
-
-              //   marginTop: "10px",
             }}
           />
         </Box>
@@ -74,9 +65,9 @@ export default function SignInWithKey(props: any) {
             multiline
             sx={{
               width: "100%",
-              height: "100px",
-              color: "white",
-              background: "#303045",
+              height: "70px",
+              color: (theme) => theme.palette.text.secondary,
+              backgroundColor: (theme) => theme.palette.secondary.main,
               padding: "0 20px",
               borderRadius: "18px",
               overflow: "auto",
@@ -96,9 +87,9 @@ export default function SignInWithKey(props: any) {
             multiline
             sx={{
               width: "100%",
-              height: "100px",
-              color: "white",
-              background: "#303045",
+              height: "70px",
+              color: (theme) => theme.palette.text.secondary,
+              backgroundColor: (theme) => theme.palette.secondary.main,
               padding: "0 20px",
               borderRadius: "18px",
               overflow: "auto",
@@ -107,24 +98,17 @@ export default function SignInWithKey(props: any) {
             }}
           />
         </Box>
-        <Typography color={theme.palette.text.primary} mt={3} textAlign={'center'}>
+        <Typography color={theme.palette.text.primary} mt={2} textAlign={'center'}>
           or Use the <Typography component={'span'} onClick={() => props.cbFunction(false)} sx={{ fontWeight: 500, color: '#289AFB', textDecoration: 'underline', cursor: 'pointer' }}>or Use the Recovery Seed</Typography>
         </Typography>
         <Box
-          mt={5}
-          width={"100%"}
-          display="flex"
-          justifyContent="center"
-          flexDirection={"row"}
-          flexWrap={"wrap"}
-          alignContent="center"
-          sx={{ columnGap: "10px" }}
+          sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center" }}
         >
           <Button
             variant="contained"
             color="secondary"
             sx={{
-              width: isMobileMode ? "70%" : "200px",
+              width: isMobileMode ? "70%" : '150px',
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
@@ -133,18 +117,14 @@ export default function SignInWithKey(props: any) {
           >
             Cancel
           </Button>
-          {/* {!isMobileMode &&<Box sx={{width:'50px',height:'20px'}}></Box>} */}
           <Button
             variant="contained"
             color="primary"
             sx={{
               fontWeight: 600,
-              // borderRadius: "10px",
               color: "white",
               height: "50px",
-              // marginLeft:isMobileMode? '0':"10px",
-              // marginTop:isMobileMode?'10px':'0',
-              width: isMobileMode ? "70%" : "200px",
+              width: isMobileMode ? "70%" : "150px",
               borderRadius: isMobileMode ? "40px" : "10px",
               marginTop: "10px",
             }}

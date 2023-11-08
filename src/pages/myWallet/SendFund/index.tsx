@@ -41,7 +41,7 @@ const SendFund = () => {
     ZAR: "ZAR",
   };
   return (
-    <Box className="sendFund" sx={{padding: '30px 20px 50px', height: '100%', background:(theme) => theme.palette.secondary.main, '.MuiSelect-iconFilled': { fill: 'white', color: 'white' }}}>
+    <Box className="sendFund" sx={{padding: '30px 20px 50px', height: '100%', background:(theme) => theme.palette.success.main, '.MuiSelect-iconFilled': { fill: 'white', color: 'white' }}}>
       <Box
         display="flex"
         flexDirection="row"
@@ -125,7 +125,7 @@ const SendFund = () => {
             IconComponent={KeyboardArrowDownIcon}
             sx={{
               color: "white",
-              backgroundColor: "#303045",
+              backgroundColor: (theme: any) => theme.palette.secondary.main,
               height: "35px",
               borderRadius: "10px",
               "& .MuiSelect-icon": {
@@ -139,7 +139,7 @@ const SendFund = () => {
                 MenuListProps: {
                   sx: {
                     color: "white",
-                    backgroundColor: "#303045",
+                    backgroundColor: (theme: any) => theme.palette.secondary.main,
                     height: "300px",
                     overflow: "auto",
                   },
@@ -258,7 +258,7 @@ const SendFund = () => {
         <Select
           sx={{
             color: "white",
-            backgroundColor: "#303045",
+            backgroundColor: (theme: any) => theme.palette.secondary.main,
             height: "35px",
             borderRadius: "10px",
             marginLeft: "10px",
@@ -281,7 +281,7 @@ const SendFund = () => {
               MenuListProps: {
                 sx: {
                   color: "white",
-                  backgroundColor: "#303045",
+                  backgroundColor: (theme: any) => theme.palette.secondary.main,
                 },
               },
             },

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../stores/hooks";
+import {setSeedDetails} from "../../../stores/features/seedDetailSlice";
 import coinImg from '../../../icons/coin.png';
 import emptyScreenImg from "../../../icons/Empty_screen_image.png";
 import blueImg from "../../../icons/blue.png";
+import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
+const mnemonic_languages = require('@bdxi/beldex-locales')
 
 export default function Registration() {
   const theme:any = useTheme();
+  //const dispatch = useAppDispatch();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   console.log("isMobileMode ::", isMobileMode);
   const navigate = useNavigate();
@@ -22,10 +27,9 @@ export default function Registration() {
     >
       <Box
         sx={{
-          backgroundColor: theme.palette.secondary.main,
-          width: "694px",
+          backgroundColor: theme.palette.success.main,
           height: "100%",
-          padding: "35px",
+          padding: "25px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

@@ -71,7 +71,6 @@ export default function NavBar() {
   const routerPath = ['/mywallet', '/privacy', '/terms']
   const colorMode = React.useContext(ColorContext);
   const theme = useTheme();
-  console.log('---theme---', theme)
   useEffect(() => {
     const routerIndex = routerPath.findIndex((item: string) => item === location.pathname);
     setSelectedIndex(routerIndex);
@@ -105,7 +104,7 @@ export default function NavBar() {
     }
   }
   return (
-    <Box sx={{ width: '350px', background: (theme) => theme.palette.background.paper, borderRadius: '25px' }}>
+    <Box sx={{ minWidth: '225px', background: (theme) => theme.palette.background.paper, borderRadius: '25px' }}>
       <List
         sx={{
           // width: "100%",

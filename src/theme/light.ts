@@ -4,14 +4,23 @@ export const lightTheme: ThemeOptions = {
     palette: {
         mode: "light",
         primary: {
-            main: "#00D030",
-            light: "Blue",
-            dark: "#00D090",
+            main: "#00AD07",
+            light: "#FCFCFC",
+            dark: "#00AD07",
             contrastText: "#000"
         },
-        secondary: {
+        info: {
+            main: '#2879FB'
+        },
+        error: {
+            main: '#E22B2B'
+        },
+        success: {
             main: "#FCFCFC",
             light: "#FCFCFC"
+        }, 
+        secondary: {
+          main: "#F5F5F5"
         },
         text: {
             primary: '#222222',

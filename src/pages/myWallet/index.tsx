@@ -21,7 +21,7 @@ const MyWallet = () => {
                 <TransactionHistrory />
                 <TransactionDetails/>
             </Box>
-            <Box sx={{minWidth: '320px', background:(theme) => theme.palette.secondary.main, borderRadius: '25px'}}>
+            <Box sx={{minWidth: '320px', background:(theme) => theme.palette.success.main, borderRadius: '25px'}}>
                 <SendFund />
                 {/* <Typography>Fund transfer</Typography> */}
             </Box>
