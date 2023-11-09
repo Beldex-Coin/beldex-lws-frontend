@@ -1,24 +1,29 @@
 import { useState } from "react";
 import "./styles.scss";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, SvgIcon, Typography } from "@mui/material";
 import TransactionList from '../TransactionList';
 import CustomPagination from '../../../components/CustomPagination'
 
 
 export default function TransactionHistrory() {
-  const[page,setPage]=useState(1);
-  
+  const [page, setPage] = useState(1);
+
   return (
-    <Box className='transactionHistrory' mt={2}>
+    <Box sx={{
+      background: (theme) => theme.palette.success.light,
+      padding: '20px', borderRadius: '20px'
+    }} mt={2}>
       <Box
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
       >
-        <Typography sx={{fontWeight:600, fontSize: '18px'}}>Transactions</Typography>
+        <Typography sx={{
+          fontWeight: 600, fontSize: '18px', color: (theme) => theme.palette.text.primary,
+        }}>Transactions</Typography>
         <Button >
-          <svg
+          <SvgIcon
             width="15"
             height="15"
             viewBox="0 0 15 15"
@@ -32,14 +37,14 @@ export default function TransactionHistrory() {
               stroke="#20D030"
               strokeWidth="0.5"
             />
-          </svg>
-          <Typography ml={1} sx={{color:"white",fontWeight:600,}}>Export CSV</Typography>
+          </SvgIcon>
+          <Typography ml={1} sx={{fontWeight: 600, color: (theme) => theme.palette.text.primary}}>Export CSV</Typography>
         </Button>
       </Box>
       <Box>
-      <TransactionList />
+        <TransactionList />
       </Box>
-        <CustomPagination />
+      <CustomPagination />
     </Box>
-  );  
+  );
 }

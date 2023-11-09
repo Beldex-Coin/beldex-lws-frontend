@@ -20,7 +20,7 @@ export const darkTheme: ThemeOptions = {
         },
         success : {
             main: "#2B2B3C",
-            light: "#2B2B3C"
+            light: "#303041"
         },
         text: {
             primary: '#FFFFFF',

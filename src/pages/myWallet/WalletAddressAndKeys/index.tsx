@@ -13,7 +13,6 @@ import { useTheme } from "@emotion/react";
 
 export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
-  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [seedVisible, setSeedVisible] = useState(false);
   let address =
     "bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6";
@@ -21,7 +20,10 @@ export default function WalletAddressAndKeys() {
     return text.slice(0, 20) + "...";
   }
   return (
-    <div className="WalletAddressAndKeys" style={{backgroundColor:isMobileMode?'#24242F':''}}>
+    <Box className="WalletAddressAndKeys" sx={{marginTop: '20px',
+      // color: #fff,
+      padding: '20px',
+      borderRadius: '20px',backgroundColor:(theme) => theme.palette.background.default}}>
       {/* <Accordion sx={{backgroundColor: "#1C1C26" }} > */}
       {/* <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -158,6 +160,6 @@ export default function WalletAddressAndKeys() {
         </Box>
       </Box>
      
-    </div>
+    </Box>
   );
 }

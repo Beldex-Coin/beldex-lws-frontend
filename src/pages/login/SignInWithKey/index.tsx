@@ -26,7 +26,6 @@ export default function SignInWithKey(props: any) {
           padding: isMobileMode ? "15px" : "20px 50px",
           backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
-
         }}
       >
         <Typography

@@ -149,15 +149,17 @@ export default function AuthSeed() {
                   marginRight: '8px',
                   marginTop: '8px',
                   border: 'none',
-                  color: '#B9B9CC',
-                  backgroundColor: '#32324A',
+                  // color: '#B9B9CC',
+                  // backgroundColor: '#32324A',
+                  color: (theme) => theme.palette.text.secondary,
+                  background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                   padding: '5px 10px',
                   borderRadius: '20px !important',
                   textTransform: 'lowercase',
                   '&:hover': {
                     border: 'none',
-                    color: '#B9B9CC',
-                    backgroundColor: '#32324A',
+                    color: (theme) => theme.palette.text.secondary,
+                    background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                   },
                   '&.Mui-selected': {
                     '&:hover': {
@@ -165,7 +167,7 @@ export default function AuthSeed() {
                       color: '#B9B9CC',
                       backgroundColor: 'transparent',
                     },
-                    color: (theme) => theme.palette.text.secondary,
+                    color: (theme) => theme.palette.secondary.main,
                     backgroundColor: (theme) => theme.palette.secondary.main,
                   }
                 }}

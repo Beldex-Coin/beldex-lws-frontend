@@ -24,22 +24,19 @@ export default function SignIn() {
           // display: "flex",
           // justifyContent: "center",
           // alignItems: "center",
-          // color: "#fff",
           // width: "100%",
           padding: isMobileMode ? "25px" : '30px 45px',
           height: 'calc(100vh - 110px)',
-          overflow: 'auto',
+          overflow: 'auto'
         }}
       >
         <Box
           sx={{
-            minWidth: "70%",
-            maxWidth: "95%",
-            // height: isMobileMode ? "100%" : "90%",
+            // minWidth: "70%",
+            // maxWidth: "95%",
+            padding: isMobileMode ? "15px" : "20px 50px",
             backgroundColor: (theme) => theme.palette.primary.light,
-            padding: isMobileMode ? '15px' : "15px 35px",
             borderRadius: "20px",
-            overflow: 'auto'
           }}
         >
           <Typography
@@ -62,15 +59,12 @@ export default function SignIn() {
                 padding: "0 20px",
                 borderRadius: "18px",
                 overflow: "auto",
-
-                //   marginTop: "10px",
               }}
             />
             <Box
               sx={{
                 backgroundColor: (theme) => theme.palette.secondary.main,
-                boxShadow:
-                  "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                // boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                 width: "40px",
                 height: "40px",
                 display: "flex",
@@ -102,7 +96,6 @@ export default function SignIn() {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => navigate('/')}
               sx={{
                 width: isMobileMode ? "70%" : '150px',
                 borderRadius: isMobileMode ? "40px" : "10px",
@@ -110,6 +103,7 @@ export default function SignIn() {
                 height: "50px",
                 marginTop: "10px",
               }}
+              onClick={() => navigate('/')}
             >Cancel
 
             </Button>
