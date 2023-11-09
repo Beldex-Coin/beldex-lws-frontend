@@ -13,9 +13,11 @@ export default function SignInWithKey(props: any) {
         // display: "flex",
         // justifyContent: "center",
         // alignItems: "center",
-        // width: "100%",
-        padding: isMobileMode ? "25px" : '30px 45px',
-        height: 'calc(100vh - 110px)',
+        // width: "100%", 
+        width:isMobileMode?"unset": "60%",
+
+        // padding: isMobileMode ? "25px" : '30px 45px',
+        // height: 'calc(100vh - 110px)',
         overflow: 'auto'
       }}
     >
@@ -23,6 +25,7 @@ export default function SignInWithKey(props: any) {
         sx={{
           // minWidth: "70%",
           // maxWidth: "95%",
+          height: isMobileMode ? "unset":'550px',
           padding: isMobileMode ? "15px" : "20px 50px",
           backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",

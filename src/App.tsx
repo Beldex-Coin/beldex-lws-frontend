@@ -59,7 +59,7 @@ function App() {
             <Header />
             <Box sx={{ paddingTop: '65px', display: 'flex', gap: '20px', minHeight: 'calc(100vh - 45px)' }}>
               {!isMobileMode && <NavBar />}
-              <Box sx={{ minWidth: isMobileMode ? '100%' : 'calc(100% - 250px)', background: theme.palette.background.paper, borderRadius: '25px' }}>
+              <Box sx={{ minWidth: isMobileMode ? '100%' : 'calc(100% - 250px)', background:isMobileMode?'unset': theme.palette.background.paper, borderRadius: '25px' }}>
                 <Routes>
                   {RouteList.map((route: any) => <Route key={route.id} path={route.path} element={route.component} />)}
                 </Routes>

@@ -4,6 +4,7 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { useNavigate } from "react-router-dom";
 import SignInWithKey from "../SignInWithKey";
 import { useTheme } from "@emotion/react";
+import { Height } from "@mui/icons-material";
 
 export default function SignIn() {
 
@@ -18,6 +19,13 @@ export default function SignIn() {
 
   return (
     <>
+    <Box sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height:"100%"
+    }}>
       {!showSignWithKey && <Box
         className="SignIn"
         sx={{
@@ -25,17 +33,18 @@ export default function SignIn() {
           // justifyContent: "center",
           // alignItems: "center",
           // color: "#fff",
-          // width: "100%",
-          padding: isMobileMode ? "25px" : '30px 45px',
-          height: 'calc(100vh - 110px)',
+          width:isMobileMode?"unset": "60%",
+          // padding: isMobileMode ? "25px" : '30px 45px',
+          // height: 'calc(100vh - 110px)',
           overflow: 'auto',
         }}
       >
         <Box
           sx={{
-            minWidth: "70%",
-            maxWidth: "95%",
-            // height: isMobileMode ? "100%" : "90%",
+            // minWidth: "70%",
+            // maxWidth: "95%",
+            // width: '70%',
+            height: isMobileMode ? "unset":'550px',
             backgroundColor: (theme) => theme.palette.primary.light,
             padding: isMobileMode ? '15px' : "15px 35px",
             borderRadius: "20px",
@@ -97,7 +106,7 @@ export default function SignIn() {
             or Use the <Typography component={'span'} onClick={() => signWithKey(true)} sx={{ fontWeight: 500, color: '#289AFB', textDecoration: 'underline', cursor: 'pointer' }}>Address and Recovery Keys</Typography>
           </Typography>
           <Box
-            sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center" }}
+            sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center",marginTop:'120px' }}
           >
             <Button
               variant="contained"
@@ -132,6 +141,7 @@ export default function SignIn() {
         </Box>
       </Box>}
       {showSignWithKey && <SignInWithKey cbFunction={signWithKey} />}
+      </Box>
     </>
   );
 }

@@ -76,13 +76,18 @@ export default function AuthSeed() {
     <Box
       className="AuthSeed"
       sx={{
-        padding: isMobileMode ? "25px" : '30px 45px',
+        padding: isMobileMode ? 0 : '30px 45px',
         height: 'calc(100vh - 110px)',
         overflow: 'auto',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Box
         sx={{
+          width:isMobileMode?'unset':'80%',
+          height:'90%',
           padding: isMobileMode ? "15px" : "20px 50px",
           backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
@@ -90,11 +95,11 @@ export default function AuthSeed() {
       >
         <Typography
           textAlign="center"
-          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem" }}
+          sx={{ color: theme.palette.text.primary, fontWeight: "bold", fontSize: "1.5rem",marginTop:'30px' }}
         >
           Create New Wallet
         </Typography>
-        <Typography sx={{ fontWeight: 600, textAlign: "center" }} mt={1}>
+        <Typography sx={{ fontWeight: 600, textAlign: "center" }} mt={3}>
           Verify your seed
         </Typography>
         <Typography
@@ -103,7 +108,7 @@ export default function AuthSeed() {
           Choose the first 7 words in the correct order
         </Typography>
 
-        <Box mt={2} >
+        <Box mt={4} >
           <Input
             placeholder="Enter Recovery Seed from Existing wallet"
             value={userMnemonic.join(' ')}

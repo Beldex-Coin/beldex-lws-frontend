@@ -50,13 +50,17 @@ export default function DisplaySeed() {
     <Box
       className="DisplaySeed"
       sx={{
-        padding: isMobileMode ? "25px" : '30px 45px',
-        height: 'calc(100vh - 110px)',
+        padding: isMobileMode ? "0" : '30px 45px',
+        height:isMobileMode?"unset" :'calc(100vh - 110px)',
         overflow: 'auto',
+         display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Box
-        sx={{
+      sx={{
+          width:isMobileMode?"unset":"80%",
           padding: isMobileMode ? "15px" : "20px 50px",
           backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
@@ -90,6 +94,7 @@ export default function DisplaySeed() {
               fontWeight: 400,
               display: "flex",
               alignItems: "center",
+              height: '120px',
               fontSize: isMobileMode ? "11px" : "1rem",
             }}
           >{seed}</Typography>
@@ -189,7 +194,7 @@ export default function DisplaySeed() {
           </Select>
         </Box>
         <Box
-          sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center" }}
+          sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center",marginTop:'80px' }}
         >
           <Button
             variant="contained"
