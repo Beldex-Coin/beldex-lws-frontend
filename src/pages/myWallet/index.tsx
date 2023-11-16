@@ -19,7 +19,7 @@ const MyWallet = () => {
                 <Balance />
                 <WalletAddressAndKeys />
                 <TransactionHistrory />
-                {/* <TransactionDetails/> */}
+                <TransactionDetails/>
             </Box>
             <Box sx={{minWidth: '320px', background:(theme) => theme.palette.success.main, borderRadius: '25px'}}>
                 <SendFund />

@@ -2,8 +2,10 @@ import {  useState } from "react";
 import "./style.scss";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { Typography, colors } from "@mui/material";
+import { useTheme } from "@emotion/react";
 export default function AppTimeoutSlider() {
+  const theme:any = useTheme();
   const [timer, setTimer] = useState<number>(0);
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
@@ -41,6 +43,10 @@ export default function AppTimeoutSlider() {
           onChange={handleChange}
           valueLabelFormat={valueLabelFormat}
           sx={{
+            ".MuiSlider-valueLabel": {
+              backgroundColor:theme.palette.success.main,
+              color: theme.palette.text.primary
+            },
             "& .MuiSlider-track": {
               border: "none",
             },

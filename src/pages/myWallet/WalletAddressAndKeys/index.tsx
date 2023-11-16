@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./styles.scss";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box,useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useTheme } from "@emotion/react";
@@ -20,10 +20,16 @@ export default function WalletAddressAndKeys() {
     return text.slice(0, 20) + "...";
   }
   return (
-    <Box className="WalletAddressAndKeys" sx={{marginTop: '20px',
-      // color: #fff,
-      padding: '20px',
-      borderRadius: '20px',backgroundColor:(theme) => theme.palette.background.default}}>
+    <Box
+      className="WalletAddressAndKeys"
+      sx={{
+        marginTop: "20px",
+        // color: #fff,
+        padding: "20px",
+        borderRadius: "20px",
+        backgroundColor: (theme) => theme.palette.background.default,
+      }}
+    >
       {/* <Accordion sx={{backgroundColor: "#1C1C26" }} > */}
       {/* <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -32,27 +38,47 @@ export default function WalletAddressAndKeys() {
           sx={{ backgroundColor: "#1C1C26", color: "white" }}
         > */}
       <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        sx={{ width: "100%", color: "white", }}
+        sx={{
+          width: "100%",
+          color: "white",
+
+          display: "flex",
+          justifyContent: "space-between",
+          position: "relative",
+          flexDirection: "row",
+        }}
         // mt={2}
       >
         <Box className={!seedVisible ? "address-wrapper" : ""}>
-          <Typography sx={{ fontWeight: 600 }}>Address</Typography>
+          <Typography
+            sx={{ fontWeight: 600, color: theme.palette.text.primary }}
+          >
+            Address
+          </Typography>
           <Typography
             className={
               !seedVisible ? "address-without-key" : "address-with-key"
             }
-            // sx={{
-            //   color: (theme) => theme.palette.text.secondary,
-            //   wordBreak: "break-all",
-            //   fontWeight: 400,
-            //   width: "85%",
-            // }}
+            sx={{
+              color: (theme) => theme.palette.text.secondary,
+              // wordBreak: "break-all",
+              // fontWeight: 400,
+              // width: "85%",
+            }}
           >
-            {!seedVisible ? addEllipse(address) : address}
+            bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6
+            {/* {!seedVisible ? addEllipse(address) : address} */}
           </Typography>
+          {/* <ContentCopyIcon
+            className="copyIcon"
+            sx={{ fontSize: "1.4rem" }}
+          ></ContentCopyIcon>
+
+          <ArrowRightIcon
+            sx={{ fill: "#8787A8", cursor: "pointer" }}
+            className={seedVisible ? "rotate" : ""}
+            onClick={() => setSeedVisible(!seedVisible)}
+          /> */}
         </Box>
         <Box display="flex" flexDirection="row">
           <ContentCopyIcon
@@ -67,6 +93,8 @@ export default function WalletAddressAndKeys() {
           />
         </Box>
       </Box>
+
+      
       {/* </AccordionSummary> */}
       {/* <AccordionDetails  sx={{ backgroundColor: "#1C1C26", color: "white" }}> */}
       <Box className={!seedVisible ? "d-none" : "d-block"}>
@@ -78,7 +106,11 @@ export default function WalletAddressAndKeys() {
           mt={2}
         >
           <Box>
-            <Typography sx={{ fontWeight: 600 }}>Secret View Key</Typography>
+            <Typography
+              sx={{ fontWeight: 600, color: theme.palette.text.primary }}
+            >
+              Secret View Key
+            </Typography>
             <Typography
               sx={{
                 color: (theme) => theme.palette.text.secondary,
@@ -107,7 +139,11 @@ export default function WalletAddressAndKeys() {
           mt={2}
         >
           <Box>
-            <Typography sx={{ fontWeight: 600 }}>Secret Spend Key</Typography>
+            <Typography
+              sx={{ fontWeight: 600, color: theme.palette.text.primary }}
+            >
+              Secret Spend Key
+            </Typography>
             <Typography
               sx={{
                 color: (theme) => theme.palette.text.secondary,
@@ -136,7 +172,11 @@ export default function WalletAddressAndKeys() {
           mt={2}
         >
           <Box>
-            <Typography sx={{ fontWeight: 600 }}>Recovery Seed</Typography>
+            <Typography
+              sx={{ fontWeight: 600, color: theme.palette.text.primary }}
+            >
+              Recovery Seed
+            </Typography>
             <Typography
               sx={{
                 color: (theme) => theme.palette.text.secondary,
@@ -159,7 +199,6 @@ export default function WalletAddressAndKeys() {
           </Box>
         </Box>
       </Box>
-     
     </Box>
   );
 }
