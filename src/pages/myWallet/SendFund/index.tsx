@@ -15,7 +15,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useTheme } from "@emotion/react";
 
 const SendFund = () => {
-  const theme = useTheme();
+  const theme:any = useTheme();
   const [currency, setCurrency] = useState("AUD");
   const [priority, setPriority] = useState("Flash");
   const exchangeCurrencyList = {
@@ -49,11 +49,11 @@ const SendFund = () => {
         alignItems="center"
       >
         <SendIcon
-          sx={{ color: "white", transform: "rotate(-48deg)", fontSize: 18 }}
+          sx={{color: theme.palette.text.primary , transform: "rotate(-48deg)", fontSize: 18 }}
         />
         <Typography
           mt={1}
-          sx={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+          sx={{  fontSize: 18, fontWeight: "bold", color: theme.palette.text.primary }}
         >
           Send BDX
         </Typography>
@@ -82,12 +82,12 @@ const SendFund = () => {
       <Typography
         mr={1}
         textAlign="center"
-        sx={{ color: "white", fontSize: 20, fontWeight: 600 }}
+        sx={{  fontSize: 20, fontWeight: 600, }}
       >
         126.984127600 <span style={{ color: "#20D030" }}>BDX</span>
       </Typography>
       <Box mt={3} mb={3} sx={{ height: "0.2px", backgroundColor: "#8787A8" }} />
-      <Typography mt={2} mb={1} sx={{ color: "white", fontWeight: 600 }}>
+      <Typography mt={2} mb={1} sx={{ color: theme.palette.text.primary , fontWeight: 600 }}>
         Amount
       </Typography>
       <Box
@@ -98,7 +98,8 @@ const SendFund = () => {
       >
         <Box
           sx={{
-            background: "#1C1C26",
+            // background: "#1C1C26",
+            backgroundColor:(theme) => theme.palette.background.default,
             padding: "0 20px",
             width: "100%",
             color: "white",
@@ -115,22 +116,23 @@ const SendFund = () => {
             sx={{
               width: "100%",
               height: "55px",
-              color: "white",
+              // color: "white",
+              color: (theme) => theme.palette.text.secondary,
             }}
           />
           <Select
             className="currency-dropdown"
             disableUnderline
-            SelectDisplayProps={{ style: { paddingTop: '5px', paddingBottom: '5px', backgroundColor: "#303045", borderRadius: '10px', fontWeight: 600 } }}
+            SelectDisplayProps={{ style: { paddingTop: '5px', paddingBottom: '5px', background: theme.palette.success.main, borderRadius: '10px', fontWeight: 600 } }}
             IconComponent={KeyboardArrowDownIcon}
             sx={{
-              color: "white",
+              color: theme.palette.text.primary,
               backgroundColor: (theme: any) => theme.palette.secondary.main,
               height: "35px",
               borderRadius: "10px",
               "& .MuiSelect-icon": {
-                fill: "white",
-                color: "white",
+                fill: theme.palette.text.primary,
+                color: theme.palette.text.primary,
               },
             }}
             variant="filled"
@@ -138,7 +140,8 @@ const SendFund = () => {
               MenuProps: {
                 MenuListProps: {
                   sx: {
-                    color: "white",
+                    // color: "white",
+                    color: theme.palette.text.primary,
                     backgroundColor: (theme: any) => theme.palette.secondary.main,
                     height: "300px",
                     overflow: "auto",
@@ -188,7 +191,7 @@ const SendFund = () => {
         component={"span"}
         mr={"4px"}
         sx={{
-          color: "White",
+          color: theme.palette.text.primary,
           fontWeight: 600,
         }}
       >
@@ -202,8 +205,8 @@ const SendFund = () => {
         sx={{
           width: "100%",
           height: "100px",
-          color: "white",
-          background: "#1C1C26",
+          color: theme.palette.text.primary,
+          backgroundColor:(theme) => theme.palette.background.default,
           padding: "0 20px",
           borderRadius: "18px",
           overflow: "auto",
@@ -214,7 +217,7 @@ const SendFund = () => {
         mt={2}
         mb={1}
         sx={{
-          color: "White",
+          color: theme.palette.text.primary,
           fontWeight: 600,
         }}
       >
@@ -236,8 +239,10 @@ const SendFund = () => {
         sx={{
           width: "100%",
           height: "55px",
-          color: "white",
-          background: "#1C1C26",
+          // color: "white",
+          // background: "#1C1C26",
+          color: theme.palette.text.primary,
+          backgroundColor:(theme) => theme.palette.background.default,
           padding: "0 20px",
           borderRadius: "18px",
           overflow: "auto",
@@ -248,7 +253,7 @@ const SendFund = () => {
           component={"span"}
           mr={"4px"}
           sx={{
-            color: "White",
+            color: theme.palette.text.primary,
             fontWeight: 600,
           }}
         >
@@ -257,20 +262,20 @@ const SendFund = () => {
         <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 14 }} />
         <Select
           sx={{
-            color: "white",
+            color: theme.palette.text.primary,
             backgroundColor: (theme: any) => theme.palette.secondary.main,
             height: "35px",
             borderRadius: "10px",
             marginLeft: "10px",
 
             "& .MuiSelect-icon": {
-              fill: "white",
-              color: "white",
+              fill:theme.palette.text.primary,
+              color:theme.palette.text.primary,
             },
           }}
           SelectDisplayProps={{
             style: {
-              paddingTop: '10px', paddingBottom: '10px', backgroundColor: "#303045", borderRadius: '10px', width: '77px'
+              paddingTop: '10px', paddingBottom: '10px', backgroundColor:theme.palette.secondary.main, borderRadius: '10px', width: '77px'
             }
           }}
           variant="filled"
@@ -280,7 +285,7 @@ const SendFund = () => {
             MenuProps: {
               MenuListProps: {
                 sx: {
-                  color: "white",
+                  color: theme.palette.text.primary,
                   backgroundColor: (theme: any) => theme.palette.secondary.main,
                 },
               },
@@ -310,7 +315,8 @@ const SendFund = () => {
             width: "150px",
             height: "45px",
             borderRadius: "10px",
-            color: "white",
+            // color: "white",
+            color: theme.palette.text.primary,
           }}
         >
           <RefreshIcon /> Reset
@@ -323,7 +329,8 @@ const SendFund = () => {
             width: "150px",
             height: "45px",
             borderRadius: "10px",
-            color: "white",
+            // color: "white",
+            color: theme.palette.text.primary,
           }}
         >
           <CallMadeIcon />

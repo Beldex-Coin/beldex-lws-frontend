@@ -120,7 +120,7 @@ export default function DisplaySeed() {
             >
               <ContentCopyIcon
                 sx={{
-                  fill: "#FFF",
+                  fill: theme.palette.text.primary,
                   fontSize: "1rem",
                 }}
               />
@@ -140,7 +140,7 @@ export default function DisplaySeed() {
         </Typography>
 
         <Box className="drop-down-wrapper" mt={3} textAlign="center">
-          <Typography component="span" sx={{ color: "#B9B9CC" }}>
+          <Typography component="span" sx={{  color: theme.palette.text.secondary, }}>
             Language
           </Typography>
           <Select
@@ -150,6 +150,8 @@ export default function DisplaySeed() {
                 paddingTop: "10px",
                 paddingBottom: "10px",
                 // backgroundColor: "#303045",
+                color: theme.palette.text.primary,
+                backgroundColor:theme.palette.secondary.main,
                 borderRadius: "5px",
                 fontWeight: 400,
               },
@@ -157,14 +159,14 @@ export default function DisplaySeed() {
             // className="currency-dropdown"
             IconComponent={KeyboardArrowDownIcon}
             sx={{
-              color: "white",
+              color: theme.palette.text.primary,
               backgroundColor: (theme: any) => theme.palette.secondary.main,
               borderRadius: "10px",
               marginLeft: "10px",
               marginTop: "16px",
               "& .MuiSelect-icon": {
-                fill: "white",
-                color: "white",
+                fill:theme.palette.text.primary,
+                color:theme.palette.text.primary,
               },
             }}
             variant="filled"
@@ -172,7 +174,7 @@ export default function DisplaySeed() {
               MenuProps: {
                 MenuListProps: {
                   sx: {
-                    color: "white",
+                    color: theme.palette.text.primary,
                     backgroundColor: (theme: any) => theme.palette.secondary.main,
                     // height: "300px",
                     // overflow: "auto",
