@@ -12,7 +12,9 @@ import { lightTheme } from './theme/light';
 import { ColorContext } from './ColorContext';
 import { CoreBridgeInstanceContext } from './CoreBridgeInstanceContext';
 import RouteList from './routers';
-const mnemonic_languages = require('@bdxi/beldex-locales')
+const mnemonic_languages = require('@bdxi/beldex-locales');
+const appBridge = require('@bdxi/beldex-app-bridge');
+
 
 // import {mnemonic_languages} from '@bdxi/beldex-locales';
 // const coreBridgeInstance = await require('@bdxi/beldex-app-bridge')({})
@@ -34,7 +36,7 @@ function App() {
   }), [bdxUtils]);
 
   const getBridgeInstance = async () => {
-    const coreBridgeInstance = await require('@bdxi/beldex-app-bridge')({});
+    let coreBridgeInstance = await appBridge({})
     beldex_utils.set_Utils_data(coreBridgeInstance);
     // let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
     // console.log('---coreBridgeInstance---', coreBridgeInstance);
