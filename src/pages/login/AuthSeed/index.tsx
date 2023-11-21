@@ -64,14 +64,18 @@ export default function AuthSeed() {
   }
 
   const validateComponentsForLogin = (seedData: any) => {
-    const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
-      seedData.address_string,
-      seedData.sec_viewKey_string,
-      seedData.sec_spendKey_string || '', // expects string
-      seedData.sec_seed_string || '', // expects string
-      coreBridgeInstance.nettype
-    );
-    if (loginValidate.isValid) {
+    try {
+      const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
+        seedData.address_string,
+        seedData.sec_viewKey_string,
+        seedData.sec_spendKey_string || '', // expects string
+        seedData.sec_seed_string || '', // expects string
+        coreBridgeInstance.nettype
+      );
+      if (loginValidate.isValid == false) { // actually don't think we're expecting this..
+        console.log("Invalid input...")
+        return
+      }
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
         console.log('---new_address-', new_address);
@@ -85,6 +89,10 @@ export default function AuthSeed() {
         false,
         loginCB
       );
+    } catch (error) {
+      // error are throwing
+      let Error = typeof error === 'string' ? error : '' + error
+      console.log("Error:", Error)
     }
   }
 

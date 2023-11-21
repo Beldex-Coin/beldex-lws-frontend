@@ -4,6 +4,9 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { useNavigate } from "react-router-dom";
 import SignInWithKey from "../SignInWithKey";
 import { useTheme } from "@emotion/react";
+import { CoreBridgeInstanceContext } from '../../../CoreBridgeInstanceContext';
+import { useAppDispatch } from "../../../stores/hooks";
+import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
 
 export default function SignIn() {
 
@@ -11,9 +14,59 @@ export default function SignIn() {
   const [showSignWithKey, setShowSignWithKey] = useState(true);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
+  const [userMnemonic, setUserMnemonic] = React.useState<any>(() => []);
+  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
+  const dispatch = useAppDispatch();
 
   const signWithKey = (bool: boolean) => {
     setShowSignWithKey(bool);
+  }
+
+  const validatingMnemonic = () => {
+    console.log('----user entered seed---', userMnemonic);
+    validateComponentsForLogin();
+  }
+
+  const validateComponentsForLogin = () => {
+    try {
+      const validatingMnemonic = coreBridgeInstance.beldex_utils.seed_and_keys_from_mnemonic(userMnemonic, coreBridgeInstance.nettype);
+      console.log("ret:", validatingMnemonic)
+
+      console.log("validatingMnemonic:", validatingMnemonic)
+      const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
+        validatingMnemonic.address_string,
+        validatingMnemonic.sec_viewKey_string,
+        validatingMnemonic.sec_spendKey_string || '', // expects string
+        validatingMnemonic.sec_seed_string || '', // expects string
+        coreBridgeInstance.nettype
+      );
+      validatingMnemonic.mnemonic_string = userMnemonic;
+      dispatch(setSeedDetails(validatingMnemonic));
+      console.log("loginValidate:", loginValidate)
+      if (loginValidate.isValid == false) { // actually don't think we're expecting this..
+        console.log("Invalid input...")
+        return
+      }
+      const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
+        console.log('---login__err-', login__err);
+        console.log('---new_address-', new_address);
+        console.log('---received__generated_locally-', received__generated_locally);
+        console.log('---start_height-', start_height);
+        navigate('/mywallet');
+
+
+      }
+      coreBridgeInstance.hostedMoneroAPIClient.LogIn(
+        validatingMnemonic.address_string,
+        validatingMnemonic.sec_viewKey_string,
+        false,
+        loginCB
+      );
+
+    } catch (error) {
+      let Error = typeof error === 'string' ? error : '' + error
+      console.log("Error:", Error)
+    }
   }
 
   return (
@@ -50,6 +103,7 @@ export default function SignIn() {
             <Input
               placeholder="Enter Recovery Seed from Existing wallet"
               disableUnderline={true}
+              onChange={event => setUserMnemonic(event.target.value)}
               multiline
               sx={{
                 width: "100%",
@@ -110,7 +164,7 @@ export default function SignIn() {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => navigate('/mywallet')}
+              onClick={validatingMnemonic}
               sx={{
                 fontWeight: 600,
                 color: "white",
