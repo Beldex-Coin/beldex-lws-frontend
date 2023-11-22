@@ -81,6 +81,7 @@ export default function AuthSeed() {
         console.log('---new_address-', new_address);
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
+        navigate('/mywallet');
 
       }
       coreBridgeInstance.hostedMoneroAPIClient.LogIn(
