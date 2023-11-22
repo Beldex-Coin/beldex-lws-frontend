@@ -38,7 +38,7 @@ const DesktopNavigation = () => {
     <Box sx={{ display: 'flex', padding: '0 0 0 20px', width: '100%', justifyContent: 'space-between' }}>
       <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>Home</Typography>
       <Box>
-        <BaseButton label="LOGOUT" variant='contained' cbFunction={() => navigate('/')} />
+        {/* <BaseButton label="LOGOUT" variant='contained' cbFunction={() => navigate('/')} /> */}
         <IconButton sx={styles.menuIconContainer} onClick={() => navigate('/settings')}>
           <SettingIconDark />
         </IconButton>

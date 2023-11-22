@@ -3,10 +3,13 @@ import { Box, Typography } from "@mui/material";
 import "./styles.scss";
 import OutboundIcon from "@mui/icons-material/Outbound";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { useTheme } from "@emotion/react";
+
 
 export default function TransactionDetails() {
+  const theme:any = useTheme();
   return (
-    <Box className="transactionDetails" mt={3}>
+    <Box className="transactionDetails" mt={3} sx={{background:(theme) => theme.palette.success.main}}>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Box display="flex" flexDirection="row" alignItems="center">
           <OutboundIcon
@@ -17,7 +20,7 @@ export default function TransactionDetails() {
         <Typography sx={{ fontWeight: 600, color: "#FC2727" }}>
           -2 BDX
         </Typography>
-        <Typography sx={{ fontWeight: 400, color: "#D1D1D3" }}>Sent</Typography>
+        <Typography sx={{ fontWeight: 400,  }}>Sent</Typography>
       </Box>
 
       <Box

@@ -82,8 +82,8 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.js', to:  '../public/assets/BeldexLibAppCpp_WASM.js', force: true },
-        { from: 'node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.wasm', to:  '../public/assets/BeldexLibAppCpp_WASM.wasm', force: true },
+        { from: 'node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.js', to: '../public/assets/BeldexLibAppCpp_WASM.js', force: true, noErrorOnMissing: true },
+        { from: 'node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.wasm', to: '../public/assets/BeldexLibAppCpp_WASM.wasm', force: true, noErrorOnMissing: true },
       ]
     }),
     new Dotenv({
