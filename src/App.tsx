@@ -36,23 +36,32 @@ function App() {
     set_Utils_data: (data: any) => {
       setBDXUtils(data)
     },
-    beldex_utils: bdxUtils,
+    beldex_utils: bdxUtils.beldex_utils,
+    backgroundAPIResponseParser: bdxUtils.backgroundAPIResponseParser,
     hostedMoneroAPIClient: new HostedMoneroAPIClient({
       appUserAgent_product: config.name,
       appUserAgent_version: config.version,
       apiUrl: config.apiUrl,
       request_conformant_module: require('xhr')
-    }, config),
-    backgroundAPIResponseParser: new BackgroundAPIResponseParser({
-      coreBridge_instance: bdxUtils // the same as coreBridge_instance
-    }, config),
+    },bdxUtils)
+    // new BackgroundAPIResponseParser({
+    //   coreBridge_instance: bdxUtils // the same as coreBridge_instance
+    // }, config)
+    ,
     ...config
   }), [bdxUtils]);
 
   const getBridgeInstance = async () => {
-    let coreBridgeInstance = await appBridge({})
-    beldex_utils.set_Utils_data(coreBridgeInstance);
+    // let coreBridgeInstance = await appBridge({});
+    const context: any = {}
+    context.beldex_utils = await appBridge({});
+    context.backgroundAPIResponseParser = new BackgroundAPIResponseParser({
+      coreBridge_instance:context.beldex_utils // the same as coreBridge_instance
+    }, context),
+
+      beldex_utils.set_Utils_data(context);
   }
+  console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
   }, [])

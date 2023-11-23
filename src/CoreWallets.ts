@@ -13,14 +13,6 @@ export class Wallet {
     }
     async Login() {
         let self = this
-
-        //        let a = coreBridgeInstance.seed_and_keys_from_mnemonic(
-        //     "hire muppet erected fully wayside until giving enigma boxes upbeat ignore yoga piano sickness umpire initiate wanted vegan nuns legion mammal luggage border damp boxes",
-        //    1
-        //   )
-        // let b = await coreBridgeInstance({})
-        // let a = b.newly_created_wallet('en-GB', 1)
-        // console.log("a:aaaaasasasasasasasas",a)
         const coreBridgeInstance = await require('@bdxi/beldex-app-bridge')({})
         const netType: any = (process.env.NETTYPE);
         const config = {
@@ -34,8 +26,6 @@ export class Wallet {
             "A1SoB5Yyh9w9JjqJC8VeEuNoRfepFe6q9e7XReTX5WrKHLbFiQhS6w1amdHZ83xyNrM9V71SJ8QWSBF2Xbq9ywWPBVFbcuu",
             "2ad7ad29be7f9090d767ee2ea0fc85e885eb99d3be6c35f9692cd8f2f827c90b",
             false,
-            // "da73d59421325631a84810cb55754a8256172117b511e4dde18f7caa1d1c4061",
-            // "274a91b5ca82fff10f4c21df06be6a96042b1e1ebd7cdcf9009b98098dd4e80e",
             function (err: any, data: any) {
                 console.log("dar:", data)
             }))
@@ -58,7 +48,7 @@ export class Wallet {
         //         blockchain_height: any,
         //         ratesBySymbol: any
         //     ) {
-        //         console.log("nowfil:", err,
+        //         console.log("test:", err,
         //             total_received,
         //             locked_balance,
         //             total_sent,
