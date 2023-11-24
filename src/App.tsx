@@ -43,7 +43,7 @@ function App() {
       appUserAgent_version: config.version,
       apiUrl: config.apiUrl,
       request_conformant_module: require('xhr')
-    },bdxUtils)
+    }, bdxUtils)
     // new BackgroundAPIResponseParser({
     //   coreBridge_instance: bdxUtils // the same as coreBridge_instance
     // }, config)
@@ -55,11 +55,11 @@ function App() {
     // let coreBridgeInstance = await appBridge({});
     const context: any = {}
     context.beldex_utils = await appBridge({});
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     context.backgroundAPIResponseParser = new BackgroundAPIResponseParser({
-      coreBridge_instance:context.beldex_utils // the same as coreBridge_instance
-    }, context),
-
-      beldex_utils.set_Utils_data(context);
+      coreBridge_instance: context.beldex_utils // the same as coreBridge_instance
+    }, context);
+    beldex_utils.set_Utils_data(context);
   }
   console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
@@ -69,6 +69,11 @@ function App() {
   const theme = React.useMemo(() => createTheme(mode === "light" ? lightTheme : darkTheme), [mode]);
   const isMobileMode = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const isEmpty = Object.keys(bdxUtils).length === 0;
+
+  if (isEmpty) {
+    return (<div>Loading....</div>)
+  }
   return (
     <ColorContext.Provider value={colorMode}>
       <CoreBridgeInstanceContext.Provider value={beldex_utils}>
