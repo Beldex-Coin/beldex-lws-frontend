@@ -5,7 +5,7 @@ import TransactionList from '../TransactionList';
 import CustomPagination from '../../../components/CustomPagination'
 
 
-export default function TransactionHistrory() {
+export default function TransactionHistrory(transactionHistory: any) {
   const [page, setPage] = useState(1);
 
   return (
@@ -38,11 +38,11 @@ export default function TransactionHistrory() {
               strokeWidth="0.5"
             />
           </SvgIcon>
-          <Typography ml={1} sx={{fontWeight: 600, color: (theme) => theme.palette.text.primary}}>Export CSV</Typography>
+          <Typography ml={1} sx={{ fontWeight: 600, color: (theme) => theme.palette.text.primary }}>Export CSV</Typography>
         </Button>
       </Box>
       <Box>
-        <TransactionList />
+        <TransactionList transactions={transactionHistory.transaction} />
       </Box>
       <CustomPagination />
     </Box>

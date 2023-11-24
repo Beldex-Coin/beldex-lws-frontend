@@ -1,10 +1,69 @@
 import React from "react";
 import { Box, Button, Input, Typography, useMediaQuery, useTheme } from "@mui/material";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { CoreBridgeInstanceContext } from '../../../CoreBridgeInstanceContext'
+import { useNavigate } from "react-router-dom";
+import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
+import { useAppDispatch } from "../../../stores/hooks";
 
 export default function SignInWithKey(props: any) {
   const theme: any = useTheme();
+  const navigate = useNavigate();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const [userAddress, setUserAddress] = React.useState<any>(() => []);
+  const [userViewKey, setUserViewKey] = React.useState<any>(() => []);
+  const [userSpendKey, setUserSpendKey] = React.useState<any>(() => []);
+  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
+  const dispatch = useAppDispatch();
+
+  const validatingInputKeys = () => {
+    console.log("userAddress:", userAddress);
+    console.log("userViewKey:", userViewKey);
+    console.log("userSpendKey:", userSpendKey)
+    validateComponentsForLogin();
+
+  }
+
+  const validateComponentsForLogin = () => {
+    try {
+      const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
+        userAddress,
+        userViewKey,
+        userSpendKey || '', // expects string
+        '', //seed expects string
+        coreBridgeInstance.nettype
+      );
+      console.log("loginValidate:", loginValidate)
+      if (loginValidate.isValid == false) { // actually don't think we're expecting this..
+        console.log("Invalid input...")
+        return
+      }
+      const store = {
+        address_string: userAddress,
+        sec_viewKey_string: userViewKey,
+        sec_spendKey_string: userSpendKey
+      }
+      dispatch(setSeedDetails(store));
+      const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
+        console.log('---login__err-', login__err);
+        console.log('---new_address-', new_address);
+        console.log('---received__generated_locally-', received__generated_locally);
+        console.log('---start_height-', start_height);
+        navigate('/mywallet');
+
+
+      }
+      coreBridgeInstance.hostedMoneroAPIClient.LogIn(
+        userAddress,
+        userViewKey,
+        false,
+        loginCB
+      );
+    } catch (error) {
+      let Error = typeof error === 'string' ? error : '' + error
+      console.log("Error:", Error)
+    }
+  }
 
   return (
     <Box
@@ -41,6 +100,7 @@ export default function SignInWithKey(props: any) {
           <Input
             placeholder="Enter address"
             disableUnderline={true}
+            onChange={event => { setUserAddress(event.target.value) }}
             multiline
             sx={{
               width: "100%",
@@ -62,6 +122,7 @@ export default function SignInWithKey(props: any) {
             placeholder="Enter view Key"
             disableUnderline={true}
             multiline
+            onChange={event => { setUserViewKey(event.target.value) }}
             sx={{
               width: "100%",
               height: "70px",
@@ -84,6 +145,7 @@ export default function SignInWithKey(props: any) {
             placeholder="Enter Spend Key"
             disableUnderline={true}
             multiline
+            onChange={event => { setUserSpendKey(event.target.value) }}
             sx={{
               width: "100%",
               height: "70px",
@@ -127,6 +189,7 @@ export default function SignInWithKey(props: any) {
               borderRadius: isMobileMode ? "40px" : "10px",
               marginTop: "10px",
             }}
+            onClick={validatingInputKeys}
           >
             Next
           </Button>

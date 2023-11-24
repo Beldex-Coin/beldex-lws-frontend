@@ -17,7 +17,7 @@ import { useTheme } from "@emotion/react";
 import { useAppSelector } from "../../../stores/hooks";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { seedDetailSelector, seedDetailState } from "../../../stores/features/seedDetailSlice";
-const mnemonic_languages = require('@bdxi/beldex-locales')
+const mnemonic_languages = require('@bdxi/beldex-locales');
 
 export default function DisplaySeed() {
   const theme: any = useTheme();
@@ -33,6 +33,7 @@ export default function DisplaySeed() {
 
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   useEffect(() => {
+    console.log('--coreBridgeInstance-', coreBridgeInstance)
     if (coreBridgeInstance.beldex_utils.newly_created_wallet) {
       let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
       const recSeed = coreBridgeInstance.beldex_utils.newly_created_wallet(compatibleLocaleCode, 1)
@@ -42,8 +43,9 @@ export default function DisplaySeed() {
     }
   }, [coreBridgeInstance.beldex_utils])
 
-  function copyText(text: string) {
+  async function copyText(text: string) {
     navigator.clipboard.writeText(text);
+    // await new Wallet().Login();
     setIsCopied(true)
   }
   return (
@@ -217,7 +219,7 @@ export default function DisplaySeed() {
               borderRadius: isMobileMode ? "40px" : "10px",
               fontWeight: 600,
               height: "50px",
-              color:"#FFF",
+              color: "#FFF",
               marginTop: "10px",
             }}
           >

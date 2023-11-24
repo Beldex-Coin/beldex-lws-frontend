@@ -12,10 +12,10 @@ import { lightTheme } from './theme/light';
 import { ColorContext } from './ColorContext';
 import { CoreBridgeInstanceContext } from './CoreBridgeInstanceContext';
 import RouteList from './routers';
-const mnemonic_languages = require('@bdxi/beldex-locales')
-
-// import {mnemonic_languages} from '@bdxi/beldex-locales';
-// const coreBridgeInstance = await require('@bdxi/beldex-app-bridge')({})
+const mnemonic_languages = require('@bdxi/beldex-locales');
+const appBridge = require('@bdxi/beldex-app-bridge');
+const HostedMoneroAPIClient = require('@bdxi/beldex-hosted-api')
+const BackgroundAPIResponseParser = require('@bdxi/beldex-response-parser-utils')
 
 function App() {
   const [mode, setMode] = React.useState<PaletteMode>("dark");
@@ -25,24 +25,43 @@ function App() {
       setMode((prevMode: PaletteMode) => prevMode === "light" ? "dark" : "light")
     }
   }), []);
-
+  const netType: any = (process.env.NETTYPE);
+  const config: any = {
+    nettype: parseInt(netType), // critical setting 0 - MAINNET, 2 - STAGENET
+    apiUrl: process.env.SERVER_URL,
+    version: process.env.APP_VERSION,
+    name: process.env.APP_NAME,
+  }
   const beldex_utils = React.useMemo(() => ({
     set_Utils_data: (data: any) => {
       setBDXUtils(data)
     },
-    beldex_utils: bdxUtils
+    beldex_utils: bdxUtils.beldex_utils,
+    backgroundAPIResponseParser: bdxUtils.backgroundAPIResponseParser,
+    hostedMoneroAPIClient: new HostedMoneroAPIClient({
+      appUserAgent_product: config.name,
+      appUserAgent_version: config.version,
+      apiUrl: config.apiUrl,
+      request_conformant_module: require('xhr')
+    },bdxUtils)
+    // new BackgroundAPIResponseParser({
+    //   coreBridge_instance: bdxUtils // the same as coreBridge_instance
+    // }, config)
+    ,
+    ...config
   }), [bdxUtils]);
 
   const getBridgeInstance = async () => {
-    const coreBridgeInstance = await require('@bdxi/beldex-app-bridge')({});
-    beldex_utils.set_Utils_data(coreBridgeInstance);
-    // let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
-    // console.log('---coreBridgeInstance---', coreBridgeInstance);
-    // console.log('---compatibleLocaleCode---', compatibleLocaleCode);
-    // console.log('---Process---', process.env.NETTYPE);
-    // const recSeed = coreBridgeInstance.newly_created_wallet(compatibleLocaleCode, 1)
-    // console.log('---coreBridgeInstance---', recSeed)
+    // let coreBridgeInstance = await appBridge({});
+    const context: any = {}
+    context.beldex_utils = await appBridge({});
+    context.backgroundAPIResponseParser = new BackgroundAPIResponseParser({
+      coreBridge_instance:context.beldex_utils // the same as coreBridge_instance
+    }, context),
+
+      beldex_utils.set_Utils_data(context);
   }
+  console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
   }, [])

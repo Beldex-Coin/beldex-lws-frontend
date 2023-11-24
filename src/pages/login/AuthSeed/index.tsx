@@ -17,9 +17,7 @@ import { useTheme } from "@emotion/react";
 import { useLocation } from 'react-router-dom';
 import { seedDetailSelector, seedDetailState } from "../../../stores/features/seedDetailSlice";
 import { useAppSelector } from "../../../stores/hooks";
-
-// import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 
 
 export default function AuthSeed() {
@@ -31,6 +29,7 @@ export default function AuthSeed() {
   const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
   const [userMnemonic, setUserMnemonic] = React.useState<any>(() => []);
   const [hideTryAgainCont, setHideTryAgainCont] = useState<boolean>(true);
+  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
 
   const handleSeedList = (
     event: React.MouseEvent<HTMLElement>,
@@ -60,7 +59,42 @@ export default function AuthSeed() {
     const checkUserSeedValid = userMnemonic.every((val: string, index: number) => val === seedList[index]);
     console.log('----', checkUserSeedValid)
 
-    setHideTryAgainCont(checkUserSeedValid)
+    setHideTryAgainCont(checkUserSeedValid);
+    validateComponentsForLogin(seedDetails);
+  }
+
+  const validateComponentsForLogin = (seedData: any) => {
+    try {
+      const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
+        seedData.address_string,
+        seedData.sec_viewKey_string,
+        seedData.sec_spendKey_string || '', // expects string
+        seedData.sec_seed_string || '', // expects string
+        coreBridgeInstance.nettype
+      );
+      if (loginValidate.isValid == false) { // actually don't think we're expecting this..
+        console.log("Invalid input...")
+        return
+      }
+      const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
+        console.log('---login__err-', login__err);
+        console.log('---new_address-', new_address);
+        console.log('---received__generated_locally-', received__generated_locally);
+        console.log('---start_height-', start_height);
+        navigate('/mywallet');
+
+      }
+      coreBridgeInstance.hostedMoneroAPIClient.LogIn(
+        seedData.address_string,
+        seedData.sec_viewKey_string,
+        false,
+        loginCB
+      );
+    } catch (error) {
+      // error are throwing
+      let Error = typeof error === 'string' ? error : '' + error
+      console.log("Error:", Error)
+    }
   }
 
   const tryAgainUserMnemonic = () => {
