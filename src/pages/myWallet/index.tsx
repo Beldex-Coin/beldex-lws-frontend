@@ -9,6 +9,8 @@ import TransactionHistrory from "./TransactionHistrory";
 import { CoreBridgeInstanceContext } from '../../CoreBridgeInstanceContext';
 import { setSeedDetails } from "../../stores/features/seedDetailSlice";
 import { useSelector } from 'react-redux';
+const JSBigInt = require('@bdxi/beldex-bigint').BigInteger;
+const beldex_amount_format_utils = require('@bdxi/beldex-money-format')
 
 const MyWallet = () => {
     const theme: any = useTheme();
@@ -60,7 +62,7 @@ const MyWallet = () => {
 
                     }
                 )
-                console.log("context.hostedMoneroAPIClient:", coreBridgeInstance.hostedMoneroAPIClient.AddressTransactions_returningRequestHandle(
+                coreBridgeInstance.hostedMoneroAPIClient.AddressInfo_returningRequestHandle(
                     walletDetails.address_string,
                     walletDetails.sec_viewKey_string,
                     walletDetails.pub_spendKey_string,
@@ -80,7 +82,30 @@ const MyWallet = () => {
                         setLockedBalance(locked_balance);
                         setTotalSent(total_sent);
                         setTotalReceived(total_received);
-                    }))
+                        getBalance(total_sent, total_received, locked_balance)
+                    });
+            }
+
+            const Balance_JSBigInt = (totalsent: any, totalReceived: any) => {
+                let total_received = totalReceived
+                let total_sent = totalsent
+                if (typeof total_received === 'undefined') {
+                    total_received = new JSBigInt(0) // patch up to avoid crash as this doesn't need to be fatal
+                }
+                if (typeof total_sent === 'undefined') {
+                    total_sent = new JSBigInt(0) // patch up to avoid crash as this doesn't need to be fatal
+                }
+                const balance_JSBigInt = total_received.subtract(total_sent)
+                if (balance_JSBigInt.compare(0) < 0) {
+                    return new JSBigInt(0)
+                }
+                return balance_JSBigInt
+            }
+
+            const getBalance = (total_sent: any, total_received: any, locked_balance: any) => {
+                let amountJSBigInt = Balance_JSBigInt(total_sent, total_received);
+                const balance = beldex_amount_format_utils.formatMoney(amountJSBigInt);
+                console.log("Actaul balance :", balance)
             }
 
         } catch (err) {
