@@ -2,12 +2,65 @@ import { useState } from "react";
 import "./styles.scss";
 import { Box, Button, SvgIcon, Typography } from "@mui/material";
 import TransactionList from '../TransactionList';
-import CustomPagination from '../../../components/CustomPagination'
+import CustomPagination from '../../../components/CustomPagination';
+
 
 
 export default function TransactionHistrory(transactionHistory: any) {
   const [page, setPage] = useState(1);
+  const txnHistory=[{
+    status:'success',
+    createdAt:'11-08-23',
+    totalAmount:2,
+    txnId:'79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1'
+  },
+  {
+    status:'failed',
+    createdAt:'12-08-23',
+    totalAmount:1,
+    txnId:'79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1'
+  },
+  {
+    status:'pending',
+    createdAt:"13-08-23",
+    totalAmount:3,
+    txnId:'79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1'
+  }
+]
 
+function downloadCsv() {
+  const customizeCsv:any = txnHistory.map((item: any) => ({
+    Date: item.createdAt,
+    Status: item.status, 
+    Exchange_Amount: item.totalAmount,
+    TransactionID: item.txnId
+  }));
+
+  console.log("customizeCsv", customizeCsv);
+
+  let csv = "";
+
+  if (customizeCsv.length > 0) {
+    const keys = Object.keys(customizeCsv[0]);
+    csv += keys.join(",") + "\r\n";
+
+    for (let row = 0; row < customizeCsv.length; row++) {
+      const values = keys.map(key => customizeCsv[row][key]);
+      csv += values.join(",") + "\r\n";
+    }
+  }
+
+  console.log('csv', csv);
+
+  // Only execute this code in a browser context
+  if (typeof document !== 'undefined') {
+    const anchor = document.createElement("a");
+    anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+    anchor.target = "_blank";
+    anchor.download = "Transaction_report.csv";
+    anchor.click();
+  }
+}
   return (
     <Box sx={{
       background: (theme) => theme.palette.success.light,
@@ -22,7 +75,7 @@ export default function TransactionHistrory(transactionHistory: any) {
         <Typography sx={{
           fontWeight: 600, fontSize: '18px', color: (theme) => theme.palette.text.primary,
         }}>Transactions</Typography>
-        <Button >
+        <Button onClick={()=>downloadCsv()} >
           <SvgIcon
             width="15"
             height="15"

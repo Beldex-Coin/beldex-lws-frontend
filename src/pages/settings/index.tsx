@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import PreferenceSetting from "./PreferenceSetting";
+import AboutMyBeldex from "./AboutMyBeldex"
 import OutboundIcon from "@mui/icons-material/Outbound";
 const Settings = () => {
   return (
@@ -27,6 +28,7 @@ const Settings = () => {
         }}
       >
         <PreferenceSetting />
+        {/* <AboutMyBeldex /> */}
       </Box>
       {/* <Typography  sx={{color: 'white',fontSize: '20px',textAlign: 'center',fontWeight: 500,margin: '40px'}}>Settings Page</Typography> */}
     </Box>
