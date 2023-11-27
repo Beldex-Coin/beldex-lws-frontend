@@ -6,6 +6,7 @@ export interface SeedDictionary {
 }
 
 export interface seedDetailState {
+    loading?: boolean;
     sec_seed_string: string;
     mnemonic_string: string;
     mnemonic_language: string;
@@ -26,13 +27,17 @@ const initialState: seedDetailState = {
     pub_viewKey_string: '',
     sec_spendKey_string: '',
     pub_spendKey_string: '',
-    isWalletCreated: false
+    isWalletCreated: false,
+    loading: false
 }
 
 const seedDetailSlice = createSlice({
     name: 'seedDetails',
     initialState,
     reducers: {
+        toggleLoading(state: any, action: any) {
+            state.loading = action.payload
+        },
         setSeedDetails(state, action) {
             console.log('----action---', action)
             state.address_string = action.payload.address_string;
@@ -50,7 +55,7 @@ const seedDetailSlice = createSlice({
     }
 })
 
-export const {setSeedDetails} = seedDetailSlice.actions;
+export const {setSeedDetails, toggleLoading} = seedDetailSlice.actions;
 export const seedDetailSelector = (state: RootState) => state.seedDetailReducer;
 
 export default seedDetailSlice.reducer;

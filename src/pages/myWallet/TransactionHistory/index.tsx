@@ -5,7 +5,7 @@ import TransactionList from '../TransactionList';
 import CustomPagination from '../../../components/CustomPagination'
 
 
-export default function TransactionHistrory(transactionHistory: any) {
+export default function TransactionHistory(transactionHistory: any) {
   const [page, setPage] = useState(1);
 
   return (

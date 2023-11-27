@@ -10,17 +10,30 @@ export default function SignInWithKey(props: any) {
   const theme: any = useTheme();
   const navigate = useNavigate();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-  const [userAddress, setUserAddress] = React.useState<any>(() => []);
-  const [userViewKey, setUserViewKey] = React.useState<any>(() => []);
-  const [userSpendKey, setUserSpendKey] = React.useState<any>(() => []);
+  const [userAddress, setUserAddress] = React.useState<any>();
+  const [userViewKey, setUserViewKey] = React.useState<any>();
+  const [userSpendKey, setUserSpendKey] = React.useState<any>();
+  const [showErrMsg, setShowErrMsg] = React.useState<boolean>(false);
+  const [errMsg, setErrMsg] = React.useState<string>('');
+  
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   const dispatch = useAppDispatch();
 
   const validatingInputKeys = () => {
     console.log("userAddress:", userAddress);
     console.log("userViewKey:", userViewKey);
-    console.log("userSpendKey:", userSpendKey)
-    validateComponentsForLogin();
+    console.log("userSpendKey:", userSpendKey);
+    if(userAddress === '' || userAddress === null || userAddress === undefined 
+    || userViewKey === '' || userViewKey === null || userViewKey === undefined 
+    || userSpendKey === '' || userSpendKey === null || userSpendKey === undefined
+    ) {
+      setShowErrMsg(true);
+      setErrMsg("All the fields are required.")
+    }else {
+      setShowErrMsg(false);
+      setErrMsg("")
+      validateComponentsForLogin();
+    }
 
   }
 
@@ -34,23 +47,30 @@ export default function SignInWithKey(props: any) {
         coreBridgeInstance.nettype
       );
       console.log("loginValidate:", loginValidate)
-      if (loginValidate.isValid == false) { // actually don't think we're expecting this..
+      if (loginValidate.isValid === false) { // actually don't think we're expecting this..
         console.log("Invalid input...")
         return
       }
-      const store = {
-        address_string: userAddress,
-        sec_viewKey_string: userViewKey,
-        sec_spendKey_string: userSpendKey
-      }
-      dispatch(setSeedDetails(store));
+      // const store = {
+      //   address_string: userAddress,
+      //   sec_viewKey_string: userViewKey,
+      //   sec_spendKey_string: userSpendKey
+      // }
+      // dispatch(setSeedDetails(store));
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
         console.log('---new_address-', new_address);
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
+        const store = {
+          address_string: userAddress,
+          sec_viewKey_string: userViewKey,
+          sec_spendKey_string: userSpendKey
+        }
+        dispatch(setSeedDetails(store));
+        setShowErrMsg(false);
+        setErrMsg('');
         navigate('/mywallet');
-
 
       }
       coreBridgeInstance.hostedMoneroAPIClient.LogIn(
@@ -60,7 +80,9 @@ export default function SignInWithKey(props: any) {
         loginCB
       );
     } catch (error) {
-      let Error = typeof error === 'string' ? error : '' + error
+      let Error = typeof error === 'string' ? error : '' + error;
+      setShowErrMsg(true);
+      setErrMsg(Error);
       console.log("Error:", Error)
     }
   }
@@ -162,6 +184,12 @@ export default function SignInWithKey(props: any) {
         <Typography color={theme.palette.text.primary} mt={2} textAlign={'center'}>
           or Use the <Typography component={'span'} onClick={() => props.cbFunction(false)} sx={{ fontWeight: 500, color: '#289AFB', textDecoration: 'underline', cursor: 'pointer' }}>or Use the Recovery Seed</Typography>
         </Typography>
+        {showErrMsg && <Typography
+          sx={{ color: "#FF2424", fontWeight: 400, textAlign: "center" }}
+          mt={1}
+        >
+          {errMsg}
+        </Typography>}
         <Box
           sx={{ flexWrap: 'wrap', columnGap: "10px", mt: 2, display: "flex", justifyContent: "center", alignContent: "center" }}
         >

@@ -14,7 +14,9 @@ export default function SignIn() {
   const [showSignWithKey, setShowSignWithKey] = useState(true);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [userMnemonic, setUserMnemonic] = React.useState<any>(() => []);
+  const [userMnemonic, setUserMnemonic] = React.useState<string>('');
+  const [showErrMsg, setShowErrMsg] = React.useState<boolean>(false);
+  const [errMsg, setErrMsg] = React.useState<string>('');
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   const dispatch = useAppDispatch();
 
@@ -24,7 +26,19 @@ export default function SignIn() {
 
   const validatingMnemonic = () => {
     console.log('----user entered seed---', userMnemonic);
-    validateComponentsForLogin();
+    if (userMnemonic === '' || userMnemonic === null || userMnemonic === undefined) {
+      setShowErrMsg(true);
+      setErrMsg('All the fields are required')
+    } else if (userMnemonic.split(' ').length < 25) {
+      setShowErrMsg(true);
+      setErrMsg('Please enter a 25 secret mnemonic.')
+    } else {
+      setShowErrMsg(false);
+      setErrMsg('');
+      validateComponentsForLogin();
+    }
+    //Invalid 25-word mnemonic
+
   }
 
   const validateComponentsForLogin = () => {
@@ -43,7 +57,7 @@ export default function SignIn() {
       validatingMnemonic.mnemonic_string = userMnemonic;
       dispatch(setSeedDetails(validatingMnemonic));
       console.log("loginValidate:", loginValidate)
-      if (loginValidate.isValid == false) { // actually don't think we're expecting this..
+      if (loginValidate.isValid === false) { // actually don't think we're expecting this..
         console.log("Invalid input...")
         return
       }
@@ -64,8 +78,12 @@ export default function SignIn() {
       );
 
     } catch (error) {
-      let Error = typeof error === 'string' ? error : '' + error
-      console.log("Error:", Error)
+      let err = typeof error === 'string' ? error : '' + error;
+      if (err.includes('Invalid 25-word mnemonic')) {
+        setShowErrMsg(true);
+        setErrMsg('The phrase is Invalid!');
+      }
+      console.log("Error:", err)
     }
   }
 
@@ -140,7 +158,7 @@ export default function SignIn() {
               />
             </Box>
           </Box>
-          <Typography sx={{ color: '#FF2424', fontWeight: 400, marginTop: '5px' }}>The phrase is Invalid!</Typography>
+          {showErrMsg && <Typography sx={{ color: '#FF2424', fontWeight: 400, marginTop: '5px' }}>{errMsg}</Typography>}
           <Typography mt={3} textAlign={'center'}>
             or Use the <Typography component={'span'} onClick={() => signWithKey(true)} sx={{ fontWeight: 500, color: '#289AFB', textDecoration: 'underline', cursor: 'pointer' }}>Address and Recovery Keys</Typography>
           </Typography>
