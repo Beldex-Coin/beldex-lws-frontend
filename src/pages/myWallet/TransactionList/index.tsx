@@ -3,7 +3,7 @@ import "./styles.scss";
 import { Box, Button, Typography } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 export default function TransactionList(transactionHistory: any) {
-  const transactions = transactionHistory.transactions.length ? transactionHistory.transactions : [];
+  const transactions = transactionHistory.transactions?.length ? transactionHistory.transactions : [];
 
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
