@@ -1,12 +1,59 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { Box, Button, SvgIcon, Typography } from "@mui/material";
 import TransactionList from '../TransactionList';
-import CustomPagination from '../../../components/CustomPagination'
+import CustomPagination from '../../../components/CustomPagination';
+import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
+import { useSelector } from 'react-redux';
+const pollingPeriodTimeInterval_s = 15;
+
 
 
 export default function TransactionHistory(transactionHistory: any) {
   const [page, setPage] = useState(1);
+  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
+  const [transactionList, setTransaction] = useState([]);
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+
+
+  const getWalletDetails = async () => {
+    try {
+      if (coreBridgeInstance.hostedMoneroAPIClient) {
+        const requestHandle =
+          coreBridgeInstance.hostedMoneroAPIClient.AddressTransactions_returningRequestHandle(
+            walletDetails.address_string,
+            walletDetails.sec_viewKey_string,
+            walletDetails.pub_spendKey_string,
+            walletDetails.sec_spendKey_string,
+            function (
+              err: any,
+              account_scanned_height: any,
+              account_scanned_block_height: any,
+              account_scan_start_height: any,
+              transaction_height: any,
+              blockchain_height: any,
+              transactions: any
+            ) {
+              console.log("err:", err);
+              console.log("Transaction_History:", transactions);
+              setTransaction(transactions)
+            }
+          );
+      }
+    } catch (err) {
+      console.log("errr:", err);
+    }
+  };
+
+  useEffect(() => {
+    getWalletDetails();
+    const intervalTimeout = setInterval(function () {
+      getWalletDetails();
+    }, pollingPeriodTimeInterval_s * 1000 /* ms */);
+    return () => {
+      clearInterval(intervalTimeout);
+    };
+  }, []);
 
   return (
     <Box sx={{
@@ -42,7 +89,7 @@ export default function TransactionHistory(transactionHistory: any) {
         </Button>
       </Box>
       <Box>
-        <TransactionList transactions={transactionHistory.transaction} />
+        <TransactionList transactions={transactionList} />
       </Box>
       <CustomPagination />
     </Box>
