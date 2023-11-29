@@ -61,9 +61,10 @@ function App() {
     }, context);
     beldex_utils.set_Utils_data(context);
   }
-  console.log("beldex_utils:", beldex_utils)
+  // console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
+   
   }, [])
 
   const theme = React.useMemo(() => createTheme(mode === "light" ? lightTheme : darkTheme), [mode]);

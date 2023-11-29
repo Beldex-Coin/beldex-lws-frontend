@@ -11,7 +11,6 @@ const JSBigInt = require('@bdxi/beldex-bigint').BigInteger;
 const beldex_amount_format_utils = require('@bdxi/beldex-money-format')
 const pollingPeriodTimeInterval_s = 15;
 
-
 export default function Balance() {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
@@ -125,8 +124,8 @@ export default function Balance() {
             className="currency"
             sx={{
               fontWeight: 600, fontSize: "1.3rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
-              marginLight: '5px',
-              marginReft: '5px',
+              marginRight: '5px',
+              marginLeft: '5px',
             }}
           >
             BDX

@@ -1,21 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.scss";
 import { Box, Button, SvgIcon, Typography } from "@mui/material";
-import TransactionList from '../TransactionList';
-import CustomPagination from '../../../components/CustomPagination';
+const extend = require('util')._extend
+const monero_txParsing_utils = require('@bdxi/beldex-tx-parsing-utils')
+import TransactionList from "../TransactionList";
+import CustomPagination from "../../../components/CustomPagination";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import TransactionDetails from "./../TransactionDetails";
+
 const pollingPeriodTimeInterval_s = 15;
 
-
-
-export default function TransactionHistory(transactionHistory: any) {
+export default function TransactionHistory() {
   const [page, setPage] = useState(1);
-  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
-  const [transactionList, setTransaction] = useState([]);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+  const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
+  const [transactionHistory, setTransactionHistory] = React.useState<any>(
+    () => []
+  );
+  const [transactionDetails, setTransactionDetails] = React.useState<any>(
+    () => []
+  );
+ 
+ function  New_StateCachedTransactions (transactions:any,account_scanned_height:any,blockchain_height:number) {	// this function is preferred for public access
+    // as it caches the derivations of the above accessors.
+    // these things could maybe be derived on reception from API instead of on each access
+    
+    const transaction = transactions || []
+    // console.log("New_StateCachedTransactions ::",transaction)
+    const stateCachedTransactions = [] // to finalize
+    const transactions_length = transaction.length
+    for (let i = 0; i < transactions_length; i++) {
+      stateCachedTransactions.push(New_StateCachedTransaction(transaction[i],account_scanned_height,blockchain_height))
+    }
+    // console.log("New_StateCachedTransactions 2::",stateCachedTransactions)
 
+    //
+    return stateCachedTransactions
+  }
+ function  New_StateCachedTransaction (transaction:any,account_scanned_height:any,blockchain_height:number) {
+  
+    const shallowCopyOf_transaction = extend({}, transaction)
+    shallowCopyOf_transaction.isConfirmed = IsTransactionConfirmed(transaction,account_scanned_height)
+    shallowCopyOf_transaction.isUnlocked = IsTransactionUnlocked(transaction,blockchain_height)
+    shallowCopyOf_transaction.lockedReason = TransactionLockedReason(transaction,blockchain_height)
+    if (shallowCopyOf_transaction.isConfirmed && shallowCopyOf_transaction.isFailed) {
+      // throw "Unexpected isFailed && isConfirmed"
+    }
+    //
+    return shallowCopyOf_transaction
+  }
+  function IsTransactionConfirmed (tx:any,account_scanned_height:any) {
+   
+    const blockchain_height =account_scanned_height
+    // const blockchain_height = blockchainHeight
 
+    //
+    // console.log('IsTransactionConfirmed',blockchain_height)
+    return monero_txParsing_utils.IsTransactionConfirmed(tx, blockchain_height);
+  }
+
+ function  IsTransactionUnlocked (tx:any,blockchain_height:number) {
+    //
+    return monero_txParsing_utils.IsTransactionUnlocked(tx, blockchain_height);
+  }
+
+  function TransactionLockedReason (tx:any,blockchain_height:number) { 
+   //
+    return monero_txParsing_utils.TransactionLockedReason(tx, blockchain_height);
+  }
   const getWalletDetails = async () => {
     try {
       if (coreBridgeInstance.hostedMoneroAPIClient) {
@@ -34,9 +87,16 @@ export default function TransactionHistory(transactionHistory: any) {
               blockchain_height: any,
               transactions: any
             ) {
+             
               console.log("err:", err);
-              console.log("Transaction_History:", transactions);
-              setTransaction(transactions)
+              // console.log("Transaction_History:", transactions);
+              // console.log("account_scanned_height",account_scanned_height)
+              
+              
+              let customizeTxn=  New_StateCachedTransactions(transactions,account_scanned_height,blockchain_height)
+              // console.log("Transaction_History2:", customizeTxn);
+
+              setTransactionHistory(customizeTxn);
             }
           );
       }
@@ -55,21 +115,32 @@ export default function TransactionHistory(transactionHistory: any) {
     };
   }, []);
 
+  // console.log("transactionDetailstransactionDetails",transactionDetails.length>0)
   return (
-    <Box sx={{
-      background: (theme) => theme.palette.success.light,
-      padding: '20px', borderRadius: '20px'
-    }} mt={2}>
+    <Box
+      sx={{
+        background: (theme) => theme.palette.success.light,
+        padding: "20px",
+        borderRadius: "20px",
+      }}
+      mt={2}
+    >
       <Box
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
       >
-        <Typography sx={{
-          fontWeight: 600, fontSize: '18px', color: (theme) => theme.palette.text.primary,
-        }}>Transactions</Typography>
-        <Button >
+        <Typography
+          sx={{
+            fontWeight: 600,
+            fontSize: "18px",
+            color: (theme) => theme.palette.text.primary,
+          }}
+        >
+          Transactions
+        </Typography>
+        <Button>
           <SvgIcon
             width="15"
             height="15"
@@ -85,13 +156,29 @@ export default function TransactionHistory(transactionHistory: any) {
               strokeWidth="0.5"
             />
           </SvgIcon>
-          <Typography ml={1} sx={{ fontWeight: 600, color: (theme) => theme.palette.text.primary }}>Export CSV</Typography>
+          <Typography
+            ml={1}
+            sx={{
+              fontWeight: 600,
+              color: (theme) => theme.palette.text.primary,
+            }}
+          >
+            Export CSV
+          </Typography>
         </Button>
       </Box>
-      <Box>
-        <TransactionList transactions={transactionList} />
-      </Box>
-      <CustomPagination />
+      
+      {transactionDetails.length > 0 ? (
+        
+        <TransactionDetails  transactionDetails={transactionDetails} setTransactionDetails={(val:any)=>setTransactionDetails(val)} />
+      ) : (
+        <>
+          <Box>
+            <TransactionList transactions={transactionHistory}  setTransactionDetails={(val:any)=>setTransactionDetails(val)} />
+          </Box>
+          <CustomPagination />
+        </>
+      )}
     </Box>
   );
 }
