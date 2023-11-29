@@ -15,48 +15,30 @@ import { useSelector } from "react-redux";
 export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
-  // const log = useSelector((state: any) =>
-  //   console.log("logloglog ::", state.seedDetailReducer)
-  // );
   const [seedVisible, setSeedVisible] = useState(false);
-  // let address =
-  //   "bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6";
-  // function addEllipse(text: string) {
-  //   return text.slice(0, 20) + "...";
-  // }
   async function copyText(text: string) {
     navigator.clipboard.writeText(text);
-    // await new Wallet().Login();
   }
+
   return (
     <Box
       className="WalletAddressAndKeys"
       sx={{
         marginTop: "20px",
-        // color: #fff,
         padding: "20px",
         borderRadius: "20px",
         backgroundColor: (theme) => theme.palette.background.default,
       }}
     >
-      {/* <Accordion sx={{backgroundColor: "#1C1C26" }} > */}
-      {/* <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          sx={{ backgroundColor: "#1C1C26", color: "white" }}
-        > */}
       <Box
         sx={{
           width: "100%",
           color: "white",
-
           display: "flex",
           justifyContent: "space-between",
           position: "relative",
           flexDirection: "row",
         }}
-        // mt={2}
       >
         <Box className={!seedVisible ? "address-wrapper" : ""}>
           <Typography
@@ -70,29 +52,16 @@ export default function WalletAddressAndKeys() {
             }
             sx={{
               color: (theme) => theme.palette.text.secondary,
-              // wordBreak: "break-all",
-              // fontWeight: 400,
-              // width: "85%",
             }}
           >
             {walletDetails.address_string}
           </Typography>
-          {/* <ContentCopyIcon
-            className="copyIcon"
-            sx={{ fontSize: "1.4rem" }}
-          ></ContentCopyIcon>
-
-          <ArrowRightIcon
-            sx={{ fill: "#8787A8", cursor: "pointer" }}
-            className={seedVisible ? "rotate" : ""}
-            onClick={() => setSeedVisible(!seedVisible)}
-          /> */}
         </Box>
         <Box display="flex" flexDirection="row">
           <ContentCopyIcon
             onClick={() => copyText(walletDetails.address_string)}
             className="copyIcon"
-            sx={{ fontSize: "1.4rem",cursor:'pointer' }}
+            sx={{ fontSize: "1.4rem", cursor: 'pointer' }}
           ></ContentCopyIcon>
 
           <ArrowRightIcon
@@ -103,8 +72,6 @@ export default function WalletAddressAndKeys() {
         </Box>
       </Box>
 
-      {/* </AccordionSummary> */}
-      {/* <AccordionDetails  sx={{ backgroundColor: "#1C1C26", color: "white" }}> */}
       <Box className={!seedVisible ? "d-none" : "d-block"}>
         <Box
           display="flex"
@@ -135,7 +102,7 @@ export default function WalletAddressAndKeys() {
             <ContentCopyIcon
               onClick={() => copyText(walletDetails.sec_viewKey_string)}
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px",cursor:'pointer' }}
+              sx={{ fontSize: "1.4rem", marginRight: "20px", cursor: 'pointer' }}
             ></ContentCopyIcon>
           </Box>
         </Box>
@@ -169,7 +136,7 @@ export default function WalletAddressAndKeys() {
             <ContentCopyIcon
               onClick={() => copyText(walletDetails.sec_spendKey_string)}
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px",cursor:'pointer' }}
+              sx={{ fontSize: "1.4rem", marginRight: "20px", cursor: 'pointer' }}
             ></ContentCopyIcon>
           </Box>
         </Box>
@@ -203,7 +170,7 @@ export default function WalletAddressAndKeys() {
             <ContentCopyIcon
               onClick={() => copyText(walletDetails.mnemonic_string)}
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px",cursor:'pointer' }}
+              sx={{ fontSize: "1.4rem", marginRight: "20px", cursor: 'pointer' }}
             ></ContentCopyIcon>
           </Box>
         </Box>

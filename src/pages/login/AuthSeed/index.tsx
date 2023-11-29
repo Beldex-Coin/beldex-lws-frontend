@@ -18,6 +18,8 @@ import { useLocation } from 'react-router-dom';
 import { seedDetailSelector, seedDetailState } from "../../../stores/features/seedDetailSlice";
 import { useAppSelector } from "../../../stores/hooks";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
+import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
+import { useAppDispatch } from "../../../stores/hooks";
 
 
 export default function AuthSeed() {
@@ -30,6 +32,7 @@ export default function AuthSeed() {
   const [userMnemonic, setUserMnemonic] = React.useState<any>(() => []);
   const [hideTryAgainCont, setHideTryAgainCont] = useState<boolean>(true);
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
+  const dispatch = useAppDispatch();
 
   const handleSeedList = (
     event: React.MouseEvent<HTMLElement>,
@@ -39,26 +42,19 @@ export default function AuthSeed() {
   };
 
   useEffect(() => {
-    console.log('---seedDetails---', seedDetails);
     setMnemonicSeed(seedDetails.mnemonic_string);
   }, [seedDetails]);
 
   useEffect(() => {
     if (mnemonicSeed) {
       const seedButtonList: any = mnemonicSeed.split(' ').slice(0, 7).sort();
-      console.log('-seedButtonList--', seedButtonList);
       setToggleList(seedButtonList);
     }
   }, [mnemonicSeed])
 
   const verifyUserEnteredSeed = () => {
-    console.log('----user entered seed---', userMnemonic);
     const seedList = mnemonicSeed.split(' ').slice(0, 7);
-    console.log('-mnemonicSeed--', seedList);
-
     const checkUserSeedValid = userMnemonic.every((val: string, index: number) => val === seedList[index]);
-    console.log('----', checkUserSeedValid)
-
     setHideTryAgainCont(checkUserSeedValid);
     validateComponentsForLogin(seedDetails);
   }
@@ -76,6 +72,7 @@ export default function AuthSeed() {
         console.log("Invalid input...")
         return
       }
+      dispatch(setSeedDetails(seedData));
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
         console.log('---new_address-', new_address);
@@ -91,7 +88,7 @@ export default function AuthSeed() {
         loginCB
       );
     } catch (error) {
-      // error are throwing
+      // error is are throwing
       let Error = typeof error === 'string' ? error : '' + error
       console.log("Error:", Error)
     }
