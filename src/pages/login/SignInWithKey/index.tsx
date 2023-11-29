@@ -15,21 +15,18 @@ export default function SignInWithKey(props: any) {
   const [userSpendKey, setUserSpendKey] = React.useState<any>();
   const [showErrMsg, setShowErrMsg] = React.useState<boolean>(false);
   const [errMsg, setErrMsg] = React.useState<string>('');
-  
+
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   const dispatch = useAppDispatch();
 
   const validatingInputKeys = () => {
-    console.log("userAddress:", userAddress);
-    console.log("userViewKey:", userViewKey);
-    console.log("userSpendKey:", userSpendKey);
-    if(userAddress === '' || userAddress === null || userAddress === undefined 
-    || userViewKey === '' || userViewKey === null || userViewKey === undefined 
-    || userSpendKey === '' || userSpendKey === null || userSpendKey === undefined
+    if (userAddress === '' || userAddress === null || userAddress === undefined
+      || userViewKey === '' || userViewKey === null || userViewKey === undefined
+      || userSpendKey === '' || userSpendKey === null || userSpendKey === undefined
     ) {
       setShowErrMsg(true);
       setErrMsg("All the fields are required.")
-    }else {
+    } else {
       setShowErrMsg(false);
       setErrMsg("")
       validateComponentsForLogin();
@@ -46,31 +43,27 @@ export default function SignInWithKey(props: any) {
         '', //seed expects string
         coreBridgeInstance.nettype
       );
-      console.log("loginValidate:", loginValidate)
       if (loginValidate.isValid === false) { // actually don't think we're expecting this..
         console.log("Invalid input...")
         return
       }
-      // const store = {
-      //   address_string: userAddress,
-      //   sec_viewKey_string: userViewKey,
-      //   sec_spendKey_string: userSpendKey
-      // }
-      // dispatch(setSeedDetails(store));
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
         console.log('---new_address-', new_address);
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
-        const store = {
-          address_string: userAddress,
-          sec_viewKey_string: userViewKey,
-          sec_spendKey_string: userSpendKey
-        }
-        dispatch(setSeedDetails(store));
-        setShowErrMsg(false);
-        setErrMsg('');
-        navigate('/mywallet');
+          const store = {
+            address_string: userAddress,
+            sec_viewKey_string: userViewKey,
+            sec_spendKey_string: userSpendKey,
+            mnemonic_string: 'N/A',
+            pub_spendKey_string:loginValidate.pub_spendKey_string,
+            pub_viewKey_string:loginValidate.pub_viewKey_string
+          }
+          dispatch(setSeedDetails(store));
+          setShowErrMsg(false);
+          setErrMsg('');
+          navigate('/mywallet');
 
       }
       coreBridgeInstance.hostedMoneroAPIClient.LogIn(
@@ -91,10 +84,6 @@ export default function SignInWithKey(props: any) {
     <Box
       className="SignInWithKey"
       sx={{
-        // display: "flex",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // width: "100%",
         padding: isMobileMode ? "25px" : '30px 45px',
         height: 'calc(100vh - 110px)',
         overflow: 'auto'
@@ -102,8 +91,6 @@ export default function SignInWithKey(props: any) {
     >
       <Box
         sx={{
-          // minWidth: "70%",
-          // maxWidth: "95%",
           padding: isMobileMode ? "15px" : "20px 50px",
           backgroundColor: (theme) => theme.palette.primary.light,
           borderRadius: "20px",
@@ -153,8 +140,6 @@ export default function SignInWithKey(props: any) {
               padding: "0 20px",
               borderRadius: "18px",
               overflow: "auto",
-
-              //   marginTop: "10px",
             }}
           />
         </Box>
