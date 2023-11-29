@@ -4,23 +4,44 @@ import "./styles.scss";
 import OutboundIcon from "@mui/icons-material/Outbound";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useTheme } from "@emotion/react";
+const beldex_amount_format_utils = require('@bdxi/beldex-money-format')
 
 
-export default function TransactionDetails() {
+export default function TransactionDetails(props:any) {
   const theme:any = useTheme();
+  const {transactionDetails,setTransactionDetails}=props
+  const amount = beldex_amount_format_utils.formatMoney(transactionDetails[0].amount);
+  const status=transactionDetails[0].approx_float_amount < 0 ?'Sent':"Receive"
+  console.log('prop propps ::',props.transactionDetails)
+  const dateString = (dateVal: any) => {
+    const date = new Date(dateVal);
+    return date.toLocaleDateString(
+      'en-US'/* for now */,
+      { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }
+    ).toUpperCase();
+  }
+  async function copyText(text: string) {
+    navigator.clipboard.writeText(text);
+    // await new Wallet().Login();
+   
+  }
   return (
-    <Box className="transactionDetails" mt={3} sx={{background:(theme) => theme.palette.success.main}}>
+    <Box className="transactionDetails" mt={3} 
+    // sx={{background:(theme) => theme.palette.success.main}}
+    >
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Box display="flex" flexDirection="row" alignItems="center">
           <OutboundIcon
             sx={{ transform: "rotate(225deg)", fontSize: "2rem",cursor:'pointer' }}
+            onClick={()=>setTransactionDetails([])}
           />
           <Typography ml={1} sx={{ fontWeight: 600 }}>Details</Typography>
         </Box>
-        <Typography sx={{ fontWeight: 600, color: "#FC2727" }}>
-          -2 BDX
+        <Typography sx={{ fontWeight: 600, color:status==="Sent"? "#FC2727":"#20D030" }}>
+        {/* {transactionDetails[0].total_received/1e9} BDX */}
+        {amount} BDX
         </Typography>
-        <Typography sx={{ fontWeight: 400,  }}>Sent</Typography>
+        <Typography sx={{ fontWeight: 400,  }}>{status}</Typography>
       </Box>
 
       <Box
@@ -40,7 +61,7 @@ export default function TransactionDetails() {
         </Typography>
 
         <Typography sx={{ fontSize: "16px", fontWeight: 400 }}>
-          Jan 11, 2023, 2:02:53 PM
+         {dateString(transactionDetails[0].timestamp)}
         </Typography>
       </Box>
       <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
@@ -62,9 +83,10 @@ export default function TransactionDetails() {
         </Typography>
 
         <Typography
-          sx={{ fontSize: "16px", fontWeight: 600, color: "#FC2727" }}
+          sx={{ fontSize: "16px", fontWeight: 600, color:status==="Sent"? "#FC2727":"#20D030" }}
         >
-          -2 BDX
+             {/* {transactionDetails[0].total_received/1e9} BDX */}
+             { amount } BDX
         </Typography>
       </Box>
       <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
@@ -127,12 +149,13 @@ export default function TransactionDetails() {
               wordBreak:'break-word'
             }}
           >
-            79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1
+            {transactionDetails[0].hash}
           </Typography>
         </Box>
 
-        <ContentCopyIcon
-          sx={{ fontSize: "1.4rem", fill: "#20D030" }}
+        <ContentCopyIcon 
+          sx={{ fontSize: "1.4rem", fill: "#20D030",cursor:'pointer' }}
+          onClick={()=>copyText(transactionDetails[0].hash)}
         ></ContentCopyIcon>
       </Box>
       <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>

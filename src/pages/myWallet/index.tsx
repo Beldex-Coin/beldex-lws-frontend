@@ -23,7 +23,7 @@ const MyWallet = () => {
         {/* <Typography>Left Panel - Balance, address and list</Typography> */}
         <Balance />
         <WalletAddressAndKeys />
-        <TransactionHistory />
+        <TransactionHistory  />
         {/* <TransactionDetails/> */}
       </Box>
       <Box sx={{ minWidth: '320px', background: (theme) => theme.palette.success.main, borderRadius: '25px' }}>

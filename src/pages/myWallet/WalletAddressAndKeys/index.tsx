@@ -6,6 +6,7 @@ import { Box, useMediaQuery, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useTheme } from "@emotion/react";
+import { useSelector } from "react-redux";
 // import Accordion from "@mui/material/Accordion";
 // import AccordionSummary from "@mui/material/AccordionSummary";
 // import AccordionDetails from "@mui/material/AccordionDetails";
@@ -13,11 +14,19 @@ import { useTheme } from "@emotion/react";
 
 export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+  // const log = useSelector((state: any) =>
+  //   console.log("logloglog ::", state.seedDetailReducer)
+  // );
   const [seedVisible, setSeedVisible] = useState(false);
-  let address =
-    "bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6";
-  function addEllipse(text: string) {
-    return text.slice(0, 20) + "...";
+  // let address =
+  //   "bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6";
+  // function addEllipse(text: string) {
+  //   return text.slice(0, 20) + "...";
+  // }
+  async function copyText(text: string) {
+    navigator.clipboard.writeText(text);
+    // await new Wallet().Login();
   }
   return (
     <Box
@@ -66,8 +75,7 @@ export default function WalletAddressAndKeys() {
               // width: "85%",
             }}
           >
-            bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6
-            {/* {!seedVisible ? addEllipse(address) : address} */}
+            {walletDetails.address_string}
           </Typography>
           {/* <ContentCopyIcon
             className="copyIcon"
@@ -82,8 +90,9 @@ export default function WalletAddressAndKeys() {
         </Box>
         <Box display="flex" flexDirection="row">
           <ContentCopyIcon
+            onClick={() => copyText(walletDetails.address_string)}
             className="copyIcon"
-            sx={{ fontSize: "1.4rem" }}
+            sx={{ fontSize: "1.4rem",cursor:'pointer' }}
           ></ContentCopyIcon>
 
           <ArrowRightIcon
@@ -94,7 +103,6 @@ export default function WalletAddressAndKeys() {
         </Box>
       </Box>
 
-      
       {/* </AccordionSummary> */}
       {/* <AccordionDetails  sx={{ backgroundColor: "#1C1C26", color: "white" }}> */}
       <Box className={!seedVisible ? "d-none" : "d-block"}>
@@ -120,13 +128,14 @@ export default function WalletAddressAndKeys() {
               }}
               mt={1}
             >
-              bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6
+              {walletDetails.sec_viewKey_string}
             </Typography>
           </Box>
           <Box>
             <ContentCopyIcon
+              onClick={() => copyText(walletDetails.sec_viewKey_string)}
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px" }}
+              sx={{ fontSize: "1.4rem", marginRight: "20px",cursor:'pointer' }}
             ></ContentCopyIcon>
           </Box>
         </Box>
@@ -153,13 +162,14 @@ export default function WalletAddressAndKeys() {
               }}
               mt={1}
             >
-              bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6bxcALKJHSakhdsadhaskdhHHHDJADHUAWasasgjhrewrb6
+              {walletDetails.sec_spendKey_string}
             </Typography>
           </Box>
           <Box>
             <ContentCopyIcon
+              onClick={() => copyText(walletDetails.sec_spendKey_string)}
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px" }}
+              sx={{ fontSize: "1.4rem", marginRight: "20px",cursor:'pointer' }}
             ></ContentCopyIcon>
           </Box>
         </Box>
@@ -186,15 +196,14 @@ export default function WalletAddressAndKeys() {
               }}
               mt={1}
             >
-              inflamed dehydrate adhesive bawled vegan mice aztec prying oozed
-              seismic video cider sixteen sleepless snug ripped snout rover
-              onward wetsuit vane lakes viking volcano sleep
+              {walletDetails.mnemonic_string}
             </Typography>
           </Box>
           <Box>
             <ContentCopyIcon
+              onClick={() => copyText(walletDetails.mnemonic_string)}
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px" }}
+              sx={{ fontSize: "1.4rem", marginRight: "20px",cursor:'pointer' }}
             ></ContentCopyIcon>
           </Box>
         </Box>
