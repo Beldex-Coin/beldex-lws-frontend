@@ -44,9 +44,6 @@ export default function SignIn() {
   const validateComponentsForLogin = () => {
     try {
       const validatingMnemonic = coreBridgeInstance.beldex_utils.seed_and_keys_from_mnemonic(userMnemonic, coreBridgeInstance.nettype);
-      console.log("ret:", validatingMnemonic)
-
-      console.log("validatingMnemonic:", validatingMnemonic)
       const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
         validatingMnemonic.address_string,
         validatingMnemonic.sec_viewKey_string,
@@ -55,8 +52,9 @@ export default function SignIn() {
         coreBridgeInstance.nettype
       );
       validatingMnemonic.mnemonic_string = userMnemonic;
+      validatingMnemonic.pub_spendKey_string = loginValidate.pub_spendKey_string;
+      validatingMnemonic.pub_viewKey_string = loginValidate.pub_viewKey_string;
       dispatch(setSeedDetails(validatingMnemonic));
-      console.log("loginValidate:", loginValidate)
       if (loginValidate.isValid === false) { // actually don't think we're expecting this..
         console.log("Invalid input...")
         return
