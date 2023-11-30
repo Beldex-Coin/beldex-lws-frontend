@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./styles.scss";
-import { Box, Button, SvgIcon, Typography } from "@mui/material";
-const extend = require('util')._extend
-const monero_txParsing_utils = require('@bdxi/beldex-tx-parsing-utils')
+import { Box, Button, SvgIcon, Typography, useMediaQuery } from "@mui/material";
+const extend = require("util")._extend;
+const monero_txParsing_utils = require("@bdxi/beldex-tx-parsing-utils");
 import TransactionList from "../TransactionList";
 import CustomPagination from "../../../components/CustomPagination";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useSelector } from "react-redux";
 import TransactionDetails from "./../TransactionDetails";
+import { useTheme } from "@emotion/react";
 
 const pollingPeriodTimeInterval_s = 15;
 
 export default function TransactionHistory() {
+  const theme: any = useTheme();
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [page, setPage] = useState(1);
+
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   const [transactionHistory, setTransactionHistory] = React.useState<any>(
@@ -21,38 +25,66 @@ export default function TransactionHistory() {
   const [transactionDetails, setTransactionDetails] = React.useState<any>(
     () => []
   );
- 
- function  New_StateCachedTransactions (transactions:any,account_scanned_height:any,blockchain_height:number) {	// this function is preferred for public access
+  const [pagenatedTxnHistory, setPagenatedTxnHistory] = React.useState<any>(
+    () => []
+  );
+
+    const  New_StateCachedTransactions=(
+    transactions: any,
+    account_scanned_height: any,
+    blockchain_height: number
+  ) =>{
+    // this function is preferred for public access
     // as it caches the derivations of the above accessors.
     // these things could maybe be derived on reception from API instead of on each access
-    
-    const transaction = transactions || []
+
+    const transaction = transactions || [];
     // console.log("New_StateCachedTransactions ::",transaction)
-    const stateCachedTransactions = [] // to finalize
-    const transactions_length = transaction.length
+    const stateCachedTransactions = []; // to finalize
+    const transactions_length = transaction.length;
     for (let i = 0; i < transactions_length; i++) {
-      stateCachedTransactions.push(New_StateCachedTransaction(transaction[i],account_scanned_height,blockchain_height))
+      stateCachedTransactions.push(
+        New_StateCachedTransaction(
+          transaction[i],
+          account_scanned_height,
+          blockchain_height
+        )
+      );
     }
     // console.log("New_StateCachedTransactions 2::",stateCachedTransactions)
 
     //
-    return stateCachedTransactions
+    return stateCachedTransactions;
   }
- function  New_StateCachedTransaction (transaction:any,account_scanned_height:any,blockchain_height:number) {
-  
-    const shallowCopyOf_transaction = extend({}, transaction)
-    shallowCopyOf_transaction.isConfirmed = IsTransactionConfirmed(transaction,account_scanned_height)
-    shallowCopyOf_transaction.isUnlocked = IsTransactionUnlocked(transaction,blockchain_height)
-    shallowCopyOf_transaction.lockedReason = TransactionLockedReason(transaction,blockchain_height)
-    if (shallowCopyOf_transaction.isConfirmed && shallowCopyOf_transaction.isFailed) {
+  const  New_StateCachedTransaction=(
+    transaction: any,
+    account_scanned_height: any,
+    blockchain_height: number
+  )=>{
+    const shallowCopyOf_transaction = extend({}, transaction);
+    shallowCopyOf_transaction.isConfirmed = IsTransactionConfirmed(
+      transaction,
+      account_scanned_height
+    );
+    shallowCopyOf_transaction.isUnlocked = IsTransactionUnlocked(
+      transaction,
+      blockchain_height
+    );
+    shallowCopyOf_transaction.lockedReason = TransactionLockedReason(
+      transaction,
+      blockchain_height
+    );
+    if (
+      shallowCopyOf_transaction.isConfirmed &&
+      shallowCopyOf_transaction.isFailed
+    ) {
       // throw "Unexpected isFailed && isConfirmed"
     }
     //
-    return shallowCopyOf_transaction
+    return shallowCopyOf_transaction;
   }
-  function IsTransactionConfirmed (tx:any,account_scanned_height:any) {
-   
-    const blockchain_height =account_scanned_height
+  const IsTransactionConfirmed=(tx: any, account_scanned_height: any)=>{
+    const blockchain_height = account_scanned_height;
     // const blockchain_height = blockchainHeight
 
     //
@@ -60,14 +92,17 @@ export default function TransactionHistory() {
     return monero_txParsing_utils.IsTransactionConfirmed(tx, blockchain_height);
   }
 
- function  IsTransactionUnlocked (tx:any,blockchain_height:number) {
+  const IsTransactionUnlocked=(tx: any, blockchain_height: number)=>{
     //
     return monero_txParsing_utils.IsTransactionUnlocked(tx, blockchain_height);
   }
 
-  function TransactionLockedReason (tx:any,blockchain_height:number) { 
-   //
-    return monero_txParsing_utils.TransactionLockedReason(tx, blockchain_height);
+  const TransactionLockedReason=(tx: any, blockchain_height: number)=>{
+    //
+    return monero_txParsing_utils.TransactionLockedReason(
+      tx,
+      blockchain_height
+    );
   }
   const getWalletDetails = async () => {
     try {
@@ -87,22 +122,36 @@ export default function TransactionHistory() {
               blockchain_height: any,
               transactions: any
             ) {
-             
               console.log("err:", err);
               // console.log("Transaction_History:", transactions);
               // console.log("account_scanned_height",account_scanned_height)
-              
-              
-              let customizeTxn=  New_StateCachedTransactions(transactions,account_scanned_height,blockchain_height)
+
+              let customizeTxn = New_StateCachedTransactions(
+                transactions,
+                account_scanned_height,
+                blockchain_height
+              );
               // console.log("Transaction_History2:", customizeTxn);
 
               setTransactionHistory(customizeTxn);
+              isMobileMode && calcPageCount(customizeTxn);
             }
           );
       }
     } catch (err) {
       console.log("errr:", err);
     }
+  };
+  const calcPageCount = (customizeTxn: any) => {
+    const len = customizeTxn?.length;
+    const pagenatedArray = [];
+
+    for (let start = 0; start < len; start += 5) {
+      const slicedArray = customizeTxn.slice(start, start + 5);
+      pagenatedArray.push(slicedArray);
+    }
+    console.log('costomized::',pagenatedArray)
+    setPagenatedTxnHistory(pagenatedArray);
   };
 
   useEffect(() => {
@@ -122,10 +171,20 @@ export default function TransactionHistory() {
         background: (theme) => theme.palette.success.light,
         padding: "20px",
         borderRadius: "20px",
+        height:isMobileMode?"592px" :'545px',
       }}
       mt={2}
     >
-      <Box
+      
+
+      {transactionDetails.length > 0 ? (
+        <TransactionDetails
+          transactionDetails={transactionDetails}
+          setTransactionDetails={(val: any) => setTransactionDetails(val)}
+        />
+      ) : (
+        <>
+        <Box
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
@@ -167,16 +226,29 @@ export default function TransactionHistory() {
           </Typography>
         </Button>
       </Box>
-      
-      {transactionDetails.length > 0 ? (
-        
-        <TransactionDetails  transactionDetails={transactionDetails} setTransactionDetails={(val:any)=>setTransactionDetails(val)} />
-      ) : (
-        <>
-          <Box>
-            <TransactionList transactions={transactionHistory}  setTransactionDetails={(val:any)=>setTransactionDetails(val)} />
+          <Box mt={2}
+            sx={{
+              height:isMobileMode?'85%':"90%",
+              overflowY: "auto",
+              padding: "0 10px",
+            }}
+          >
+            <TransactionList
+              transactions={
+                isMobileMode
+                  ? pagenatedTxnHistory[page - 1]
+                  : transactionHistory
+              }
+              setTransactionDetails={(val: any) => setTransactionDetails(val)}
+            />
           </Box>
-          <CustomPagination />
+          {isMobileMode && transactionHistory.length>0 && (
+            <CustomPagination
+              pagenatedTxnHistory={pagenatedTxnHistory}
+              page={page}
+              setPage={(val: any) => setPage(val)}
+            />
+          )}
         </>
       )}
     </Box>
