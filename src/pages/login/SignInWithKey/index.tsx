@@ -49,21 +49,26 @@ export default function SignInWithKey(props: any) {
       }
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
+        if (login__err) { // already logged
+          console.log("login__err:", login__err);
+          return;
+        }
         console.log('---new_address-', new_address);
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
-          const store = {
-            address_string: userAddress,
-            sec_viewKey_string: userViewKey,
-            sec_spendKey_string: userSpendKey,
-            mnemonic_string: 'N/A',
-            pub_spendKey_string:loginValidate.pub_spendKey_string,
-            pub_viewKey_string:loginValidate.pub_viewKey_string
-          }
-          dispatch(setSeedDetails(store));
-          setShowErrMsg(false);
-          setErrMsg('');
-          navigate('/mywallet');
+    
+        const store = {
+          address_string: userAddress,
+          sec_viewKey_string: userViewKey,
+          sec_spendKey_string: userSpendKey,
+          mnemonic_string: 'N/A',
+          pub_spendKey_string: loginValidate.pub_spendKey_string,
+          pub_viewKey_string: loginValidate.pub_viewKey_string
+        }
+        dispatch(setSeedDetails(store));
+        setShowErrMsg(false);
+        setErrMsg('');
+        navigate('/mywallet');
 
       }
       coreBridgeInstance.hostedMoneroAPIClient.LogIn(

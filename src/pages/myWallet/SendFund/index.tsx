@@ -198,11 +198,8 @@ const SendFund = () => {
       resolvedPaymentID_fieldIsVisible: false,
       is_sweeping: isSweepTx,
       from_address_string: walletDetails.address_string,
-
       sec_viewKey_string: walletDetails.sec_viewKey_string,
-
       sec_spendKey_string: walletDetails.sec_spendKey_string,
-
       pub_spendKey_string: walletDetails.pub_spendKey_string,
       priority: priority,
       nettype:parseInt(netType),
