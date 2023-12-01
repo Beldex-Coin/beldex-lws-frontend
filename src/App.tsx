@@ -15,7 +15,7 @@ import RouteList from './routers';
 const mnemonic_languages = require('@bdxi/beldex-locales');
 const appBridge = require('@bdxi/beldex-app-bridge');
 const HostedMoneroAPIClient = require('@bdxi/beldex-hosted-api')
-const BackgroundAPIResponseParser = require('@bdxi/beldex-response-parser-utils')
+const BackgroundAPIResponseParser = require('@bdxi/beldex-response-parser-utils');
 
 function App() {
   const [mode, setMode] = React.useState<PaletteMode>("dark");

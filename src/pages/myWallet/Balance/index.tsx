@@ -44,6 +44,10 @@ export default function Balance() {
             transaction_height: any,
             blockchain_height: any,
             ratesBySymbol: any) {
+            if (err) { // already logged
+              console.log("err:", err);
+              return;
+            }
             setLockedBalance(locked_balance);
             setTotalSent(total_sent);
             setTotalReceived(total_received);

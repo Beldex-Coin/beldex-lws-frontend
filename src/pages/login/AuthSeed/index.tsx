@@ -75,6 +75,10 @@ export default function AuthSeed() {
       dispatch(setSeedDetails(seedData));
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
+        if (login__err) { // already logged
+          console.log("login__err:", login__err);
+          return;
+        }
         console.log('---new_address-', new_address);
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
