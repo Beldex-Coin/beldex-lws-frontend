@@ -237,7 +237,7 @@ export default function TransactionHistory() {
             >
               Transactions
             </Typography>
-            <Button>
+            {transactionHistory.length !== 0 && <Button>
               <SvgIcon
                 width="15"
                 height="15"
@@ -263,7 +263,7 @@ export default function TransactionHistory() {
               >
                 Export CSV
               </Typography>
-            </Button>
+            </Button>}
           </Box>
           <Box mt={2}
             sx={{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -25,36 +25,38 @@ const SendFund = () => {
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const netType: any = (process.env.NETTYPE)
 
-  const [currency, setCurrency] = useState("AUD");
+  // const [currency, setCurrency] = useState("AUD");
   const [priority, setPriority] = useState(5);
   const [toAddress, setToAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [isSweepTx, setIsSweepTx] = useState(false);
   const [paymentIdToggle, setPaymentIdToggle] = useState(false);
   const [manualPaymentId, setManualPaymentId] = useState("");
+  const [estimtionFees, setEstimationFees] = useState("");
 
-  const exchangeCurrencyList = {
-    USD: "USD",
-    AUD: "AUD",
-    BRL: "BRL",
-    CAD: "CAD",
-    CHF: "CHF",
-    CNY: "CNY",
-    EUR: "EUR",
-    GBP: "GBP",
-    HKD: "HKD",
-    INR: "INR",
-    JPY: "JPY",
-    KRW: "KRW",
-    MXN: "MXN",
-    NOK: "NOK",
-    NZD: "NZD",
-    SEK: "SEK",
-    SGD: "SGD",
-    TRY: "TRY",
-    RUB: "RUB",
-    ZAR: "ZAR",
-  };
+  // const exchangeCurrencyList = {
+  //   USD: "USD",
+  //   AUD: "AUD",
+  //   BRL: "BRL",
+  //   CAD: "CAD",
+  //   CHF: "CHF",
+  //   CNY: "CNY",
+  //   EUR: "EUR",
+  //   GBP: "GBP",
+  //   HKD: "HKD",
+  //   INR: "INR",
+  //   JPY: "JPY",
+  //   KRW: "KRW",
+  //   MXN: "MXN",
+  //   NOK: "NOK",
+  //   NZD: "NZD",
+  //   SEK: "SEK",
+  //   SGD: "SGD",
+  //   TRY: "TRY",
+  //   RUB: "RUB",
+  //   ZAR: "ZAR",
+  // };
+
   const processStepMessageSuffix_byEnumVal: any = {
     0: "", // 'none'
     1: "", // "initiating send" - so we don't want a suffix
@@ -64,6 +66,7 @@ const SendFund = () => {
     5: "Constructing transaction.", // may go back to .calculatingFee
     6: "Submitting transaction.",
   };
+
   const failureCodeMessage_byEnumVal: any = {
     0: "--", // message is provided - this should never get requested
     1: "Unable to load that wallet.",
@@ -88,6 +91,7 @@ const SendFund = () => {
     99904: "Please contact support with code: 99904.", // codeFault_invalidSecSpendKey
     99905: "Please contact support with code: 99905.", // codeFault_invalidPubSpendKey
   };
+
   const createTxErrCodeMessage_byEnumVal: any = {
     0: "No error",
     1: "No destinations provided",
@@ -113,27 +117,41 @@ const SendFund = () => {
     21: "Can't get decrypted mask from 'rct' hex",
     90: "Spendable balance too low",
   };
-  function generatePaymentId() {
+
+  const generatePaymentId = () => {
     let paymentId = coreBridgeInstance.beldex_utils.new_payment_id();
     setManualPaymentId(paymentId);
-    console.log("paymentId ::", paymentId);
   }
-  function numberOnly(e: any) {
+
+  const numberOnly = (e: any) => {
     const re = /^\d+\.?\d*$/;
     if (e === '' || re.test(e)) {
       setAmount(e);
     }
   }
-  const addressInputChange = (e:any) => {
-    const value = e.target.value;
 
+  const addressValidation = async (address: any) => {
+    try {
+      const status = coreBridgeInstance.beldex_utils.decode_address(address, Number(process.env.NETTYPE))
+      console.log("status:", status)
+      return;
+    } catch (err) {
+      console.log("errorr:", err)  // Invalid address
+      console.log("Invalid address")
+      //   return ToastUtils.pushToastError('invalidAddress', 'Invalid address');
+    }
+  }
+
+  const addressInputChange = (e: any) => {
+    const value = e.target.value;
     // Allow only alphanumeric characters
     const alphanumericRegex = /^[a-zA-Z0-9]*$/;
     if (alphanumericRegex.test(value)) {
       setToAddress(value);
     }
   };
-  async function sendFundFieldValidation() {
+
+  const sendFundFieldValidation = async () => {
     // console.log("netConnetion()",netConnetion())
     // if (!window.globalOnlineStatus) {
     //    ToastUtils.pushToastError(
@@ -142,45 +160,53 @@ const SendFund = () => {
     //   );
     //   return
     // }
-    if(!amount)
-    
-    {
-     return console.log('please enter the amount to send.') 
+    if (!amount) {
+      return console.log('please enter the amount to send.');
     }
     if (Number(amount) > walletDetails.unlocked_balance) {
       // return ToastUtils.pushToastError('notEnoughBalance', 'Not enough unlocked balance');
       console.log("Not enough unlocked balance");
       return;
     }
-    if(Number(amount) === walletDetails.unlocked_balance) 
-    {
+    if (Number(amount) === walletDetails.unlocked_balance) {
       setIsSweepTx(true);
-
     }
-    if(!toAddress)
-    {
+    if (!toAddress) {
       console.log("couldn't validate destination beldex address");
-      return; 
+      return;
     }
     if (toAddress.length > 106 || toAddress.length < 95) {
       // return ToastUtils.pushToastError('invalidAddress', 'Invalid address');
       console.log('Invalid address');
       return;
     }
+    addressValidation(toAddress);
     if (Number(amount) == 0) {
       // return ToastUtils.pushToastError('zeroAmount', 'Amount must be greater than zero');
       console.log('Amount must be greater than zero');
       return;
-
     }
-    // let addressValidate = await wallet.validateAddres(address);
-    // if (!addressValidate) {
-    //   return ToastUtils.pushToastError('invalidAddress', 'Invalid address');
-    // }
-    sendFund()
+    sendFund();
   }
 
-  async function sendFund() {
+  const estimationNetworkFees = () => {
+    const estimatedNetworkFee_JSBigInt = new JSBigInt(coreBridgeInstance.beldex_utils.estimated_tx_network_fee(
+      null,
+      1,
+      '666', '100000'
+    ));
+    return estimatedNetworkFee_JSBigInt;
+  }
+
+  const newEstimatedNetworkFeeDisplay = () => {
+    const estimatedTotalFee_JSBigInt = estimationNetworkFees();
+    const estimatedTotalFee = beldex_amount_format_utils.formatMoney(estimatedTotalFee_JSBigInt);
+    const displayString = `+ ${estimatedTotalFee} BDX EST. FEE`;
+    setEstimationFees(displayString);
+    return;
+  }
+
+  const sendFund = async () => {
     let args: any = {
       fromWallet_didFailToInitialize: false,
       fromWallet_didFailToBoot: false,
@@ -202,7 +228,7 @@ const SendFund = () => {
       sec_spendKey_string: walletDetails.sec_spendKey_string,
       pub_spendKey_string: walletDetails.pub_spendKey_string,
       priority: priority,
-      nettype:parseInt(netType),
+      nettype: parseInt(netType),
       resolvedAddress: "",
       manuallyEnteredPaymentID: manualPaymentId,
       resolvedPaymentID: "",
@@ -303,11 +329,10 @@ const SendFund = () => {
           // needMoreMoneyThanFound
           errStr = `Spendable balance too low. Have ${beldex_amount_format_utils.formatMoney(
             new JSBigInt("" + params.spendable_balance)
-          )} ${
-            beldex_config.coinSymbol
-          }; need ${beldex_amount_format_utils.formatMoney(
-            new JSBigInt("" + params.required_balance)
-          )} ${beldex_config.coinSymbol}.`;
+          )} ${beldex_config.coinSymbol
+            }; need ${beldex_amount_format_utils.formatMoney(
+              new JSBigInt("" + params.required_balance)
+            )} ${beldex_config.coinSymbol}.`;
         } else {
           errStr = createTxErrCodeMessage_byEnumVal[params.createTx_errCode];
         }
@@ -339,8 +364,7 @@ const SendFund = () => {
     coreBridgeInstance.beldex_utils.async__send_funds(args);
   }
 
-
-  function clearStates() {
+  const clearStates = () => {
     setPriority(5);
     setToAddress("");
     setAmount("");
@@ -348,6 +372,10 @@ const SendFund = () => {
     setManualPaymentId("");
     setPaymentIdToggle(false)
   }
+
+  useEffect(() => {
+    newEstimatedNetworkFeeDisplay();
+  }, []);
 
   return (
     <Box
@@ -409,7 +437,7 @@ const SendFund = () => {
         textAlign="center"
         sx={{ fontSize: 20, fontWeight: 600 }}
       >
-      { walletDetails.unlocked_balance} <span style={{ color: "#20D030" }}>BDX</span>
+        {walletDetails.unlocked_balance} <span style={{ color: "#20D030" }}>BDX</span>
       </Typography>
       <Box mt={3} mb={3} sx={{ height: "0.2px", backgroundColor: "#8787A8" }} />
       <Typography
@@ -450,7 +478,7 @@ const SendFund = () => {
             }}
             value={amount}
             onChange={(event: any) => numberOnly(event.target.value)}
-            
+
           />
           {/* <Select
             className="currency-dropdown"
@@ -525,7 +553,7 @@ const SendFund = () => {
             fontSize: 14,
           }}
         >
-          +0.001436762 BDX EST. Fee
+          {estimtionFees}
         </Typography>
         <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} />
       </Box>
@@ -609,7 +637,7 @@ const SendFund = () => {
             textDecorationLine: "underline",
             cursor: "pointer",
           }}
-          onClick={()=>setPaymentIdToggle(true)}
+          onClick={() => setPaymentIdToggle(true)}
         >
           + Add Payment ID
         </Typography>
@@ -694,7 +722,6 @@ const SendFund = () => {
         <Button
           variant="contained"
           color="primary"
-          
           sx={{
             fontWeight: 600,
             width: "150px",
