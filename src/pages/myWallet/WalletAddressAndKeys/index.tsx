@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import "./styles.scss";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box, useMediaQuery, Grid } from "@mui/material";
+import { Box, useMediaQuery, Grid, IconButton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
+import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
+
 // import Accordion from "@mui/material/Accordion";
 // import AccordionSummary from "@mui/material/AccordionSummary";
 // import AccordionDetails from "@mui/material/AccordionDetails";
@@ -16,16 +18,25 @@ export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const [seedVisible, setSeedVisible] = useState(false);
-  async function copyText(text: string) {
+  const toastMsgRef = useRef<ToastMsgRef>(null);
+
+  const copyText = (text: string) => {
     navigator.clipboard.writeText(text);
-  }
+    handleShowToastMsg();
+  };
+
+  const handleShowToastMsg = () => {
+    if (toastMsgRef.current) {
+      toastMsgRef.current.showAlert("Copied !", "success");
+    }
+  };
 
   return (
     <Box
       className="WalletAddressAndKeys"
       sx={{
         marginTop: "20px",
-        padding: "20px",
+        padding:!seedVisible?"10px 20px" :"20px",
         borderRadius: "20px",
         backgroundColor: (theme) => theme.palette.background.default,
       }}
@@ -36,11 +47,13 @@ export default function WalletAddressAndKeys() {
           color: "white",
           display: "flex",
           justifyContent: "space-between",
+          alignItems:'center',
           position: "relative",
           flexDirection: "row",
         }}
       >
-        <Box className={!seedVisible ? "address-wrapper" : ""}>
+            
+        <Box className={!seedVisible ? "address-wrapper" : ""} onClick={() => setSeedVisible(!seedVisible)}>
           <Typography
             sx={{ fontWeight: 600, color: theme.palette.text.primary }}
           >
@@ -57,13 +70,13 @@ export default function WalletAddressAndKeys() {
             {walletDetails.address_string}
           </Typography>
         </Box>
-        <Box display="flex" flexDirection="row">
-          <ContentCopyIcon
-            onClick={() => copyText(walletDetails.address_string)}
-            className="copyIcon"
-            sx={{ fontSize: "1.4rem", cursor: 'pointer' }}
-          ></ContentCopyIcon>
-
+        <Box display="flex" flexDirection="row" alignItems={"center"}>
+          <IconButton onClick={() => copyText(walletDetails.address_string)}>
+            <ContentCopyIcon
+              className="copyIcon"
+              sx={{ fontSize: "1.4rem", cursor: "pointer" }}
+            ></ContentCopyIcon>
+          </IconButton>
           <ArrowRightIcon
             sx={{ fill: "#8787A8", cursor: "pointer" }}
             className={seedVisible ? "rotate" : ""}
@@ -99,11 +112,17 @@ export default function WalletAddressAndKeys() {
             </Typography>
           </Box>
           <Box>
-            <ContentCopyIcon
-              onClick={() => copyText(walletDetails.sec_viewKey_string)}
-              className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px", cursor: 'pointer' }}
-            ></ContentCopyIcon>
+            <IconButton sx={{ marginRight: "20px" }}>
+              <ContentCopyIcon
+                onClick={() => copyText(walletDetails.sec_viewKey_string)}
+                className="copyIcon"
+                sx={{
+                  fontSize: "1.4rem",
+
+                  // cursor: "pointer",
+                }}
+              ></ContentCopyIcon>
+            </IconButton>
           </Box>
         </Box>
 
@@ -133,11 +152,15 @@ export default function WalletAddressAndKeys() {
             </Typography>
           </Box>
           <Box>
-            <ContentCopyIcon
-              onClick={() => copyText(walletDetails.sec_spendKey_string)}
-              className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px", cursor: 'pointer' }}
-            ></ContentCopyIcon>
+            <IconButton sx={{ marginRight: "20px" }}>
+              <ContentCopyIcon
+                onClick={() => copyText(walletDetails.sec_spendKey_string)}
+                className="copyIcon"
+                sx={{
+                  fontSize: "1.4rem",
+                }}
+              ></ContentCopyIcon>
+            </IconButton>
           </Box>
         </Box>
 
@@ -167,14 +190,21 @@ export default function WalletAddressAndKeys() {
             </Typography>
           </Box>
           <Box>
-            <ContentCopyIcon
-              onClick={() => copyText(walletDetails.mnemonic_string)}
-              className="copyIcon"
-              sx={{ fontSize: "1.4rem", marginRight: "20px", cursor: 'pointer' }}
-            ></ContentCopyIcon>
+          <IconButton  sx={{ marginRight: "20px"}}>
+
+              <ContentCopyIcon
+                onClick={() => copyText(walletDetails.mnemonic_string)}
+                className="copyIcon"
+                sx={{
+                  fontSize: "1.4rem",
+                
+                }}
+              ></ContentCopyIcon>
+            </IconButton>
           </Box>
         </Box>
       </Box>
+      <ToastMsg ref={toastMsgRef} />
     </Box>
   );
 }

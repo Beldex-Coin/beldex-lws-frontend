@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, IconButton, Input, Typography, useMediaQuery } from "@mui/material";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { useNavigate } from "react-router-dom";
 import SignInWithKey from "../SignInWithKey";
@@ -150,6 +150,7 @@ export default function SignIn() {
                 cursor: 'pointer'
               }}
             >
+              <IconButton>
               <ContentPasteIcon
                 sx={{
                   backgroundColor: (theme: any) => theme.palette.secondary.main,
@@ -158,6 +159,7 @@ export default function SignIn() {
                     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                 }}
               />
+              </IconButton>
             </Box>
           </Box>
           {showErrMsg && <Typography sx={{ color: '#FF2424', fontWeight: 400, marginTop: '5px' }}>{errMsg}</Typography>}

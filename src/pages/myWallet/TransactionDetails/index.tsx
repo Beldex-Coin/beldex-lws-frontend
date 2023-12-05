@@ -1,14 +1,17 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useRef } from "react";
+import { Box, IconButton, Typography } from "@mui/material";
 import "./styles.scss";
 import OutboundIcon from "@mui/icons-material/Outbound";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useTheme } from "@emotion/react";
+import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
 const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
 
 export default function TransactionDetails(props: any) {
   const theme: any = useTheme();
   const { transactionDetails, setTransactionDetails } = props;
+  const toastMsgRef = useRef<ToastMsgRef>(null);
+
   const amount = beldex_amount_format_utils.formatMoney(
     transactionDetails[0].amount
   );
@@ -28,10 +31,17 @@ export default function TransactionDetails(props: any) {
       })
       .toUpperCase();
   };
-  const  copyText=(text: string) =>{
+  const copyText = (text: string) => {
     navigator.clipboard.writeText(text);
     // await new Wallet().Login();
-  }
+    handleShowToastMsg();
+  };
+
+  const handleShowToastMsg = () => {
+    if (toastMsgRef.current) {
+      toastMsgRef.current.showAlert("copied !", "success");
+    }
+  };
   return (
     <Box
       className="transactionDetails"
@@ -45,6 +55,7 @@ export default function TransactionDetails(props: any) {
               transform: "rotate(225deg)",
               fontSize: "2rem",
               cursor: "pointer",
+              "&:hover": { opacity: 0.8 }
             }}
             onClick={() => setTransactionDetails([])}
           />
@@ -56,7 +67,7 @@ export default function TransactionDetails(props: any) {
           sx={{
             fontWeight: 600,
             color: status === "Sent" ? "#FC2727" : "#20D030",
-            fontSize:'1.2rem'
+            fontSize: "1.2rem",
           }}
         >
           {/* {transactionDetails[0].total_received/1e9} BDX */}
@@ -99,7 +110,6 @@ export default function TransactionDetails(props: any) {
             sx={{
               fontWeight: 400,
               fontSize: "1.1rem",
-
             }}
           >
             Total
@@ -130,7 +140,6 @@ export default function TransactionDetails(props: any) {
               sx={{
                 fontWeight: 400,
                 fontSize: "1.1rem",
-
               }}
             >
               Payment ID
@@ -142,13 +151,14 @@ export default function TransactionDetails(props: any) {
                 color: "#7D7D9C",
               }}
             >
-              None
+             {transactionDetails[0].payment_id?transactionDetails[0].payment_id:"None"}
             </Typography>
           </Box>
-
+          <IconButton onClick={() => copyText(transactionDetails[0].payment_id)} disabled={!transactionDetails[0].payment_id} >
           <ContentCopyIcon
-            sx={{ fontSize: "1.4rem", fill: "#8787A8" }}
+            sx={{ fontSize: "1.4rem", fill:transactionDetails[0].payment_id?"#20D030":"#8787A8"}}
           ></ContentCopyIcon>
+          </IconButton>
         </Box>
         <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
 
@@ -164,7 +174,6 @@ export default function TransactionDetails(props: any) {
               sx={{
                 fontWeight: 400,
                 fontSize: "1.1rem",
-
               }}
             >
               Transaction ID
@@ -181,11 +190,11 @@ export default function TransactionDetails(props: any) {
               {transactionDetails[0].hash}
             </Typography>
           </Box>
-
-          <ContentCopyIcon
-            sx={{ fontSize: "1.4rem", fill: "#20D030", cursor: "pointer" }}
-            onClick={() => copyText(transactionDetails[0].hash)}
-          ></ContentCopyIcon>
+          <IconButton onClick={() => copyText(transactionDetails[0].hash)}>
+            <ContentCopyIcon
+              sx={{ fontSize: "1.4rem", fill: "#20D030", cursor: "pointer" }}    
+            ></ContentCopyIcon>
+          </IconButton>
         </Box>
         <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
 
@@ -200,16 +209,16 @@ export default function TransactionDetails(props: any) {
             sx={{
               fontWeight: 400,
               fontSize: "1.1rem",
-
             }}
           >
             Ring size
           </Typography>
 
-          <Typography sx={{ fontSize: "1rem", fontWeight: 400 }}>10</Typography>
+          <Typography sx={{ fontSize: "1rem", fontWeight: 400,padding:'0.5rem' }}>10</Typography>
         </Box>
         {/* <Box mt={3} mb={2} sx={{ height: "0.5px" }}></Box> */}
       </Box>
+      <ToastMsg ref={toastMsgRef} />
     </Box>
   );
 }

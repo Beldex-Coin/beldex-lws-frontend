@@ -6,63 +6,69 @@ import EmptyTransactions from '../../../icons/EmptyTransactionsDark';
 
 export default function TransactionList(props: any) {
   const transactions = props?.transactions?.length ? props?.transactions : [];
-  const beldex_amount_format_utils = require('@bdxi/beldex-money-format');
+  const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
+  console.log("transactions ::", transactions);
 
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
-    return date.toLocaleDateString(
-      'en-US'/* for now */,
-      { year: 'numeric', month: 'short', day: 'numeric' }
-    ).toUpperCase();
-  }
-
-  const decimalValidation = (amount: string) => {
-    const actualAmount: any = beldex_amount_format_utils.formatMoney(amount);
-    return Number(actualAmount.replace("-", "")).toFixed(4);
-  }
-
+    return date
+      .toLocaleDateString("en-US" /* for now */, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+      .toUpperCase();
+  };
   return (
-    <Box className="transactionList" >
-      {transactions.length ? transactions.map((transaction: any, index: number) => (
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-          mt={2}
-          pb={2}
-          key={index}
-          sx={{
-            borderBottom: '0.5px solid #8787A8',
-          }}
-          onClick={() => props.setTransactionDetails([transaction])}
-        >
-          <Box>
-            <Typography
-              sx={{
-                color: transaction.approx_float_amount < 0 ? "#FC2727" : "#20D030",
-                fontWeight: 600,
-                fontSize: "1.1rem",
-              }}
-            >
-              {decimalValidation(transaction.amount)} BDX
-            </Typography>
-            <Typography sx={{ color: '#D1D1D3', fontSize: '0.8rem' }}>
-              {transaction.payment_id}
-            </Typography>
-          </Box>
-          <Box display="flex" flexDirection="row" alignItems="center">
-            <Box mr={2}>
-              <Typography sx={{ fontSize: "0.8rem" }}>{dateString(transaction.timestamp)}</Typography>
-              <Typography textAlign={"end"} sx={{ color: "#8787A8", fontSize: "14px" }}>
-                {transaction.isConfirmed ? "Confirmed" : "Pending"}
+    <Box className="transactionList">
+      {transactions.length ? (
+        transactions.map((transaction: any, index: number) => (
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mt={2}
+            pb={2}
+            key={index}
+            sx={{
+              borderBottom: "0.5px solid #8787A8",
+            }}
+            onClick={() => props.setTransactionDetails([transaction])}
+          >
+            <Box>
+              <Typography
+                sx={{
+                  color:
+                    transaction.approx_float_amount < 0 ? "#FC2727" : "#20D030",
+                  fontWeight: 600,
+                  fontSize: "1.1rem",
+                }}
+              >
+                {beldex_amount_format_utils.formatMoney(transaction.amount)} BDX
+                {/* {transaction.total_received/1e9} BDX */}
+              </Typography>
+              <Typography sx={{ color: "#D1D1D3", fontSize: "0.8rem" }}>
+                {transaction.payment_id}
               </Typography>
             </Box>
-            <ArrowRightIcon sx={{ fill: '#8787A8', fontSize: '2rem' }} />
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <Box mr={2}>
+                <Typography sx={{ fontSize: "0.8rem" }}>
+                  {dateString(transaction.timestamp)}
+                </Typography>
+                <Typography
+                  textAlign={"end"}
+                  sx={{ color: "#8787A8", fontSize: "14px" }}
+                >
+                  {transaction.isConfirmed ? "Confirmed" : "Pending"}
+                </Typography>
+              </Box>
+              <ArrowRightIcon sx={{ fill: "#8787A8", fontSize: "2rem" }} />
+            </Box>
           </Box>
-        </Box>
-
-      )) :
+        ))
+      ) :
         (
           <Box display="flex" alignItems="center" justifyItems="center" width='100%' height='400px' sx={{}}>
             <Box display='flex' alignItems='center' alignContent='center' justifyContent='center' flexDirection="column" width="400px" height="300px" margin="auto" sx={{ border: '2px solid #454556', borderRadius: '8px' }}>
@@ -89,7 +95,7 @@ export default function TransactionList(props: any) {
             </Box>
           </Box>
         )}
+      
     </Box>
   );
 }
-
