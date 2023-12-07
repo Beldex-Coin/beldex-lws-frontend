@@ -13,14 +13,14 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-let persistor = persistStore(store);
+// let persistor = persistStore(store);
 
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <PersistGate persistor={persistor}>
+      {/* <PersistGate persistor={persistor}> */}
         <App />
-      </PersistGate>
+      {/* </PersistGate> */}
     </BrowserRouter>
   </Provider>
 );

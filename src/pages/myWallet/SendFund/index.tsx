@@ -16,9 +16,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
-
-
-
 import Modal from "@mui/material/Modal";
 const JSBigInt = require("@bdxi/beldex-bigint").BigInteger;
 const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
