@@ -22,6 +22,7 @@ const styles = {
   },
   menuIconContainer: {
     marginLeft: 'auto',
+    
   },
   appbar: {
     boxShadow: 'none',
