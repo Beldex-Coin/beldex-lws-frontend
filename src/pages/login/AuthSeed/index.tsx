@@ -133,7 +133,7 @@ export default function AuthSeed() {
           Verify your seed
         </Typography>
         <Typography
-          sx={{ fontWeight: 300, textAlign: "center", color: "#B9B9CC" }}
+          sx={{ fontWeight: 300, textAlign: "center", color: (theme) => theme.palette.secondary.light }}
         >
           Choose the first 7 words in the correct order
         </Typography>
@@ -184,8 +184,6 @@ export default function AuthSeed() {
                   marginRight: '8px',
                   marginTop: '8px',
                   border: 'none',
-                  // color: '#B9B9CC',
-                  // backgroundColor: '#32324A',
                   color: (theme) => theme.palette.text.secondary,
                   background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
                   padding: '5px 10px',

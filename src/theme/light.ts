@@ -7,7 +7,7 @@ export const lightTheme: ThemeOptions = {
             main: "#00AD07",
             light: "#FCFCFC",
             dark: "#00AD07",
-            contrastText: "#000"
+            contrastText: "#000",
         },
         info: {
             main: '#2879FB'
@@ -17,24 +17,29 @@ export const lightTheme: ThemeOptions = {
         },
         success: {
             main: "#FCFCFC",
-            light: "#FCFCFC"
+            light: "#FCFCFC",
+            dark:'#7D7D9C'
+
         }, 
         secondary: {
-          main: "#F5F5F5"
+          main: "#F5F5F5",
+          light:'#7F7F88',
+          dark:'#7D7D9C'
+          
         },
         text: {
             primary: '#222222',
-            secondary: '#7F7F88'
+            secondary: '#7F7F88'  //
         },
-        // common: {
-        //     white: '#FCFCFC',
-        //     black: '#2B2B3C'
-        // },
+        common: {
+            black: '#8787A8',
+            white:'#F8F8F8'
+        },
         background: {
-            paper: "#f8f8f8",
+            paper: "#F0F0F0",
             // paper: "#F2F2F2",
-            default: "#F2F2F2"
-        }
+            default: "#F8F8F8"
+        },
     },
 
     typography: {

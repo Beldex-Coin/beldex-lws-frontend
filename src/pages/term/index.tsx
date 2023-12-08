@@ -5,7 +5,7 @@ const Terms = () => {
     return (
         <Box sx={{height: "calc(100vh - 107px)", overflowY: "auto" }}>
             <Typography sx={{ color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px' }}>Terms of Service</Typography>
-            <Box sx={{ color:theme.palette.text.secondary, fontSize: '20px', margin: '0px 40px 40px' }}>
+            <Box sx={{ color:theme.palette.text.primary, fontSize: '20px', margin: '0px 40px 40px' }}>
                 <Typography>
                     PLEASE READ THESE TERMS OF SERVICE CAREFULLY. BY CLICKING THE "CONTINUE" BUTTON OR BY ACCESSING OR USING OUR SERVICES, YOU AGREE TO BE BOUND BY THESE TERMS OF SERVICE AND ALL TERMS INCORPORATED BY REFERENCE.
                 </Typography>

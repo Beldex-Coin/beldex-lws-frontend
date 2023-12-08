@@ -7,11 +7,13 @@ import { useTheme } from "@emotion/react";
 import { CoreBridgeInstanceContext } from '../../../CoreBridgeInstanceContext';
 import { useAppDispatch } from "../../../stores/hooks";
 import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
+import loadingGif from "../../loader/index"
 
 export default function SignIn() {
 
   const theme: any = useTheme();
   const [showSignWithKey, setShowSignWithKey] = useState(true);
+  const [loading, setLoading] = useState(false);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
   const [userMnemonic, setUserMnemonic] = React.useState<string>('');
@@ -24,7 +26,13 @@ export default function SignIn() {
     setShowSignWithKey(bool);
   }
 
+  const sendValidation = () => {
+    setLoading(true);
+    validatingMnemonic();
+  }
+
   const validatingMnemonic = () => {
+    console.log("loading:", loading)
     console.log('----user entered seed---', userMnemonic);
     if (userMnemonic === '' || userMnemonic === null || userMnemonic === undefined) {
       setShowErrMsg(true);
@@ -43,6 +51,7 @@ export default function SignIn() {
 
   const validateComponentsForLogin = () => {
     try {
+      console.log("loading:", loading)
       const validatingMnemonic = coreBridgeInstance.beldex_utils.seed_and_keys_from_mnemonic(userMnemonic, coreBridgeInstance.nettype);
       const loginValidate = coreBridgeInstance.beldex_utils.validate_components_for_login(
         validatingMnemonic.address_string,
@@ -68,6 +77,7 @@ export default function SignIn() {
         console.log('---new_address-', new_address);
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
+        setLoading(false);
         navigate('/mywallet');
 
 
@@ -186,7 +196,7 @@ export default function SignIn() {
             <Button
               variant="contained"
               color="primary"
-              onClick={validatingMnemonic}
+              onClick={sendValidation}
               sx={{
                 fontWeight: 600,
                 color: "white",

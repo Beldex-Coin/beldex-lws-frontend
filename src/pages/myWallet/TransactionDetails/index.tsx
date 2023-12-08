@@ -46,7 +46,7 @@ export default function TransactionDetails(props: any) {
     <Box
       className="transactionDetails"
       mt={2}
-      // sx={{background:(theme) => theme.palette.success.main}}
+    // sx={{background:(theme) => theme.palette.success.main}}
     >
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Box display="flex" flexDirection="row" alignItems="center">
@@ -67,13 +67,13 @@ export default function TransactionDetails(props: any) {
           sx={{
             fontWeight: 600,
             color: status === "Sent" ? "#FC2727" : "#20D030",
-            fontSize: "1.2rem",
+            fontSize: '1.2rem'
           }}
         >
           {/* {transactionDetails[0].total_received/1e9} BDX */}
           {amount} BDX
         </Typography>
-        <Typography sx={{ fontWeight: 400 }}>{status}</Typography>
+        <Typography sx={{ fontWeight: 400, color: (theme) => theme.palette.secondary.light }}>{status}</Typography>
       </Box>
 
       <Box pl={1}>
@@ -151,13 +151,13 @@ export default function TransactionDetails(props: any) {
                 color: "#7D7D9C",
               }}
             >
-             {transactionDetails[0].payment_id?transactionDetails[0].payment_id:"None"}
+              {transactionDetails[0].payment_id ? transactionDetails[0].payment_id : "None"}
             </Typography>
           </Box>
           <IconButton onClick={() => copyText(transactionDetails[0].payment_id)} disabled={!transactionDetails[0].payment_id} >
-          <ContentCopyIcon
-            sx={{ fontSize: "1.4rem", fill:transactionDetails[0].payment_id?"#20D030":"#8787A8"}}
-          ></ContentCopyIcon>
+            <ContentCopyIcon
+              sx={{ fontSize: "1.4rem", fill: transactionDetails[0].payment_id ? "#20D030" : "#8787A8" }}
+            ></ContentCopyIcon>
           </IconButton>
         </Box>
         <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
@@ -182,7 +182,7 @@ export default function TransactionDetails(props: any) {
               sx={{
                 fontWeight: 400,
                 fontSize: "14px",
-                color: "#7D7D9C",
+                color: (theme) => theme.palette.secondary.dark,
                 width: "70%",
                 wordBreak: "break-word",
               }}
@@ -192,7 +192,7 @@ export default function TransactionDetails(props: any) {
           </Box>
           <IconButton onClick={() => copyText(transactionDetails[0].hash)}>
             <ContentCopyIcon
-              sx={{ fontSize: "1.4rem", fill: "#20D030", cursor: "pointer" }}    
+              sx={{ fontSize: "1.4rem", fill: "#20D030", cursor: "pointer" }}
             ></ContentCopyIcon>
           </IconButton>
         </Box>
@@ -214,7 +214,7 @@ export default function TransactionDetails(props: any) {
             Ring size
           </Typography>
 
-          <Typography sx={{ fontSize: "1rem", fontWeight: 400,padding:'0.5rem' }}>10</Typography>
+          <Typography sx={{ fontSize: "1rem", fontWeight: 400, padding: '0.5rem' }}>10</Typography>
         </Box>
         {/* <Box mt={3} mb={2} sx={{ height: "0.5px" }}></Box> */}
       </Box>

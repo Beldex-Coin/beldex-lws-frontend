@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, PaletteMode, createTheme } from '@mui/material';
+import { Box, GlobalStyles, PaletteMode, createTheme } from '@mui/material';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 // import theme from './theme/theme';
@@ -16,6 +16,7 @@ const mnemonic_languages = require('@bdxi/beldex-locales');
 const appBridge = require('@bdxi/beldex-app-bridge');
 const HostedMoneroAPIClient = require('@bdxi/beldex-hosted-api')
 const BackgroundAPIResponseParser = require('@bdxi/beldex-response-parser-utils');
+
 
 function App() {
   const [mode, setMode] = React.useState<PaletteMode>("dark");
@@ -64,7 +65,6 @@ function App() {
   // console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
-   
   }, [])
 
   const theme = React.useMemo(() => createTheme(mode === "light" ? lightTheme : darkTheme), [mode]);
@@ -75,11 +75,30 @@ function App() {
   if (isEmpty) {
     return (<div>Loading....</div>)
   }
+
   return (
     <ColorContext.Provider value={colorMode}>
       <CoreBridgeInstanceContext.Provider value={beldex_utils}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <GlobalStyles
+            styles={{
+              "*::-webkit-scrollbar": {
+                width: "5px",
+              },
+              "*::-webkit-scrollbar-track": {
+                "-webkit-box-shadow": "inset 0 0 5px grey",
+                boxShadow: "inset 0 0 5px grey",
+                borderRadius: "10px",
+                backgroundColor: theme.palette.background.default,
+              },
+              "*::-webkit-scrollbar-thumb": {
+                background: theme.palette.mode == 'dark' ? "#585870" : "#C7C7C7",
+                borderRadius: "10px",
+              },
+              "*::-webkit-scrollbar-thumb:hover": { background: theme.palette.mode == 'dark' ? "#585870" : "#C7C7C7" },
+            }}
+          />
           <Box sx={{ minHeight: '100vh', padding: '20px' }}>
             <Header />
             <Box sx={{ paddingTop: '65px', display: 'flex', gap: '20px', minHeight: 'calc(100vh - 45px)' }}>
