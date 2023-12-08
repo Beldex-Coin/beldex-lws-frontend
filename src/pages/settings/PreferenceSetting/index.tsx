@@ -3,54 +3,108 @@ import "./styles.scss";
 import AppTimeoutSlider from "../AppTimeoutSlider";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useTheme } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../stores/hooks";
+import {
+  initialState,
+  setSeedDetails,
+  setBalance,
+} from "../../../stores/features/seedDetailSlice";
 
 import {
   Box,
   Typography,
-
   Button,
   Select,
   MenuItem,
+  Modal,
 } from "@mui/material";
+import userIdleTimerController from "../AppTimeoutSlider/userIdleTimerController";
+import { useSelector } from "react-redux";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 505,
+  bgcolor: "background.paper",
+  // border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "22px",
+};
 
 export default function PreferenceSetting() {
-  const theme:any = useTheme();
-  const [displayCurrency, setDisplayCurrency] = useState("USD");
-  const exchangeCurrencyList = {
-    USD: "USD",
-    AUD: "AUD",
-    BRL: "BRL",
-    CAD: "CAD",
-    CHF: "CHF",
-    CNY: "CNY",
-    EUR: "EUR",
-    GBP: "GBP",
-    HKD: "HKD",
-    INR: "INR",
-    JPY: "JPY",
-    KRW: "KRW",
-    MXN: "MXN",
-    NOK: "NOK",
-    NZD: "NZD",
-    SEK: "SEK",
-    SGD: "SGD",
-    TRY: "TRY",
-    RUB: "RUB",
-    ZAR: "ZAR",
+  const theme: any = useTheme();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+  walletDetails.timer!==1500 && userIdleTimerController()
+
+
+  // const [displayCurrency, setDisplayCurrency] = useState("USD");
+  // const exchangeCurrencyList = {
+  //   USD: "USD",
+  //   AUD: "AUD",
+  //   BRL: "BRL",
+  //   CAD: "CAD",
+  //   CHF: "CHF",
+  //   CNY: "CNY",
+  //   EUR: "EUR",
+  //   GBP: "GBP",
+  //   HKD: "HKD",
+  //   INR: "INR",
+  //   JPY: "JPY",
+  //   KRW: "KRW",
+  //   MXN: "MXN",
+  //   NOK: "NOK",
+  //   NZD: "NZD",
+  //   SEK: "SEK",
+  //   SGD: "SGD",
+  //   TRY: "TRY",
+  //   RUB: "RUB",
+  //   ZAR: "ZAR",
+  // };
+
+  const logout = () => {
+    dispatch(setSeedDetails(initialState));
+    dispatch(setBalance(0));
+    handleClose;
+    navigate("/");
   };
   return (
-    <Box className="PreferenceSetting" sx={{background: theme.palette.success.main,width:'70%'}}>
-      <Typography  component="h2" className="header" textAlign={'center'} fontSize={22} sx={{color: theme.palette.text.primary,fontWeight:600 }}>
+    <Box
+      className="PreferenceSetting"
+      sx={{ background: theme.palette.success.main, width: "70%" }}
+    >
+      <Typography
+        component="h2"
+        className="header"
+        textAlign={"center"}
+        fontSize={22}
+        sx={{ color: theme.palette.text.primary, fontWeight: 600 }}
+      >
         Mybeldex Settings
       </Typography>
 
-      <Typography mt={3} component="h4" className="header" sx={{color: theme.palette.text.primary }}>
+      <Typography
+        mt={3}
+        component="h4"
+        className="header"
+        sx={{ color: theme.palette.text.primary }}
+      >
         App Timeout
       </Typography>
       <AppTimeoutSlider />
-
+{/* 
       <Box className="drop-down-wrapper" mt={3}>
-        <Typography component="span"  sx={{color: theme.palette.text.primary }}>Display Currency</Typography>
+        <Typography component="span" sx={{ color: theme.palette.text.primary }}>
+          Display Currency
+        </Typography>
         <Select
           disableUnderline
           SelectDisplayProps={{ style: { paddingTop: 0, paddingBottom: 0 } }}
@@ -58,18 +112,17 @@ export default function PreferenceSetting() {
           IconComponent={KeyboardArrowDownIcon}
           sx={{
             color: theme.palette.text.primary,
-            backgroundColor:  theme.palette.secondary.main,
+            backgroundColor: theme.palette.secondary.main,
             height: "35px",
             borderRadius: "10px",
-            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
+            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
             "& .MuiSelect-icon": {
-              fill:theme.palette.text.primary,
-              color:theme.palette.text.primary,
+              fill: theme.palette.text.primary,
+              color: theme.palette.text.primary,
             },
           }}
           variant="filled"
           inputProps={{
-         
             MenuProps: {
               MenuListProps: {
                 sx: {
@@ -91,25 +144,18 @@ export default function PreferenceSetting() {
             </MenuItem>
           ))}
         </Select>
-        {/* <select
-          value={displayCurrency}
-          onChange={(event) => setDisplayCurrency(event.target.value)}
-        >
-          {Object.values(exchangeCurrencyList).map((item, key) => (
-            <option key={key} value={item}>
-              {item}
-            </option>
-          ))}
-        </select> */}
-      </Box>
+   
+      </Box> */}
 
-     <Box className="info-wrapper" mt={3}
-      display="flex"
-      flexDirection="row"
-      justifyContent="center"
-      alignItems="center"
+      <Box
+        className="info-wrapper"
+        mt={3}
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
       >
-        <Typography component="span" >
+        <Typography component="span">
           <svg
             width="14"
             height="14"
@@ -124,10 +170,16 @@ export default function PreferenceSetting() {
             />
           </svg>
         </Typography>
-        <Typography component="span" className="link" sx={{color: theme.palette.text.primary}}>About MyBeldex</Typography>
+        <Typography
+          component="span"
+          className="link"
+          sx={{ color: theme.palette.text.primary }}
+        >
+          About MyBeldex
+        </Typography>
       </Box>
       <Box className="logout-btn-wrapper" mt={1}>
-      <Button
+        <Button
           variant="contained"
           color="secondary"
           sx={{
@@ -137,13 +189,69 @@ export default function PreferenceSetting() {
             height: "45px",
             borderRadius: "10px",
             // color: "white",
-            color: '#ff2424'
+            color: "#ff2424",
           }}
+          onClick={handleOpen}
         >
-        Logout
+          Logout
         </Button>
         {/* <Button className="logout-btn" color="secondary">Logout</Button> */}
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            textAlign="center"
+            sx={{ fontWeight: "700",fontSize:'1.4rem' }}
+          >
+            Logout?
+          </Typography>
+          <Typography sx={{mt:1,fontWeight:400,fontSize:"1.2rem"}} textAlign={'center'}>Are you sure you want to Logout from Wallet?</Typography>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+            mt={3}
+          >
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                fontWeight: 600,
+                marginRight: "10px",
+                width: "150px",
+                height: "45px",
+                borderRadius: "10px",
+
+                color: theme.palette.text.primary,
+              }}
+              onClick={handleClose}
+            >
+              cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              sx={{
+                fontWeight: 600,
+                width: "150px",
+                height: "45px",
+                borderRadius: "10px",
+                color: theme.palette.text.primary,
+              }}
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }

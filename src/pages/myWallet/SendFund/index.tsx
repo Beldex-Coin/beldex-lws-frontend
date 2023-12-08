@@ -592,8 +592,7 @@ const SendFund = () => {
         <Box
           sx={{
             // background: "#1C1C26",
-            // backgroundColor: (theme) => theme.palette.background.default,
-            backgroundColor: (theme) => theme.palette.mode === 'dark' ? theme.palette.background.default : '#F2F2F2',
+            backgroundColor: (theme) => theme.palette.background.default,
             padding: "0 20px",
             width: "100%",
             color: "white",
@@ -612,7 +611,7 @@ const SendFund = () => {
               width: "100%",
               height: "55px",
               // color: "white",
-              color: (theme) => theme.palette.text.primary,
+              color: (theme) => theme.palette.text.secondary,
             }}
             value={amount}
             onChange={(event: any) => numberOnly(event.target.value)}
@@ -732,7 +731,7 @@ const SendFund = () => {
           width: "100%",
           height: "100px",
           color: theme.palette.text.primary,
-          backgroundColor: (theme) => theme.palette.mode === 'dark' ? theme.palette.background.default : '#F2F2F2',
+          backgroundColor: (theme) => theme.palette.background.default,
           padding: "0 20px",
           borderRadius: "18px",
           border: errAddress ? "1px solid #FC2727" : "none",
@@ -886,8 +885,8 @@ const SendFund = () => {
             width: "150px",
             height: "45px",
             borderRadius: "10px",
-            color: "white",
-            // color: theme.palette.text.primary,
+            // color: "white",
+            color: theme.palette.text.primary,
           }}
           onClick={() => sendFundFieldValidation()}
         >

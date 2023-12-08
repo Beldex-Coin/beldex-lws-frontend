@@ -33,10 +33,11 @@ function App() {
     version: process.env.APP_VERSION,
     name: process.env.APP_NAME,
   }
-  const beldex_utils = React.useMemo(() => ({
+  const beldex_utils:any = React.useMemo(() => ({
     set_Utils_data: (data: any) => {
       setBDXUtils(data)
     },
+    
     beldex_utils: bdxUtils.beldex_utils,
     backgroundAPIResponseParser: bdxUtils.backgroundAPIResponseParser,
     hostedMoneroAPIClient: new HostedMoneroAPIClient({
