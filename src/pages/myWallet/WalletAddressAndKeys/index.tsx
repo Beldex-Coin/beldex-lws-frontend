@@ -64,7 +64,7 @@ export default function WalletAddressAndKeys() {
               !seedVisible ? "address-without-key" : "address-with-key"
             }
             sx={{
-              color: (theme) => theme.palette.text.secondary,
+              color: (theme: any) => theme.palette.text.secondary,
             }}
           >
             {walletDetails.address_string}
@@ -101,7 +101,7 @@ export default function WalletAddressAndKeys() {
             </Typography>
             <Typography
               sx={{
-                color: (theme) => theme.palette.text.secondary,
+                color: theme.palette.text.secondary,
                 wordBreak: "break-all",
                 fontWeight: 400,
                 width: "85%",
@@ -141,7 +141,7 @@ export default function WalletAddressAndKeys() {
             </Typography>
             <Typography
               sx={{
-                color: (theme) => theme.palette.text.secondary,
+                color: theme.palette.text.secondary,
                 wordBreak: "break-all",
                 fontWeight: 400,
                 width: "85%",

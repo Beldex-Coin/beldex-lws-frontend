@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../stores/hooks";
 import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
 import coinImg from "../../../icons/coin.png";
-import emptyScreenImg from "../../../icons/Empty_screen_image.png";
+import HomeScreenDark from "../../../icons/Home_screen_dark.png";
+import HomeScreenLight from "../../../icons/Home_screen_light.png";
 import blueImg from "../../../icons/blue.png";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 const mnemonic_languages = require("@bdxi/beldex-locales");
@@ -19,8 +20,7 @@ export default function Registration() {
   const theme: any = useTheme();
   //const dispatch = useAppDispatch();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-  const istabletMode=useMediaQuery(theme.breakpoints.down("md"));
-  console.log("isMobileMode ::", isMobileMode);
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
 
   return (
@@ -35,7 +35,7 @@ export default function Registration() {
       <Box
         sx={{
           backgroundColor: theme.palette.success.main,
-          width:isMobileMode?"unset": "80%",
+          width: isMobileMode ? "unset" : "80%",
           height: "100%",
           padding: "25px",
           display: "flex",
@@ -62,9 +62,9 @@ export default function Registration() {
             sx={{
               width: isMobileMode ? "55px" : "9%",
               position: "absolute",
-              left: isMobileMode?"-15px":"-35px",
+              left: isMobileMode ? "-15px" : "-35px",
               // width: "11%",
-              minWidth: isMobileMode?"unset": "70px",
+              minWidth: isMobileMode ? "unset" : "70px",
             }}
           >
             <img
@@ -76,7 +76,7 @@ export default function Registration() {
         </Box>
         <Box sx={{ width: "87%", height: "auto" }} mt={5}>
           <img
-            src={emptyScreenImg}
+            src={theme.palette.mode === 'dark' ? HomeScreenDark : HomeScreenLight}
             style={{ width: "100%", height: "100%" }}
             alt="display"
           />
@@ -97,9 +97,9 @@ export default function Registration() {
             sx={{
               width: isMobileMode ? "44px" : "6%",
               position: "absolute",
-              right: isMobileMode?"-12px": "-26px",
-              bottom: "123px",  
-              minWidth:isMobileMode?"unset":"51px",
+              right: isMobileMode ? "-12px" : "-26px",
+              bottom: "123px",
+              minWidth: isMobileMode ? "unset" : "51px",
             }}
           >
             <img
@@ -109,7 +109,7 @@ export default function Registration() {
             />
           </Box>
         </Box>
-        <Box sx={{display:'flex',justifyContent:'center',flexWrap:'wrap',marginTop:'20px'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', marginTop: '20px' }}>
           <Button
             variant="contained"
             color="info"
@@ -119,7 +119,7 @@ export default function Registration() {
               fontWeight: 600,
               color: "white",
               height: "50px",
-              marginTop:'10px'
+              marginTop: '10px'
             }}
             onClick={() => navigate("/login")}
           >

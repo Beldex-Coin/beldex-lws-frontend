@@ -74,7 +74,7 @@ export default function DisplaySeed() {
           Note down your Recovery Seed!
         </Typography>
         <Typography
-          sx={{ fontWeight: 300, textAlign: "center", color: "#B9B9CC" }}
+          sx={{ fontWeight: 300, textAlign: "center", color: (theme)=>theme.palette.secondary.light }}
         >
           You'll confirm this sequence on the next screen.
         </Typography>
@@ -122,7 +122,7 @@ export default function DisplaySeed() {
             >
               <ContentCopyIcon
                 sx={{
-                  fill: theme.palette.text.primary,
+                  fill: "#FFFFFF",
                   fontSize: "1rem",
                 }}
               />

@@ -96,8 +96,8 @@ export default function NavBar() {
     setChecked(newChecked);
   };
 
-  const getTextColor= (theme: any, selectedInd: number) => {
-    if(theme.palette.mode === 'dark') {
+  const getTextColor = (theme: any, selectedInd: number) => {
+    if (theme.palette.mode === 'dark') {
       return (selectedIndex === selectedInd ? "white" : theme.palette.text.secondary)
     } else {
       return selectedIndex === selectedInd ? theme.palette.text.primary : theme.palette.text.secondary
@@ -125,17 +125,17 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
             }
           }}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <MyWallet
-              sx={{ fill: selectedIndex === 0 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 0 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -159,10 +159,10 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
             }
           }}
@@ -172,7 +172,7 @@ export default function NavBar() {
               sx={{ fill: selectedIndex === 1 ? "#00D030" : "#D1D1D3" }}
             /> */}
             <Privacy
-              sx={{ fill: selectedIndex === 1 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 1 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -195,10 +195,10 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
             }
           }}
@@ -206,7 +206,7 @@ export default function NavBar() {
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Term
-              sx={{ fill: selectedIndex === 2 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 2 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -229,10 +229,10 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
             }
           }}
@@ -240,7 +240,7 @@ export default function NavBar() {
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Support
-              sx={{ fill: selectedIndex === 3 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 3 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -264,10 +264,10 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
             }
           }}
@@ -275,7 +275,7 @@ export default function NavBar() {
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Website
-              sx={{ fill: selectedIndex === 4 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 4 ? "#00D030" : (theme: any) => theme.palette.secondary.light  }}
             />
           </ListItemIcon>
           <ListItemText
@@ -291,16 +291,17 @@ export default function NavBar() {
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 4) }} />
           )}
         </ListItemButton>
-        <ListItem sx={{ p: 2 }} onClick={colorMode.toggleColorMode}>
+        <ListItem sx={{ p: 2 }}>
           <ListItemIcon sx={{ minWidth: '30px' }}>
-            <MoonDark styles={{ width: '18px', height: '18px' }} />
+            <MoonDark styles={{ width: '18px', height: '18px', fill: (theme: any) => theme.palette.mode === 'dark' ? "#d1d1d3" : '#8787A8' }} />
           </ListItemIcon>
           <ListItemText id="switch-list-label-bluetooth" primary="Dark Mode"
             sx={{
-              color: (theme) => theme.palette.text.secondary
+              color: (theme) => theme.palette.common.black
             }} />
           <AntSwitch
             onChange={handleToggle("dark")}
+            onClick={colorMode.toggleColorMode}
             checked={checked.indexOf("dark") !== -1}
             inputProps={{ "aria-label": "ant design" }}
           />

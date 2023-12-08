@@ -41,7 +41,7 @@ const DesktopNavigation = () => {
       <Box>
         {/* <BaseButton label="LOGOUT" variant='contained' cbFunction={() => navigate('/')} /> */}
         <IconButton sx={styles.menuIconContainer} onClick={() => navigate('/settings')}>
-          <SettingIconDark />
+          <SettingIconDark styles={{ fill: (theme: any) => theme.palette.secondary.light }} />
         </IconButton>
       </Box>
     </Box>
@@ -122,10 +122,10 @@ const MobileNavigation = () => {
                       maxHeight: "60px",
                       "&.Mui-selected": {
                         // theme.palette.mode
-                        background: (theme: any) =>theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+                        background: (theme: any) => theme.palette.common.white,
                         borderRadius: "15px",
                         "&:hover": {
-                          background: (theme: any) =>theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                          background: (theme: any) => theme.palette.common.white
                         }
                       }
                     }}
@@ -133,7 +133,7 @@ const MobileNavigation = () => {
                   >
                     <ListItemIcon sx={{ minWidth: '40px' }}>
                       <InboxIcon
-                        sx={{ fill: "#D1D1D3" }}
+                        sx={{ fill: (theme: any) => theme.palette.secondary.light }}
                       />
                     </ListItemIcon>
                     <ListItemText
@@ -152,10 +152,10 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+                        background: (theme: any) => theme.palette.common.white,
                         borderRadius: "15px",
                         "&:hover": {
-                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                          background: (theme: any) => theme.palette.common.white
                         }
                       }
                     }}
@@ -164,7 +164,7 @@ const MobileNavigation = () => {
                   >
                     <ListItemIcon sx={{ minWidth: '40px' }}>
                       <InboxIcon
-                        sx={{ fill: "#D1D1D3" }}
+                        sx={{ fill: (theme: any) => theme.palette.secondary.light }}
                       />
                     </ListItemIcon>
                     <ListItemText
@@ -183,10 +183,10 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+                        background: (theme: any) => theme.palette.common.white,
                         borderRadius: "15px",
                         "&:hover": {
-                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                          background: (theme: any) => theme.palette.common.white
                         }
                       }
                     }}
@@ -195,7 +195,7 @@ const MobileNavigation = () => {
                   >
                     <ListItemIcon sx={{ minWidth: '40px' }}>
                       <InboxIcon
-                        sx={{ fill: "#D1D1D3" }}
+                        sx={{ fill: (theme: any) => theme.palette.secondary.light }}
                       />
                     </ListItemIcon>
                     <ListItemText
@@ -214,17 +214,17 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+                        background: (theme: any) => theme.palette.common.white,
                         borderRadius: "15px",
                         "&:hover": {
-                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                          background: (theme: any) => theme.palette.common.white
                         }
                       }
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: '40px' }}>
                       <InboxIcon
-                        sx={{ fill: "#D1D1D3" }}
+                        sx={{ fill: (theme: any) => theme.palette.secondary.light }}
                       />
                     </ListItemIcon>
                     <ListItemText
@@ -243,17 +243,17 @@ const MobileNavigation = () => {
                       p: 2,
                       maxHeight: "60px",
                       "&.Mui-selected": {
-                        background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+                        background: (theme: any) => theme.palette.common.white,
                         borderRadius: "15px",
                         "&:hover": {
-                          background: (theme: any) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                          background: (theme: any) => theme.palette.common.white
                         }
                       }
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: '40px' }}>
                       <InboxIcon
-                        sx={{ fill: "#D1D1D3" }}
+                        sx={{ fill: (theme: any) => theme.palette.secondary.light }}
                       />
                     </ListItemIcon>
                     <ListItemText
@@ -324,7 +324,7 @@ const Header = () => {
             <LogoDark />
             <Box>
               <Typography sx={{ fontSize: '18px', fontWeight: 'bold' }}>MyBeldex</Typography>
-              <Typography sx={{ fontSize: '11px', fontWeight: 600 }}>V1.0.0</Typography>
+              <Typography sx={{ fontSize: '13px', fontWeight: 400 }}>V1.0.0</Typography>
             </Box>
           </Box>
           {isMobileMode ? <MobileNavigation /> : <DesktopNavigation />}

@@ -16,9 +16,11 @@ export const darkTheme: ThemeOptions = {
             main: '#E22B2B'
         },
         secondary: {
-            main: '#303045'
+            main: '#303045',
+            light: '#D1D1D3',
+            dark: '#7D7D9C'
         },
-        success : {
+        success: {
             main: "#2B2B3C",
             light: "#303041"
         },
@@ -26,10 +28,10 @@ export const darkTheme: ThemeOptions = {
             primary: '#FFFFFF',
             secondary: '#AFAFBE'
         },
-        // common: {
-        //     white: '#FCFCFC',
-        //     black: '#2B2B3C'
-        // },
+        common: {
+            black: '#8787A8',
+            white: '#32324A'
+        },
         background: {
             paper: "#242433",
             // paper: "#1C1C26",
