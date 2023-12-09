@@ -7,9 +7,14 @@ import { useTheme } from "@emotion/react";
 
 export default function TransactionList(props: any) {
   const transactions = props?.transactions?.length ? props?.transactions : [];
+
   const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
   const theme: any = useTheme();
   console.log("transactions ::", transactions);
+
+  // const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
+  // console.log("transactions ::", transactions);
+
 
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);

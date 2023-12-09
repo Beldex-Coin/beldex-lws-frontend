@@ -17,9 +17,10 @@ export interface seedDetailState {
     pub_spendKey_string: string;
     isWalletCreated?: boolean;
     unlocked_balance?: number;
+    timer?:number;
 }
 
-const initialState: seedDetailState = {
+export const initialState: seedDetailState = {
     sec_seed_string: '',
     mnemonic_string: '',
     address_string: '',
@@ -31,6 +32,8 @@ const initialState: seedDetailState = {
     isWalletCreated: false,
     loading: false,
     unlocked_balance: 0,
+
+    timer:20
 }
 
 const seedDetailSlice = createSlice({
@@ -56,11 +59,15 @@ const seedDetailSlice = createSlice({
         },
         setBalance(state, action) {
             state.unlocked_balance = action.payload
+        },
+        setIdleTimer(state,action)
+        {
+            state.timer=action.payload
         }
     }
 })
 
-export const { setSeedDetails, toggleLoading, setBalance } = seedDetailSlice.actions;
+export const { setSeedDetails, toggleLoading, setBalance,setIdleTimer } = seedDetailSlice.actions;
 export const seedDetailSelector = (state: RootState) => state.seedDetailReducer;
 
 export default seedDetailSlice.reducer;
