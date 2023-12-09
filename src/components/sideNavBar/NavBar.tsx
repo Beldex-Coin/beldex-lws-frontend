@@ -100,7 +100,7 @@ export default function NavBar() {
     if (theme.palette.mode === 'dark') {
       return (selectedIndex === selectedInd ? "white" : theme.palette.text.secondary)
     } else {
-      return selectedIndex === selectedInd ? theme.palette.text.primary : theme.palette.text.secondary
+      return selectedIndex === selectedInd ? theme.palette.text.primary : "#222222"  //theme.palette.text.secondary
     }
   }
   return (
@@ -275,7 +275,7 @@ export default function NavBar() {
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Website
-              sx={{ fill: selectedIndex === 4 ? "#00D030" : (theme: any) => theme.palette.secondary.light  }}
+              sx={{ fill: selectedIndex === 4 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText

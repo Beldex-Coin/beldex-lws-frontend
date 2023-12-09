@@ -18,7 +18,7 @@ import loadingIcon from "../../../icons/loading.gif";
 
 export default function SignIn() {
   const theme: any = useTheme();
-  const [showSignWithKey, setShowSignWithKey] = useState(true);
+  const [showSignWithKey, setShowSignWithKey] = useState(false);
   const [loading, setLoading] = useState(false);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ export default function SignIn() {
       validatingMnemonic.pub_viewKey_string = loginValidate.pub_viewKey_string;
       dispatch(setSeedDetails(validatingMnemonic));
       if (loginValidate.isValid === false) {
-      setLoading(false)
+        setLoading(false)
 
         // actually don't think we're expecting this..
         console.log("Invalid input...");
@@ -97,7 +97,7 @@ export default function SignIn() {
           console.log("login__err:", login__err);
           return;
         }
-      setLoading(false)
+        setLoading(false)
 
         console.log("---new_address-", new_address);
         console.log(
@@ -124,42 +124,47 @@ export default function SignIn() {
       console.log("Error:", err);
     }
   };
-  
-  const Loader=()=>(
+
+  const assignSeed = async () => {
+    const recoverySeed = await navigator.clipboard.readText();
+    setUserMnemonic(recoverySeed);
+  }
+
+  const Loader = () => (
     <>
-    {loading && <Box
-    sx={{
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      backgroundColor: "rgba(0, 0, 0, 0.8)",
-      padding: "20px",
-      borderRadius: "5px",
-      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-      zIndex: 99,
-    }}
-  >
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <img src={loadingIcon} width={40} height={40} alt="Loading" />
-    </Box>
-  </Box>}
-  </>
+      {loading && <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+          zIndex: 99,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <img src={loadingIcon} width={40} height={40} alt="Loading" />
+        </Box>
+      </Box>}
+    </>
   )
 
   return (
     <>
-     <Loader/>
+      <Loader />
       {!showSignWithKey && (
         <Box
           className="SignIn"
@@ -198,6 +203,7 @@ export default function SignIn() {
                 placeholder="Enter Recovery Seed from Existing wallet"
                 disableUnderline={true}
                 onChange={(event) => setUserMnemonic(event.target.value)}
+                value={userMnemonic}
                 multiline
                 sx={{
                   width: "100%",
@@ -226,6 +232,7 @@ export default function SignIn() {
               >
                 <IconButton>
                   <ContentPasteIcon
+                    onClick={assignSeed}
                     sx={{
                       backgroundColor: (theme: any) =>
                         theme.palette.secondary.main,

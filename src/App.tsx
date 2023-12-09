@@ -88,10 +88,10 @@ function App() {
                 width: "5px",
               },
               "*::-webkit-scrollbar-track": {
-                "-webkit-box-shadow": "inset 0 0 5px grey",
-                boxShadow: "inset 0 0 5px grey",
+                // "-webkit-box-shadow": "inset 0 0 5px grey",
+                // boxShadow: "inset 0 0 5px grey",
                 borderRadius: "10px",
-                backgroundColor: theme.palette.background.default,
+                backgroundColor: theme.palette.mode == 'dark' ? theme.palette.background.default : "#F2F2F2",
               },
               "*::-webkit-scrollbar-thumb": {
                 background: theme.palette.mode == 'dark' ? "#585870" : "#C7C7C7",
