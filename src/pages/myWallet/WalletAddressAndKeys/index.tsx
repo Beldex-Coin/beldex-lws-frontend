@@ -9,11 +9,6 @@ import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
 import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
 
-// import Accordion from "@mui/material/Accordion";
-// import AccordionSummary from "@mui/material/AccordionSummary";
-// import AccordionDetails from "@mui/material/AccordionDetails";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);

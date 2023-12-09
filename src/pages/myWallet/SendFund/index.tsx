@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -11,7 +11,7 @@ import SendIcon from "@mui/icons-material/Send";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CallMadeIcon from "@mui/icons-material/CallMade";
-import ToastMsg,{ ToastMsgRef } from "../../../components/snackbar/ToastMsg"
+import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useTheme } from "@emotion/react";
@@ -62,7 +62,7 @@ const SendFund = () => {
   //   RUB: "RUB",
   //   ZAR: "ZAR",
   // };
-  const [txnStatus,setTxnStatus]=useState("");
+  const [txnStatus, setTxnStatus] = useState("");
   const [errAmount, setErrAmount] = useState("");
   const [errAddress, setErrAddress] = useState("");
 
@@ -243,12 +243,12 @@ const SendFund = () => {
     // }
     handleOpen();
     setTxnStatus('confirmation')
-    
+
   };
   const estimationNetworkFees = () => {
     const estimatedNetworkFee_JSBigInt = new JSBigInt(coreBridgeInstance.beldex_utils.estimated_tx_network_fee(
       null,
-      1,
+      priority,
       '666', '100000'
     ));
     return estimatedNetworkFee_JSBigInt;
@@ -262,45 +262,44 @@ const SendFund = () => {
     return;
   }
 
-  const sendFundErrorhandle=(params:any)=>{
-      //
-      handleClose()
-      console.log("params params", params);
-      const code = params.err_code;
-      let errStr;
-      if (code === 0 || typeof code === "undefined" || code === null) {
-        // msgProvided
-        errStr = params.err_msg;
-      } else if (isNaN(code)) {
-        errStr = "Unexpected NaN err code - please contact support";
-      } else if (code === 11) {
-        // errInServerResponse_withMsg
-        errStr = params.err_msg;
-      } else if (code === 12) {
-        // createTransactionCode_balancesProvided
-        if (params.createTx_errCode == 90) {
-          // needMoreMoneyThanFound
-          errStr = `Spendable balance too low. Have ${beldex_amount_format_utils.formatMoney(
-            new JSBigInt("" + params.spendable_balance)
-          )} ${
-            beldex_config.coinSymbol
+  const sendFundErrorhandle = (params: any) => {
+    //
+    handleClose()
+    console.log("params params", params);
+    const code = params.err_code;
+    let errStr;
+    if (code === 0 || typeof code === "undefined" || code === null) {
+      // msgProvided
+      errStr = params.err_msg;
+    } else if (isNaN(code)) {
+      errStr = "Unexpected NaN err code - please contact support";
+    } else if (code === 11) {
+      // errInServerResponse_withMsg
+      errStr = params.err_msg;
+    } else if (code === 12) {
+      // createTransactionCode_balancesProvided
+      if (params.createTx_errCode == 90) {
+        // needMoreMoneyThanFound
+        errStr = `Spendable balance too low. Have ${beldex_amount_format_utils.formatMoney(
+          new JSBigInt("" + params.spendable_balance)
+        )} ${beldex_config.coinSymbol
           }; need ${beldex_amount_format_utils.formatMoney(
             new JSBigInt("" + params.required_balance)
           )} ${beldex_config.coinSymbol}.`;
-        } else {
-          errStr = createTxErrCodeMessage_byEnumVal[params.createTx_errCode];
-        }
-      } else if (code === 13) {
-        // createTranasctionCode_noBalances
-        errStr = createTxErrCodeMessage_byEnumVal[params.createTx_errCode];
       } else {
-        errStr = failureCodeMessage_byEnumVal[code];
+        errStr = createTxErrCodeMessage_byEnumVal[params.createTx_errCode];
       }
-      console.log("error ::", errStr);
-      handleShowToastMsg();
-      clearStates();
-      const err = new Error(errStr);
-      console.error(err);
+    } else if (code === 13) {
+      // createTranasctionCode_noBalances
+      errStr = createTxErrCodeMessage_byEnumVal[params.createTx_errCode];
+    } else {
+      errStr = failureCodeMessage_byEnumVal[code];
+    }
+    console.log("error ::", errStr);
+    handleShowToastMsg();
+    clearStates();
+    const err = new Error(errStr);
+    console.error(err);
   }
 
   const intiate_transaction = async () => {
@@ -331,11 +330,11 @@ const SendFund = () => {
       resolvedPaymentID: "",
     };
 
-    args.willBeginSending_fn = ()=> {
+    args.willBeginSending_fn = () => {
       console.log("willBeginSending_fn ::");
       setTxnStatus('Fetching decoy outputs..')
     };
-    args.authenticate_fn = (cb: any) =>{
+    args.authenticate_fn = (cb: any) => {
       function Initiate_VerifyUserAuthenticationForAction(
         customNavigationBarTitle_orNull: any, // String? -- null if you don't want one
         canceled_fn: any, // () -> Void
@@ -353,7 +352,7 @@ const SendFund = () => {
         }
       );
     };
-    args.status_update_fn = (params: any)=> {
+    args.status_update_fn = (params: any) => {
       const raw_amount_string = amount;
       const statusUpdate_messageBase = isSweepTx
         ? "Sending wallet balance…"
@@ -362,11 +361,11 @@ const SendFund = () => {
       // preSuccess_nonTerminal_statusUpdate_fn(`${statusUpdate_messageBase} ${suffix}`) // TODO: localize concatenation
       console.log("status_update_fn ::", statusUpdate_messageBase, suffix);
     };
-    args.canceled_fn = ()=> {
+    args.canceled_fn = () => {
       console.log("canceled_fn ");
       clearStates();
     };
-    args.success_fn = (params: any)=> {
+    args.success_fn = (params: any) => {
       console.log("success_fn ::", params);
       setTxnStatus("success");
       //
@@ -411,15 +410,15 @@ const SendFund = () => {
     args.error_fn = (params: any) => {
       sendFundErrorhandle(params)
     };
-    args.get_unspent_outs_fn = (req_params: any, cb: any)=> {
+    args.get_unspent_outs_fn = (req_params: any, cb: any) => {
       coreBridgeInstance.hostedMoneroAPIClient.UnspentOuts(req_params, cb);
       console.log("get_unspent_outs_fn ::", req_params);
     };
-    args.get_random_outs_fn = (req_params: any, cb: any)=> {
+    args.get_random_outs_fn = (req_params: any, cb: any) => {
       coreBridgeInstance.hostedMoneroAPIClient.RandomOuts(req_params, cb);
       console.log("get_random_outs_fn ::", req_params);
     };
-    args.submit_raw_tx_fn = (req_params: any, cb: any)=> {
+    args.submit_raw_tx_fn = (req_params: any, cb: any) => {
       setTxnStatus('Submiting Transaction.')
 
       coreBridgeInstance.hostedMoneroAPIClient.SubmitRawTx(req_params, cb);
@@ -430,7 +429,7 @@ const SendFund = () => {
   };
 
 
-  const  clearStates=()=> {
+  const clearStates = () => {
     setPriority(5);
     setToAddress("");
     setAmount("");
@@ -439,56 +438,56 @@ const SendFund = () => {
     setPaymentIdToggle(false);
   }
 
-  const PaymentSuccessDialog=()=>{
+  const PaymentSuccessDialog = () => {
     return (
       <Box sx={style}>
-      <Typography
-        component={"h2"}
-        variant="h6"
-        sx={{ fontWeight: "700" }}
-        textAlign={"center"}
-      >
-        Your BDX is on it’s way..
-      </Typography>
+        <Typography
+          component={"h2"}
+          variant="h6"
+          sx={{ fontWeight: "700" }}
+          textAlign={"center"}
+        >
+          Your BDX is on it’s way..
+        </Typography>
 
-      <Box textAlign={"center"} mt={2}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="68"
-          height="68"
-          viewBox="0 0 68 68"
-          fill="none"
-        >
-          <path
-            d="M67.9998 33.9266C67.9998 40.5885 66.0243 47.1008 62.3232 52.6399C58.622 58.179 53.3615 62.4963 47.2067 65.0457C41.0519 67.595 34.2794 68.2621 27.7456 66.9624C21.2117 65.6627 15.21 62.4547 10.4993 57.7441C5.78867 53.0334 2.58068 47.0317 1.28101 40.4979C-0.0186521 33.964 0.648383 27.1915 3.19777 21.0367C5.74715 14.882 10.0644 9.62139 15.6035 5.92026C21.1427 2.21912 27.6549 0.243652 34.3168 0.243652C43.2501 0.243652 51.8175 3.79239 58.1343 10.1092C64.451 16.426 67.9998 24.9934 67.9998 33.9266Z"
-            fill="#1BB51E"
-          />
-          <path
-            d="M48.7264 21.4414L28.254 41.9378L21.2011 34.9043C20.5697 34.2734 19.7136 33.919 18.821 33.919C17.9284 33.919 17.0724 34.2734 16.441 34.9043C16.1278 35.2173 15.8794 35.5888 15.7099 35.9978C15.5404 36.4068 15.4531 36.8451 15.4531 37.2878C15.4531 37.7306 15.5404 38.1689 15.7099 38.5779C15.8794 38.9869 16.1278 39.3584 16.441 39.6713L25.8745 49.082C26.5061 49.713 27.3623 50.0675 28.2551 50.0675C29.1479 50.0675 30.0042 49.713 30.6358 49.082L53.4922 26.2027C54.1233 25.5709 54.4778 24.7145 54.4778 23.8215C54.4778 22.9285 54.1233 22.0721 53.4922 21.4403C53.1793 21.1272 52.8078 20.8789 52.3989 20.7095C51.99 20.5401 51.5517 20.453 51.1091 20.4531C50.6665 20.4532 50.2282 20.5406 49.8194 20.7101C49.4105 20.8797 49.0391 21.1282 48.7264 21.4414Z"
-            fill="white"
-          />
-        </svg>
+        <Box textAlign={"center"} mt={2}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="68"
+            height="68"
+            viewBox="0 0 68 68"
+            fill="none"
+          >
+            <path
+              d="M67.9998 33.9266C67.9998 40.5885 66.0243 47.1008 62.3232 52.6399C58.622 58.179 53.3615 62.4963 47.2067 65.0457C41.0519 67.595 34.2794 68.2621 27.7456 66.9624C21.2117 65.6627 15.21 62.4547 10.4993 57.7441C5.78867 53.0334 2.58068 47.0317 1.28101 40.4979C-0.0186521 33.964 0.648383 27.1915 3.19777 21.0367C5.74715 14.882 10.0644 9.62139 15.6035 5.92026C21.1427 2.21912 27.6549 0.243652 34.3168 0.243652C43.2501 0.243652 51.8175 3.79239 58.1343 10.1092C64.451 16.426 67.9998 24.9934 67.9998 33.9266Z"
+              fill="#1BB51E"
+            />
+            <path
+              d="M48.7264 21.4414L28.254 41.9378L21.2011 34.9043C20.5697 34.2734 19.7136 33.919 18.821 33.919C17.9284 33.919 17.0724 34.2734 16.441 34.9043C16.1278 35.2173 15.8794 35.5888 15.7099 35.9978C15.5404 36.4068 15.4531 36.8451 15.4531 37.2878C15.4531 37.7306 15.5404 38.1689 15.7099 38.5779C15.8794 38.9869 16.1278 39.3584 16.441 39.6713L25.8745 49.082C26.5061 49.713 27.3623 50.0675 28.2551 50.0675C29.1479 50.0675 30.0042 49.713 30.6358 49.082L53.4922 26.2027C54.1233 25.5709 54.4778 24.7145 54.4778 23.8215C54.4778 22.9285 54.1233 22.0721 53.4922 21.4403C53.1793 21.1272 52.8078 20.8789 52.3989 20.7095C51.99 20.5401 51.5517 20.453 51.1091 20.4531C50.6665 20.4532 50.2282 20.5406 49.8194 20.7101C49.4105 20.8797 49.0391 21.1282 48.7264 21.4414Z"
+              fill="white"
+            />
+          </svg>
+        </Box>
+        <Box textAlign={"center"} mt={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              fontWeight: 600,
+              width: "150px",
+              height: "45px",
+              borderRadius: "10px",
+              color: theme.palette.text.primary,
+            }}
+            onClick={() => { setTxnStatus(""), handleClose() }}
+          >
+            Ok
+          </Button>
+        </Box>
       </Box>
-      <Box textAlign={"center"} mt={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            fontWeight: 600,
-            width: "150px",
-            height: "45px",
-            borderRadius: "10px",
-            color: theme.palette.text.primary,
-          }}
-          onClick={()=>{setTxnStatus(""),handleClose()}}
-        >
-          Ok
-        </Button>
-      </Box>
-    </Box>
     )
   }
-  
+
 
   useEffect(() => {
     newEstimatedNetworkFeeDisplay();
@@ -848,7 +847,7 @@ const SendFund = () => {
           }}
           value={priority}
           defaultValue={priority}
-          onChange={(event: any) => setPriority(event.target.value)}
+          onChange={(event: any) => { setPriority(event.target.value), newEstimatedNetworkFeeDisplay() }}
         >
           <MenuItem value={5}>Flash</MenuItem>
           <MenuItem value={1}>Normal</MenuItem>
@@ -885,8 +884,8 @@ const SendFund = () => {
             width: "150px",
             height: "45px",
             borderRadius: "10px",
-            // color: "white",
-            color: theme.palette.text.primary,
+            color: "white",
+            // color: theme.palette.text.primary,
           }}
           onClick={() => sendFundFieldValidation()}
         >
@@ -902,96 +901,96 @@ const SendFund = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {txnStatus !=="success"?  
-        <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h5"
-            component="h2"
-            textAlign="center"
-            sx={{ fontWeight: "700" }}
-          >
-            Confirm Sending
-          </Typography>
-          <Typography mt={1} sx={{ fontWeight: "400", fontSize: "1.1rem" }}>
-            Address :
-          </Typography>
-          <Typography
-            id="modal-modal-description"
-            sx={{ wordBreak: "break-all", fontWeight: "300" }}
-          >
-           {toAddress}
-          </Typography>
-          <Typography
-            mt={1}
-            sx={{ color: "#77778B", fontWeight: "400", fontSize: "1.1rem" }}
-          >
-            Amount :{" "}
+        {txnStatus !== "success" ?
+          <Box sx={style}>
             <Typography
-              component={"span"}
-              sx={{ color: theme.palette.text.primary }}
+              id="modal-modal-title"
+              variant="h5"
+              component="h2"
+              textAlign="center"
+              sx={{ fontWeight: "700" }}
             >
-              {amount}
+              Confirm Sending
             </Typography>
-          </Typography>
-          {txnStatus==='confirmation'? 
-         <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="center"
-            alignItems="center"
-            mt={5}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              sx={{
-                fontWeight: 600,
-                marginRight: "10px",
-                width: "150px",
-                height: "45px",
-                borderRadius: "10px",
-               
-                color: theme.palette.text.primary,
-              }}
-              onClick={handleClose}
-            >
-              cancel
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 600,
-                width: "150px",
-                height: "45px",
-                borderRadius: "10px", 
-                color: theme.palette.text.primary,
-              }}
-              onClick={() => intiate_transaction()}
-            >
-             
-              Confirm
-            </Button>
-          </Box>
-          :
-           <Box mt={2} sx={{backgroundColor:"#32324A",padding:'10px 20px',borderRadius:'10px'}}  >
-          <Typography
-              sx={{ color:'#00AD07',fontWeight:400,fontSize:'1rem' }}
-            >
-              {`Sending ${amount} BDX..${txnStatus}`}
+            <Typography mt={1} sx={{ fontWeight: "400", fontSize: "1.1rem" }}>
+              Address :
             </Typography>
+            <Typography
+              id="modal-modal-description"
+              sx={{ wordBreak: "break-all", fontWeight: "300" }}
+            >
+              {toAddress}
+            </Typography>
+            <Typography
+              mt={1}
+              sx={{ color: "#77778B", fontWeight: "400", fontSize: "1.1rem" }}
+            >
+              Amount :{" "}
+              <Typography
+                component={"span"}
+                sx={{ color: theme.palette.text.primary }}
+              >
+                {amount}
+              </Typography>
+            </Typography>
+            {txnStatus === 'confirmation' ?
+              <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="center"
+                alignItems="center"
+                mt={5}
+              >
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    fontWeight: 600,
+                    marginRight: "10px",
+                    width: "150px",
+                    height: "45px",
+                    borderRadius: "10px",
+
+                    color: theme.palette.text.primary,
+                  }}
+                  onClick={handleClose}
+                >
+                  cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    fontWeight: 600,
+                    width: "150px",
+                    height: "45px",
+                    borderRadius: "10px",
+                    color: theme.palette.text.primary,
+                  }}
+                  onClick={() => intiate_transaction()}
+                >
+
+                  Confirm
+                </Button>
+              </Box>
+              :
+              <Box mt={2} sx={{ backgroundColor: "#32324A", padding: '10px 20px', borderRadius: '10px' }}  >
+                <Typography
+                  sx={{ color: '#00AD07', fontWeight: 400, fontSize: '1rem' }}
+                >
+                  {`Sending ${amount} BDX..${txnStatus}`}
+                </Typography>
+              </Box>
+            }
           </Box>
-          }
-        </Box>
-        :<PaymentSuccessDialog />
-        
-      }
-       
-       
+          : <PaymentSuccessDialog />
+
+        }
+
+
       </Modal>
-      <ToastMsg ref={toastMsgRef}/>
-     
+      <ToastMsg ref={toastMsgRef} />
+
     </Box>
   );
 };

@@ -32,6 +32,23 @@ export default function TransactionList(props: any) {
     return Number(actualAmount.replace("-", "")).toFixed(4);
   }
 
+  const paymentIdZeroValidation = (payment_id: any) => {
+    let index = 0;
+    let zeroCount = 0;
+    if (payment_id) {
+      while (index < (payment_id.length).toString()) {
+        if (payment_id.slice(index, index + 1) == "0") {
+          zeroCount = zeroCount + 1;
+        }
+        index++;
+      }
+      if (zeroCount == 16) {
+        return '';
+      }
+      return payment_id;
+    }
+  }
+
   return (
     <Box className="transactionList">
       {transactions.length ? (
@@ -62,7 +79,7 @@ export default function TransactionList(props: any) {
                 {/* {transaction.total_received/1e9} BDX */}
               </Typography>
               <Typography sx={{ color: "#D1D1D3", fontSize: "0.8rem" }}>
-                {transaction.payment_id}
+                {paymentIdZeroValidation(transaction.payment_id)}
               </Typography>
             </Box>
             <Box display="flex" flexDirection="row" alignItems="center">
