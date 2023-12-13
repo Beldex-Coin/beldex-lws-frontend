@@ -18,6 +18,8 @@ export interface seedDetailState {
     isWalletCreated?: boolean;
     unlocked_balance?: number;
     timer?:number;
+    isLogin?:boolean,
+
 }
 
 export const initialState: seedDetailState = {
@@ -32,7 +34,7 @@ export const initialState: seedDetailState = {
     isWalletCreated: false,
     loading: false,
     unlocked_balance: 0,
-
+    isLogin:false,
     timer:20
 }
 
@@ -53,6 +55,7 @@ const seedDetailSlice = createSlice({
             state.sec_seed_string = action.payload.sec_seed_string;
             state.sec_spendKey_string = action.payload.sec_spendKey_string;
             state.sec_viewKey_string = action.payload.sec_viewKey_string;
+            state.isLogin=action.payload.isLogin
             // state = {...action.payload}
             console.log('----state---', state)
 

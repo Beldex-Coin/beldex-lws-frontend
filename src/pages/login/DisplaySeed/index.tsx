@@ -21,12 +21,12 @@ const mnemonic_languages = require('@bdxi/beldex-locales');
 
 export default function DisplaySeed() {
   const theme: any = useTheme();
-  const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
+  // const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [language, setLanguage] = useState("English");
   const [isCopied, setIsCopied] = useState(false);
-  const [seed, setSeed] = useState('');
+  const [secretKeys, setSecretKeys] = React.useState<any>(() => []);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -38,15 +38,21 @@ export default function DisplaySeed() {
       let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
       const recSeed = coreBridgeInstance.beldex_utils.newly_created_wallet(compatibleLocaleCode, 1)
       console.log('-dispatch recSeed---', recSeed);
-      dispatch(setSeedDetails(recSeed));
-      setSeed(recSeed.mnemonic_string);
+      recSeed.isLogin=false; 
+      setSecretKeys(recSeed);
+      
     }
   }, [coreBridgeInstance.beldex_utils])
 
-  async function copyText(text: string) {
+  const copyText=(text: string)=>{
     navigator.clipboard.writeText(text);
     // await new Wallet().Login();
     setIsCopied(true)
+  }
+  const next=()=>{
+      dispatch(setSeedDetails(secretKeys));
+      navigate('/authSeed')
+
   }
   return (
     <Box
@@ -94,7 +100,7 @@ export default function DisplaySeed() {
               alignItems: "center",
               fontSize: isMobileMode ? "11px" : "1rem",
             }}
-          >{seed}</Typography>
+          >{secretKeys?.mnemonic_string}</Typography>
           <Box
             sx={{
               display: "flex",
@@ -103,8 +109,8 @@ export default function DisplaySeed() {
             }}
           >
             <IconButton
-              onClick={() => copyText(seed)}
-              disabled={seed.length === 0}
+              onClick={() => copyText(secretKeys?.mnemonic_string)}
+              disabled={!secretKeys?.mnemonic_string}
               sx={{
                 backgroundColor: "#128B17",
                 boxShadow:
@@ -213,7 +219,7 @@ export default function DisplaySeed() {
             variant="contained"
             color="primary"
             disabled={!isCopied}
-            onClick={() => navigate('/authSeed')}
+            onClick={() => next()}
             sx={{
               width: isMobileMode ? "70%" : '150px',
               borderRadius: isMobileMode ? "40px" : "10px",

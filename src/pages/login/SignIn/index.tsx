@@ -77,6 +77,7 @@ export default function SignIn() {
       validatingMnemonic.pub_spendKey_string =
         loginValidate.pub_spendKey_string;
       validatingMnemonic.pub_viewKey_string = loginValidate.pub_viewKey_string;
+      validatingMnemonic.isLogin=true
       dispatch(setSeedDetails(validatingMnemonic));
       if (loginValidate.isValid === false) {
         setLoading(false)

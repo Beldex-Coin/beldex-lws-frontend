@@ -3,7 +3,7 @@ import { Box, Button, Input, Typography, useMediaQuery, useTheme } from "@mui/ma
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { CoreBridgeInstanceContext } from '../../../CoreBridgeInstanceContext'
 import { useNavigate } from "react-router-dom";
-import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
+import { seedDetailState, setSeedDetails } from "../../../stores/features/seedDetailSlice";
 import { useAppDispatch } from "../../../stores/hooks";
 
 export default function SignInWithKey(props: any) {
@@ -57,14 +57,17 @@ export default function SignInWithKey(props: any) {
         console.log('---received__generated_locally-', received__generated_locally);
         console.log('---start_height-', start_height);
     
-        const store = {
+        const store= {
           address_string: userAddress,
           sec_viewKey_string: userViewKey,
           sec_spendKey_string: userSpendKey,
           mnemonic_string: 'N/A',
           pub_spendKey_string: loginValidate.pub_spendKey_string,
-          pub_viewKey_string: loginValidate.pub_viewKey_string
+          pub_viewKey_string: loginValidate.pub_viewKey_string,
+          isLogin:true
         }
+        
+
         dispatch(setSeedDetails(store));
         setShowErrMsg(false);
         setErrMsg('');

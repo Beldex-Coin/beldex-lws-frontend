@@ -72,7 +72,10 @@ export default function AuthSeed() {
         console.log("Invalid input...")
         return
       }
-      dispatch(setSeedDetails(seedData));
+      // seedData.isLogin=true;
+      const  addLoginPropertyToSeedData={...seedData,isLogin:true}
+      console.log("islogin loginvalid ::",addLoginPropertyToSeedData)
+      dispatch(setSeedDetails(addLoginPropertyToSeedData));
       const loginCB = (login__err: any, new_address: any, received__generated_locally: any, start_height: any) => {
         console.log('---login__err-', login__err);
         if (login__err) { // already logged
