@@ -178,7 +178,7 @@ const SendFund = () => {
   };
   const handleShowToastMsg = () => {
     if (toastMsgRef.current) {
-      toastMsgRef.current.showAlert('Error !', 'error');
+      toastMsgRef.current.showAlert('Error ', 'error');
     }
   };
 
@@ -591,7 +591,7 @@ const SendFund = () => {
         <Box
           sx={{
             // background: "#1C1C26",
-            backgroundColor: (theme) => theme.palette.background.default,
+            backgroundColor: (theme) => theme.palette.mode==="dark"?"#1C1C26":"#F2F2F2",
             padding: "0 20px",
             width: "100%",
             color: "white",
@@ -728,10 +728,12 @@ const SendFund = () => {
         multiline
         sx={{
           width: "100%",
-          height: "100px",
+          minHeight:'110px',
+          maxHeight: "125px",
           color: theme.palette.text.primary,
-          backgroundColor: (theme) => theme.palette.background.default,
-          padding: "0 20px",
+          // backgroundColor: (theme) => theme.palette.background.default,
+          backgroundColor: (theme) => theme.palette.mode==="dark"?"#1C1C26":"#F2F2F2",
+          padding: "10px 20px",
           borderRadius: "18px",
           border: errAddress ? "1px solid #FC2727" : "none",
 
@@ -816,7 +818,7 @@ const SendFund = () => {
             backgroundColor: (theme: any) => theme.palette.secondary.main,
             height: "35px",
             borderRadius: "10px",
-            marginLeft: "10px",
+            marginLeft: "25px",
 
             "& .MuiSelect-icon": {
               fill: theme.palette.text.primary,

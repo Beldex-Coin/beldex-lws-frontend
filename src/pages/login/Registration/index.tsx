@@ -35,7 +35,7 @@ export default function Registration() {
       <Box
         sx={{
           backgroundColor: theme.palette.success.main,
-          width: isMobileMode ? "unset" : "80%",
+          width: isMobileMode ? "unset" : "79%",
           height: "100%",
           padding: "25px",
           display: "flex",

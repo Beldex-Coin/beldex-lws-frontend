@@ -39,6 +39,7 @@ export const lightTheme: ThemeOptions = {
             paper: "#F0F0F0",
             // paper: "#F2F2F2",
             default: "#F8F8F8"
+            
         },
     },
 

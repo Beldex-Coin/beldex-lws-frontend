@@ -1,8 +1,8 @@
 import SvgIcon from '@mui/material/SvgIcon';
 
-const LogoDark = () => {
+const LogoDark = (props:any) => {
   return (
-    <SvgIcon>
+    <SvgIcon sx={props.sx}>
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34">
         <defs>
           <pattern id="pattern" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" viewBox="0 0 309 353">

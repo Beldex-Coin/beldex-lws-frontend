@@ -21,18 +21,14 @@ const MyWallet = () => {
     const handlePopstate = (event: any) => {
       window.history.pushState(null, document.title, window.location.href);
     };
-    
-   
+
     // Attach the event listener
     window.addEventListener("popstate", handlePopstate);
-   
+
     // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener("popstate", handlePopstate);
-    // window.removeEventListener('unload', handleTabClose);
-
-      
-  
+      // window.removeEventListener('unload', handleTabClose);
     };
 
     // The dependency array is empty to mimic componentDidMount
