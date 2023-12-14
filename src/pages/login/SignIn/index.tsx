@@ -174,7 +174,7 @@ export default function SignIn() {
             // justifyContent: "center",
             // alignItems: "center",
             // width: "100%",
-            padding: isMobileMode ? "25px" : "30px 45px",
+            padding: isMobileMode ? "25px 0" : "30px 45px",
             height: "calc(100vh - 110px)",
             overflow: "auto",
           }}
@@ -198,7 +198,7 @@ export default function SignIn() {
             >
               Existing Wallet
             </Typography>
-            <Typography mt={3}>Recovery Seed</Typography>
+            <Typography mt={3} sx={{fontWeight: 700,fontSize:'1.1rem'}}>Recovery Seed</Typography>
             <Box mt={1} display="flex" flexDirection="row">
               <Input
                 placeholder="Enter Recovery Seed from Existing wallet"
@@ -208,10 +208,12 @@ export default function SignIn() {
                 multiline
                 sx={{
                   width: "100%",
-                  height: "150px",
+                  minHeight: "150px",
+                  maxHeight: "200px",
+
                   color: (theme) => theme.palette.text.secondary,
                   backgroundColor: (theme) => theme.palette.secondary.main,
-                  padding: "0 20px",
+                  padding: "5px 20px",
                   borderRadius: "18px",
                   overflow: "auto",
                 }}

@@ -92,7 +92,7 @@ export default function SignInWithKey(props: any) {
     <Box
       className="SignInWithKey"
       sx={{
-        padding: isMobileMode ? "25px" : '30px 45px',
+        padding: isMobileMode ? "25px 0" : '30px 45px',
         height: 'calc(100vh - 110px)',
         overflow: 'auto'
       }}
@@ -121,10 +121,10 @@ export default function SignInWithKey(props: any) {
             multiline
             sx={{
               width: "100%",
-              height: "70px",
+              minHeight: "70px",
               color: (theme) => theme.palette.text.secondary,
               backgroundColor: (theme) => theme.palette.secondary.main,
-              padding: "0 20px",
+              padding: "10px 20px",
               borderRadius: "18px",
               overflow: "auto",
             }}
@@ -142,10 +142,10 @@ export default function SignInWithKey(props: any) {
             onChange={event => { setUserViewKey(event.target.value) }}
             sx={{
               width: "100%",
-              height: "70px",
+              minHeight: "70px",
               color: (theme) => theme.palette.text.secondary,
               backgroundColor: (theme) => theme.palette.secondary.main,
-              padding: "0 20px",
+              padding: "10px 20px",
               borderRadius: "18px",
               overflow: "auto",
             }}
@@ -163,10 +163,10 @@ export default function SignInWithKey(props: any) {
             onChange={event => { setUserSpendKey(event.target.value) }}
             sx={{
               width: "100%",
-              height: "70px",
+              minHeight: "70px",
               color: (theme) => theme.palette.text.secondary,
               backgroundColor: (theme) => theme.palette.secondary.main,
-              padding: "0 20px",
+              padding: "10px 20px",
               borderRadius: "18px",
               overflow: "auto",
 

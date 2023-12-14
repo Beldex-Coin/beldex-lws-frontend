@@ -22,7 +22,7 @@ export default function WalletAddressAndKeys() {
 
   const handleShowToastMsg = () => {
     if (toastMsgRef.current) {
-      toastMsgRef.current.showAlert("Copied !", "success");
+      toastMsgRef.current.showAlert("Copied ", "success");
     }
   };
 
@@ -74,7 +74,7 @@ export default function WalletAddressAndKeys() {
           </IconButton>
           <ArrowRightIcon
             sx={{ fill: "#8787A8", cursor: "pointer" }}
-            className={seedVisible ? "rotate" : ""}
+            className={seedVisible ? "rotate" : "rotateUp"}
             onClick={() => setSeedVisible(!seedVisible)}
           />
         </Box>

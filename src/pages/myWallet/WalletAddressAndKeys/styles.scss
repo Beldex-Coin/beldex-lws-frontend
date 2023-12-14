@@ -45,7 +45,12 @@
     transition: height 2s;
   }
   .rotate{
-    transform: rotate(91deg);
+    transform: rotate(267deg);
+    transition: transform 0.1s;
+
+  }
+  .rotateUp{
+    transform: rotate(90deg);
     transition: transform 0.1s;
 
   }

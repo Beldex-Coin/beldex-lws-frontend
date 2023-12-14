@@ -137,7 +137,7 @@ function App() {
               <Box
                 sx={{
                   minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-                  background: theme.palette.background.paper,
+                  background:isMobileMode?"unset": theme.palette.background.paper,
                   borderRadius: "25px",
                 }}
               >

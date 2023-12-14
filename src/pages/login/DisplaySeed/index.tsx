@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -17,12 +17,14 @@ import { useTheme } from "@emotion/react";
 import { useAppSelector } from "../../../stores/hooks";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { seedDetailSelector, seedDetailState } from "../../../stores/features/seedDetailSlice";
+import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
 const mnemonic_languages = require('@bdxi/beldex-locales');
 
 export default function DisplaySeed() {
   const theme: any = useTheme();
   // const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const toastMsgRef = useRef<ToastMsgRef>(null);
 
   const [language, setLanguage] = useState("English");
   const [isCopied, setIsCopied] = useState(false);
@@ -48,7 +50,14 @@ export default function DisplaySeed() {
     navigator.clipboard.writeText(text);
     // await new Wallet().Login();
     setIsCopied(true)
-  }
+    handleShowToastMsg();
+  };
+
+  const handleShowToastMsg = () => {
+    if (toastMsgRef.current) {
+      toastMsgRef.current.showAlert("Copied ", "success");
+    }
+  };
   const next=()=>{
       dispatch(setSeedDetails(secretKeys));
       navigate('/authSeed')
@@ -58,7 +67,7 @@ export default function DisplaySeed() {
     <Box
       className="DisplaySeed"
       sx={{
-        padding: isMobileMode ? "25px" : '30px 45px',
+        padding: isMobileMode ? "25px 0" : '30px 45px',
         height: 'calc(100vh - 110px)',
         overflow: 'auto',
       }}
@@ -90,9 +99,9 @@ export default function DisplaySeed() {
             sx={{
               width: "100%",
               color: (theme) => theme.palette.text.secondary,
-              backgroundColor: (theme) => theme.palette.secondary.main,
+              backgroundColor: (theme) =>theme.palette.mode==="dark"?"#1F1F2E":"#F5F5F5",
               padding: isMobileMode ? "20px" : "20px 25px",
-              borderRadius: "18px",
+              borderRadius: "10px",
               lineHeight: 1.75,
               overflow: "auto",
               fontWeight: 400,
@@ -233,6 +242,8 @@ export default function DisplaySeed() {
           </Button>
         </Box>
       </Box>
+      <ToastMsg ref={toastMsgRef} />
+
     </Box>
   );
 }

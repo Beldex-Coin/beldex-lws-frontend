@@ -35,7 +35,7 @@ const style = {
   borderRadius: "22px",
 };
 
-export default function PreferenceSetting() {
+export default function PreferenceSetting(props: any) {
   const theme: any = useTheme();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -43,8 +43,7 @@ export default function PreferenceSetting() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
-  walletDetails.timer!==1500 && userIdleTimerController()
-
+  walletDetails.timer !== 1500 && userIdleTimerController();
 
   // const [displayCurrency, setDisplayCurrency] = useState("USD");
   // const exchangeCurrencyList = {
@@ -100,7 +99,7 @@ export default function PreferenceSetting() {
         App Timeout
       </Typography>
       <AppTimeoutSlider />
-{/* 
+      {/* 
       <Box className="drop-down-wrapper" mt={3}>
         <Typography component="span" sx={{ color: theme.palette.text.primary }}>
           Display Currency
@@ -149,7 +148,7 @@ export default function PreferenceSetting() {
 
       <Box
         className="info-wrapper"
-        mt={3}
+        mt={4}
         display="flex"
         flexDirection="row"
         justifyContent="center"
@@ -173,12 +172,13 @@ export default function PreferenceSetting() {
         <Typography
           component="span"
           className="link"
+          onClick={()=>props.setIsPreference()}
           sx={{ color: theme.palette.text.primary }}
         >
           About MyBeldex
         </Typography>
       </Box>
-      <Box className="logout-btn-wrapper" mt={1}>
+      <Box className="logout-btn-wrapper" mt={3}>
         <Button
           variant="contained"
           color="secondary"
@@ -207,11 +207,16 @@ export default function PreferenceSetting() {
           <Typography
             id="modal-modal-title"
             textAlign="center"
-            sx={{ fontWeight: "700",fontSize:'1.4rem' }}
+            sx={{ fontWeight: "700", fontSize: "1.4rem" }}
           >
             Logout?
           </Typography>
-          <Typography sx={{mt:1,fontWeight:400,fontSize:"1.2rem"}} textAlign={'center'}>Are you sure you want to Logout from Wallet?</Typography>
+          <Typography
+            sx={{ mt: 1, fontWeight: 400, fontSize: "1.2rem" }}
+            textAlign={"center"}
+          >
+            Are you sure you want to Logout from Wallet?
+          </Typography>
           <Box
             display="flex"
             flexDirection="row"
@@ -243,7 +248,7 @@ export default function PreferenceSetting() {
                 width: "150px",
                 height: "45px",
                 borderRadius: "10px",
-                color: theme.palette.text.primary,
+                color: "white",
               }}
               onClick={() => logout()}
             >

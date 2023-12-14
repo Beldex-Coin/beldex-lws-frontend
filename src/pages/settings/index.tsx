@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import PreferenceSetting from "./PreferenceSetting";
 import OutboundIcon from "@mui/icons-material/Outbound";
 import { useNavigate } from "react-router-dom";
+import About from "./About";
 const Settings = () => {
+  const [isPreference, setIsPreference] = useState(true);
   const navigate = useNavigate();
   return (
     <Box sx={{ padding: "25px" }}>
-      <Box sx={{ display: "flex", flexDirection:'row',alignItems:'center' }}>
+      <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
         <OutboundIcon
           sx={{
             transform: "rotate(225deg)",
@@ -29,7 +31,7 @@ const Settings = () => {
           marginTop: "60px",
         }}
       >
-        <PreferenceSetting />
+        {isPreference ? <PreferenceSetting  setIsPreference={()=>setIsPreference(false)}/> : <About setIsPreference={()=>setIsPreference(true)} />}
       </Box>
       {/* <Typography  sx={{color: 'white',fontSize: '20px',textAlign: 'center',fontWeight: 500,margin: '40px'}}>Settings Page</Typography> */}
     </Box>

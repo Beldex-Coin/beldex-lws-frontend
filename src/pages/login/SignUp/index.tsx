@@ -18,7 +18,7 @@ export default function SignUp() {
     <Box
       className="SignUp"
       sx={{
-        padding: isMobileMode ? "25px" : '30px 45px',
+        padding: isMobileMode ? "25px 0" : '30px 45px',
         height: 'calc(100vh - 110px)',
         overflow: 'auto',
       }}

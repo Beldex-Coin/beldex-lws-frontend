@@ -16,7 +16,7 @@ export default function TransactionDetails(props: any) {
     transactionDetails[0].amount
   );
   const status =
-    transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
+    transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Received";
   console.log("prop propps ::", props.transactionDetails);
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
@@ -39,7 +39,7 @@ export default function TransactionDetails(props: any) {
 
   const handleShowToastMsg = () => {
     if (toastMsgRef.current) {
-      toastMsgRef.current.showAlert("copied !", "success");
+      toastMsgRef.current.showAlert("Copied ", "success");
     }
   };
   return (
