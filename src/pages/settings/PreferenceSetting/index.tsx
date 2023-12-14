@@ -18,33 +18,36 @@ import {
   Select,
   MenuItem,
   Modal,
+  useMediaQuery,
 } from "@mui/material";
 import userIdleTimerController from "../AppTimeoutSlider/userIdleTimerController";
 import { useSelector } from "react-redux";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 505,
-  bgcolor: "background.paper",
-  // border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "22px",
-};
+
 
 export default function PreferenceSetting(props: any) {
   const theme: any = useTheme();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   walletDetails.timer !== 1500 && userIdleTimerController();
 
+  const style = {
+    position:  "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width:isMobileMode?360: 505,
+    bgcolor: "background.paper",
+    // border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "22px",
+  };
   // const [displayCurrency, setDisplayCurrency] = useState("USD");
   // const exchangeCurrencyList = {
   //   USD: "USD",
@@ -207,12 +210,12 @@ export default function PreferenceSetting(props: any) {
           <Typography
             id="modal-modal-title"
             textAlign="center"
-            sx={{ fontWeight: "700", fontSize: "1.4rem" }}
+            sx={{ fontWeight: "700", fontSize:isMobileMode?"1rem":"1.4rem" }}
           >
             Logout?
           </Typography>
           <Typography
-            sx={{ mt: 1, fontWeight: 400, fontSize: "1.2rem" }}
+            sx={{ mt: 1, fontWeight: 400, fontSize:isMobileMode?"0.8rem":"1.2rem" }}
             textAlign={"center"}
           >
             Are you sure you want to Logout from Wallet?
@@ -232,7 +235,7 @@ export default function PreferenceSetting(props: any) {
                 marginRight: "10px",
                 width: "150px",
                 height: "45px",
-                borderRadius: "10px",
+                borderRadius:isMobileMode?"40px":"10px",
 
                 color: theme.palette.text.primary,
               }}
@@ -247,7 +250,7 @@ export default function PreferenceSetting(props: any) {
                 fontWeight: 600,
                 width: "150px",
                 height: "45px",
-                borderRadius: "10px",
+                borderRadius:isMobileMode?"40px":"10px",
                 color: "white",
               }}
               onClick={() => logout()}
