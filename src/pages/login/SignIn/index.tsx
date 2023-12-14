@@ -30,6 +30,7 @@ export default function SignIn() {
 
   const signWithKey = (bool: boolean) => {
     setShowSignWithKey(bool);
+    setUserMnemonic('');
   };
 
   const sendValidation = () => {

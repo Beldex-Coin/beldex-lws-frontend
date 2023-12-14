@@ -88,6 +88,13 @@ export default function SignInWithKey(props: any) {
     }
   }
 
+  const signInWithAddress = () => {
+    props.cbFunction(false);
+    setUserAddress('');
+    setUserViewKey('');
+    setUserSpendKey('');
+  }
+
   return (
     <Box
       className="SignInWithKey"
@@ -175,7 +182,7 @@ export default function SignInWithKey(props: any) {
           />
         </Box>
         <Typography color={theme.palette.text.primary} mt={2} textAlign={'center'}>
-          or Use the <Typography component={'span'} onClick={() => props.cbFunction(false)} sx={{ fontWeight: 500, color: '#289AFB', textDecoration: 'underline', cursor: 'pointer' }}>or Use the Recovery Seed</Typography>
+          or Use the <Typography component={'span'} onClick={() => signInWithAddress()} sx={{ fontWeight: 500, color: '#289AFB', textDecoration: 'underline', cursor: 'pointer' }}>or Use the Recovery Seed</Typography>
         </Typography>
         {showErrMsg && <Typography
           sx={{ color: "#FF2424", fontWeight: 400, textAlign: "center" }}

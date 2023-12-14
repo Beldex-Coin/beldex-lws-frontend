@@ -372,12 +372,8 @@ const Header = () => {
           <Box sx={styles.logoContainer} onClick={() => navigate("/")}>
            { theme.palette.mode === "dark" ?<LogoDark  sx={{width:'1.2em',height:"1.2em"}}/> : <LogoWhite sx={{width:'1.2em',height:"1.2em"}}/>}
             <Box>
-              <Typography sx={{ fontSize: "18px", fontWeight: "bold" }}>
-                MyBeldex
-              </Typography>
-              <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
-                V 0.0.3
-              </Typography>
+              <Typography sx={{ fontSize: '18px', fontWeight: 'bold' }}>MyBeldex</Typography>
+              <Typography sx={{ fontSize: '13px', fontWeight: 400 }}>V0.0.3</Typography>
             </Box>
           </Box>
           {isMobileMode ? <MobileNavigation /> : <DesktopNavigation />}

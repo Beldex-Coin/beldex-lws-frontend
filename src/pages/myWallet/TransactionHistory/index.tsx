@@ -40,10 +40,10 @@ export default function TransactionHistory() {
     // these things could maybe be derived on reception from API instead of on each access
 
     const transaction = transactions || [];
-    // console.log("New_StateCachedTransactions ::",transaction)
     const stateCachedTransactions = []; // to finalize
     const transactions_length = transaction.length;
     for (let i = 0; i < transactions_length; i++) {
+          console.log("New_StateCachedTransactions ::",transaction[i])
       stateCachedTransactions.push(
         New_StateCachedTransaction(
           transaction[i],

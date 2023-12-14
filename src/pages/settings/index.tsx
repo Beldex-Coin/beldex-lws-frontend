@@ -4,19 +4,20 @@ import PreferenceSetting from "./PreferenceSetting";
 import OutboundIcon from "@mui/icons-material/Outbound";
 import { useNavigate } from "react-router-dom";
 import About from "./About";
+
 const Settings = () => {
   const [isPreference, setIsPreference] = useState(true);
   const navigate = useNavigate();
   return (
     <Box sx={{ padding: "25px" }}>
-      <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+      <Box sx={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
         <OutboundIcon
           sx={{
             transform: "rotate(225deg)",
             fontSize: "2rem",
             cursor: "pointer",
           }}
-          onClick={()=>  navigate("/mywallet")}
+          onClick={() => navigate(-1)}
         />
         <Typography ml={1} sx={{ fontWeight: 600 }}>
           Back

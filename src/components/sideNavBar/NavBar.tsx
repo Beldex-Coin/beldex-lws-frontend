@@ -79,6 +79,7 @@ export default function NavBar() {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
+    console.log("index....:",index);
     setSelectedIndex(index);
     if (index < 3) navigate(routerPath[index]);
 
