@@ -10,7 +10,7 @@ export default function TransactionList(props: any) {
 
   const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
   const theme: any = useTheme();
-  console.log("transactions ::", transactions);
+  // console.log("transactions ::", transactions);
 
   // const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
   // console.log("transactions ::", transactions);

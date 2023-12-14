@@ -15,9 +15,9 @@ export default function TransactionDetails(props: any) {
   const amount = beldex_amount_format_utils.formatMoney(
     transactionDetails[0].amount
   );
-  const status =
-    transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Received";
-  console.log("prop propps ::", props.transactionDetails);
+  const status = transactionDetails[0].isConfirmed ? transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Received" : "Pending";
+  // transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
+  console.log("prop propps ::", props.transactionDetails[0]);
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
     return date
