@@ -4,6 +4,7 @@ import { Box, Button, SvgIcon, Typography } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import EmptyTransactions from '../../../icons/EmptyTransactionsDark';
 import { useTheme } from "@emotion/react";
+import loadingIcon from "../../../icons/loading.gif";
 
 export default function TransactionList(props: any) {
   const transactions = props?.transactions?.length ? props?.transactions : [];
@@ -51,7 +52,37 @@ export default function TransactionList(props: any) {
 
   return (
     <Box className="transactionList">
-      {transactions.length ? (
+      {transactions[0]?.status==="initiat"?<div>
+       <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+          zIndex: 99,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <img src={loadingIcon} width={40} height={40} alt="Loading" />
+        </Box>
+      </Box>
+      </div>
+      
+      :transactions.length ? (
         transactions.map((transaction: any, index: number) => (
           <Box
             display="flex"

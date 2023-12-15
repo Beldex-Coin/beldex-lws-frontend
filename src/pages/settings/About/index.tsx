@@ -1,20 +1,28 @@
 import { useTheme } from "@emotion/react";
 
-import { Box, Typography, Button, Select, MenuItem, Link } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  Link,
+  useMediaQuery,
+} from "@mui/material";
 // import Logo from "../../../icons/Logo.svg";
 import LogoDark from "../../../icons/LogoDark";
 import LogoWhite from "../../../icons/LogoWhite";
 
 export default function About(props: any) {
   const theme: any = useTheme();
-
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box
       className="About"
       sx={{
         background: theme.palette.success.main,
-        width: "70%",
-        padding: "50px",
+        width: isMobileMode ? "100%" : "70%",
+        padding: isMobileMode ? "20px" : "50px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -32,9 +40,9 @@ export default function About(props: any) {
         About Mybeldex
       </Typography>
       {theme.palette.mode === "dark" ? (
-        <LogoDark sx={{ width: "4em", height: "4em" }} />
+        <LogoDark sx={{ width:isMobileMode?"3em": "4em", height:isMobileMode?"3em": "4em" }} />
       ) : (
-        <LogoWhite sx={{ width: "4em", height: "4em" }} />
+        <LogoWhite sx={{ width:isMobileMode?"3em": "4em", height:isMobileMode?"3em": "4em" }} />
       )}
 
       <Typography
@@ -50,7 +58,7 @@ export default function About(props: any) {
           fontSize: 14,
         }}
       >
-        Version 0.0.3
+        Version 0.0.5
       </Typography>
 
       <Typography
@@ -80,8 +88,8 @@ export default function About(props: any) {
             fontWeight: 600,
             // marginRight: "10px",
             width: "250px",
-            height: "60px",
-            borderRadius: "20px",
+            height: "45px",
+            borderRadius:isMobileMode?"40px": "20px",
           }}
           onClick={() => props.setIsPreference()}
         >

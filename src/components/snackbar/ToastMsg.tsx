@@ -53,7 +53,7 @@ const ToastMsg: React.ForwardRefRenderFunction<ToastMsgRef> = (_, ref) => {
        {/* <Typography>{message}</Typography> */}
       {severity === "success" && <CheckCircleIcon sx={{color:'white',mr:'5px',fontSize:'1.2rem'}} />}
       {severity === "error" && <ReportProblemIcon sx={{color:'white',mr:'5px',fontSize:'1.2rem'}}/>}
-       <Typography sx={{fontWeight:'500',fontSize:'1.1rem'}}>{message}</Typography>
+       <Typography sx={{fontWeight:'500',fontSize:'1.1rem',color:'white'}}>{message}</Typography>
 
        {/* <IconButton
         size="small"

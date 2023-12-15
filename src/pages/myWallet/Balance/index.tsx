@@ -136,7 +136,7 @@ export default function Balance() {
           </Typography>
         </Box>
       </Box>
-      {isMobileMode && (
+      {/* {isMobileMode && (
         <Box
           sx={{
             display: "flex",
@@ -162,7 +162,7 @@ export default function Balance() {
             <PowerSettingsNewIcon sx={{ fill: "#D1D1D3" }} />
           </Button>
         </Box>
-      )}
+      )} */}
     </Box>
   );
 }

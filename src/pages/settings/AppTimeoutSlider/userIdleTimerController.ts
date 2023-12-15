@@ -6,6 +6,7 @@ import {
   initialState,
   setSeedDetails,
   setBalance,
+  setIdleTimer,
 } from "../../../stores/features/seedDetailSlice";
 
 
@@ -97,7 +98,7 @@ const userIdleTimerController = (cb?:any): UserIdleInWindowController => {
   const userIdleIntervalTimerFn = (): void => {
     numberOfSecondsSinceLastUserInteractionRef.current += 1;
 
-    let appTimeoutAfterS: number =userIdleSetTimerRef.current ||  20;
+    let appTimeoutAfterS: number =userIdleSetTimerRef.current ||  120;
     console.log('userIdleIntervalTimerFn ::',numberOfSecondsSinceLastUserInteractionRef.current)
 
     if (appTimeoutAfterS === -1) {
@@ -114,6 +115,7 @@ const userIdleTimerController = (cb?:any): UserIdleInWindowController => {
   const logout = () => {
     dispatch(setSeedDetails(initialState));
     dispatch(setBalance(0));
+    dispatch(setIdleTimer(120))
     navigate("/");
   };
 

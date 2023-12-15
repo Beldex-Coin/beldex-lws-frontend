@@ -390,7 +390,7 @@ const Header = () => {
                 MyBeldex
               </Typography>
               <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
-                V0.0.3
+                V0.0.5
               </Typography>
             </Box>
           </Box>

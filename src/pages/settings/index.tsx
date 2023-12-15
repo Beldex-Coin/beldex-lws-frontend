@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import PreferenceSetting from "./PreferenceSetting";
 import OutboundIcon from "@mui/icons-material/Outbound";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,11 @@ import About from "./About";
 const Settings = () => {
   const [isPreference, setIsPreference] = useState(true);
   const navigate = useNavigate();
+  const theme: any = useTheme();
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
-    <Box sx={{ padding: "25px" }}>
+    <Box sx={{ padding:isMobileMode?"0":"25px" }}>
       <Box sx={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
         <OutboundIcon
           sx={{

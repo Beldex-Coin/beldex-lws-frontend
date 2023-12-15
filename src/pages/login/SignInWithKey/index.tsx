@@ -126,6 +126,7 @@ export default function SignInWithKey(props: any) {
             disableUnderline={true}
             onChange={event => { setUserAddress(event.target.value) }}
             multiline
+            inputProps={{ maxLength: 120 }}
             sx={{
               width: "100%",
               minHeight: "70px",
@@ -147,6 +148,8 @@ export default function SignInWithKey(props: any) {
             disableUnderline={true}
             multiline
             onChange={event => { setUserViewKey(event.target.value) }}
+            inputProps={{ maxLength: 70 }}
+
             sx={{
               width: "100%",
               minHeight: "70px",
@@ -168,6 +171,8 @@ export default function SignInWithKey(props: any) {
             disableUnderline={true}
             multiline
             onChange={event => { setUserSpendKey(event.target.value) }}
+            inputProps={{ maxLength: 70 }}
+
             sx={{
               width: "100%",
               minHeight: "70px",

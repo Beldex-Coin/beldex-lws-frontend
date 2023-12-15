@@ -35,7 +35,7 @@ export const initialState: seedDetailState = {
     loading: false,
     unlocked_balance: 0,
     isLogin:false,
-    timer:20
+    timer:120
 }
 
 const seedDetailSlice = createSlice({

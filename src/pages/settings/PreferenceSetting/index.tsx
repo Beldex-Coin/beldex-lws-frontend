@@ -9,6 +9,7 @@ import {
   initialState,
   setSeedDetails,
   setBalance,
+  setIdleTimer,
 } from "../../../stores/features/seedDetailSlice";
 
 import {
@@ -75,13 +76,15 @@ export default function PreferenceSetting(props: any) {
   const logout = () => {
     dispatch(setSeedDetails(initialState));
     dispatch(setBalance(0));
+    dispatch(setIdleTimer(120))
     handleClose;
     navigate("/");
+
   };
   return (
     <Box
       className="PreferenceSetting"
-      sx={{ background: theme.palette.success.main, width: "70%" }}
+      sx={{ background: theme.palette.success.main, width:isMobileMode?"100%":"70%", padding:isMobileMode? "20px":'60px' }}
     >
       <Typography
         component="h2"
@@ -190,7 +193,7 @@ export default function PreferenceSetting(props: any) {
             marginRight: "10px",
             width: "250px",
             height: "45px",
-            borderRadius: "10px",
+            borderRadius:isMobileMode?"40px": "10px",
             // color: "white",
             color: "#ff2424",
           }}

@@ -165,7 +165,7 @@ export default function AuthSeed() {
 
         <Box mt={2}>
           <Input
-            placeholder="Enter Recovery Seed from Existing wallet"
+            // placeholder="Enter Recovery Seed from Existing wallet"
             value={userMnemonic.join(" ")}
             disableUnderline={true}
             multiline
@@ -272,8 +272,8 @@ export default function AuthSeed() {
                   borderRadius: "30px",
                   height: "50px",
                   width: isMobileMode ? "48%" : "150px",
-                  color: "white",
-                  borderWidth: "2px",
+                  color: theme.palette.text.primary,
+                  border:theme.palette.mode==='dark'? "2px solid #445":"0.5px solid #ACACAC",
                 }}
                 onClick={tryAgainUserMnemonic}
               >
@@ -291,8 +291,8 @@ export default function AuthSeed() {
                   borderRadius: "30px",
                   height: "50px",
                   // width:isMobileMode?'48%' :'30%',
-                  color: "white",
-                  borderWidth: "2px",
+                  color: theme.palette.text.primary,
+                  border:theme.palette.mode==='dark'? "2px solid #445":"0.5px solid #ACACAC",
                 }}
               >
                 <RefreshOutlinedIcon
