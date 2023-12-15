@@ -77,7 +77,7 @@ const SendFund = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 552,
+    width:isMobileMode? 352:552,
     bgcolor: "background.paper",
     // border: "2px solid #000",
     boxShadow: 24,
@@ -982,7 +982,7 @@ const SendFund = () => {
               :
               <Box mt={2} sx={{ backgroundColor: "#32324A", padding: '10px 20px', borderRadius: '10px' }}  >
                 <Typography
-                  sx={{ color: '#00AD07', fontWeight: 400, fontSize: '1rem' }}
+                  sx={{ color: '#00AD07', fontWeight: 400, fontSize: isMobileMode?"0.8rem":'1rem' }}
                 >
                   {`Sending ${amount} BDX..${txnStatus}`}
                 </Typography>

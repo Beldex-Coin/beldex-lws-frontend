@@ -21,7 +21,7 @@ export default function TransactionHistory() {
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   const [transactionHistory, setTransactionHistory] = React.useState<any>(
-    () => []
+    () => [{status:'initiat'}]
   );
   const [transactionDetails, setTransactionDetails] = React.useState<any>(
     () => []

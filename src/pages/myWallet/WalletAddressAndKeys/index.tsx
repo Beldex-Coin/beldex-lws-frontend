@@ -11,9 +11,12 @@ import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
 
 export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const [seedVisible, setSeedVisible] = useState(false);
   const toastMsgRef = useRef<ToastMsgRef>(null);
+
 
   const copyText = (text: string) => {
     navigator.clipboard.writeText(text);
