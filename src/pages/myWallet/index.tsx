@@ -40,7 +40,7 @@ const MyWallet = () => {
         display: isMobileMode ? "block" : "flex",
         gap: "20px",
         minHeight: "100%",
-        padding: "20px",
+        padding:isMobileMode?"0": "20px",
       }}
     >
       <Box sx={{ width: "100%" }}>

@@ -267,7 +267,7 @@ export default function TransactionHistory() {
           </Box>
           <Box mt={2}
             sx={{
-              height: isMobileMode ? '85%' : "90%",
+              height: isMobileMode ? '75%' : "90%",
               overflowY: "auto",
               padding: "0 10px",
             }}

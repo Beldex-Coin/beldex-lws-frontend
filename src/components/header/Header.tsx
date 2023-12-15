@@ -25,6 +25,10 @@ import MoonDark from "../../icons/MoonDark";
 import MenuDark from "../../icons/MenuDark";
 import { ColorContext } from "../../ColorContext";
 import { useSelector } from "react-redux";
+import MyWallet from "../../icons/MyWallet";
+import Privacy from "../../icons/Privacy";
+import Term from '../../icons/Terms';
+import Support from '../../icons/Support';
 const styles = {
   logoContainer: {
     padding: 0,
@@ -52,9 +56,11 @@ const DesktopNavigation = () => {
 
   const titleValidator = () => {
     const defaultTitle = "Home";
-    
+
     if (walletDetails.isLogin) {
-      return window.location.pathname === "/settings" ? "Settings" : "My Beldex Wallet";
+      return window.location.pathname === "/settings"
+        ? "Settings"
+        : "My Beldex Wallet";
     } else {
       return defaultTitle;
     }
@@ -170,12 +176,14 @@ const MobileNavigation = () => {
                         },
                       },
                     }}
-                    onClick={() => navigate("/mywallet")}
+                    onClick={() => {
+                      setOpenMenu(false), navigate("/mywallet");
+                    }}
                   >
                     <ListItemIcon sx={{ minWidth: "40px" }}>
-                      <InboxIcon
+                      <MyWallet
                         sx={{
-                          fill: (theme: any) => theme.palette.secondary.light,
+                          fill:(theme: any) => theme.palette.secondary.light,
                         }}
                       />
                     </ListItemIcon>
@@ -203,15 +211,18 @@ const MobileNavigation = () => {
                         },
                       },
                     }}
-                    onClick={() => navigate("/privacy")}
+                    onClick={() => {
+                      setOpenMenu(false), navigate("/privacy");
+                    }}
                   >
-                    <ListItemIcon sx={{ minWidth: "40px" }}>
-                      <InboxIcon
-                        sx={{
-                          fill: (theme: any) => theme.palette.secondary.light,
-                        }}
-                      />
-                    </ListItemIcon>
+                    <ListItemIcon sx={{ minWidth: '40px' }}>
+            {/* <DraftsIcon
+              sx={{ fill: selectedIndex === 1 ? "#00D030" : "#D1D1D3" }}
+            /> */}
+            <Privacy
+              sx={{ fill:(theme: any) => theme.palette.secondary.light }}
+            />
+          </ListItemIcon>
                     <ListItemText
                       sx={{
                         color: (theme) => theme.palette.text.secondary,
@@ -236,15 +247,15 @@ const MobileNavigation = () => {
                         },
                       },
                     }}
-                    onClick={() => navigate("/terms")}
+                    onClick={() => {
+                      setOpenMenu(false), navigate("/terms");
+                    }}
                   >
-                    <ListItemIcon sx={{ minWidth: "40px" }}>
-                      <InboxIcon
-                        sx={{
-                          fill: (theme: any) => theme.palette.secondary.light,
-                        }}
-                      />
-                    </ListItemIcon>
+                     <ListItemIcon sx={{ minWidth: '40px' }}>
+            <Term
+              sx={{ fill: (theme: any) => theme.palette.secondary.light }}
+            />
+          </ListItemIcon>
                     <ListItemText
                       sx={{
                         color: (theme) => theme.palette.text.secondary,
@@ -269,14 +280,13 @@ const MobileNavigation = () => {
                         },
                       },
                     }}
+                    onClick={() => setOpenMenu(false)}
                   >
-                    <ListItemIcon sx={{ minWidth: "40px" }}>
-                      <InboxIcon
-                        sx={{
-                          fill: (theme: any) => theme.palette.secondary.light,
-                        }}
-                      />
-                    </ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: '40px' }}>
+            <Support
+              sx={{ fill:(theme: any) => theme.palette.secondary.light }}
+            />
+          </ListItemIcon>
                     <ListItemText
                       sx={{
                         color: (theme) => theme.palette.text.secondary,
@@ -287,7 +297,7 @@ const MobileNavigation = () => {
                       primary="Supports"
                     />
                   </ListItemButton>
-                  <ListItemButton
+                  {/* <ListItemButton
                     sx={{
                       m: 0.5,
                       p: 2,
@@ -318,7 +328,7 @@ const MobileNavigation = () => {
                       }}
                       primary="Website"
                     />
-                  </ListItemButton>
+                  </ListItemButton> */}
                 </List>
                 {/* <MenuList
                   autoFocusItem={openMenu}
@@ -341,10 +351,10 @@ const MobileNavigation = () => {
         sx={styles.menuIconContainer}
         onClick={colorMode.toggleColorMode}
       >
-        <MoonDark styles={{ width: "20px", height: "20px" }} />
+        <MoonDark styles={{ width: "20px", height: "20px" ,fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
       </IconButton>
       <IconButton onClick={() => navigate("/settings")}>
-        <SettingIconDark styles={{ width: "20px", height: "20px" }} />
+        <SettingIconDark styles={{ width: "20px", height: "20px",fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
       </IconButton>
       <IconButton
         ref={anchorRef}
@@ -354,7 +364,7 @@ const MobileNavigation = () => {
         aria-haspopup="true"
         onClick={() => setOpenMenu(!openMenu)}
       >
-        <MenuDark styles={{ width: "20px", height: "20px" }} />
+        <MenuDark styles={{ width: "22px", height: "20px",fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
       </IconButton>
     </React.Fragment>
   );
@@ -364,16 +374,24 @@ const Header = () => {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  console.log(" theme.palette.mode theme.palette.mode ::",theme.palette.mode)
+  console.log(" theme.palette.mode theme.palette.mode ::", theme.palette.mode);
   return (
     <Fragment>
       <AppBar position="fixed" sx={styles.appbar} elevation={9}>
         <Toolbar disableGutters={true}>
           <Box sx={styles.logoContainer} onClick={() => navigate("/")}>
-           { theme.palette.mode === "dark" ?<LogoDark  sx={{width:'1.2em',height:"1.2em"}}/> : <LogoWhite sx={{width:'1.2em',height:"1.2em"}}/>}
+            {theme.palette.mode === "dark" ? (
+              <LogoDark sx={{ width: "1.2em", height: "1.2em" }} />
+            ) : (
+              <LogoWhite sx={{ width: "1.2em", height: "1.2em" }} />
+            )}
             <Box>
-              <Typography sx={{ fontSize: '18px', fontWeight: 'bold' }}>MyBeldex</Typography>
-              <Typography sx={{ fontSize: '13px', fontWeight: 400 }}>V0.0.3</Typography>
+              <Typography sx={{ fontSize: "18px", fontWeight: "bold" }}>
+                MyBeldex
+              </Typography>
+              <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
+                V0.0.3
+              </Typography>
             </Box>
           </Box>
           {isMobileMode ? <MobileNavigation /> : <DesktopNavigation />}

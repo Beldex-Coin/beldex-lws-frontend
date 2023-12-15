@@ -6,6 +6,7 @@ import {
   Button,
   Select,
   MenuItem,
+  useMediaQuery,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -30,6 +31,7 @@ const SendFund = () => {
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const toastMsgRef = useRef<ToastMsgRef>(null);
   const netType: any = process.env.NETTYPE;
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   // const [currency, setCurrency] = useState("AUD");
   const [priority, setPriority] = useState(5);
@@ -440,7 +442,7 @@ const SendFund = () => {
 
   const PaymentSuccessDialog = () => {
     return (
-      <Box sx={style}>
+      <Box sx={style} >
         <Typography
           component={"h2"}
           variant="h6"
@@ -499,6 +501,8 @@ const SendFund = () => {
       sx={{
         padding: "30px 20px 50px",
         height: "100%",
+        marginTop:isMobileMode?"10px":'unset',
+        borderRadius:'20px',
         background: (theme) => theme.palette.success.main,
         ".MuiSelect-iconFilled": { fill: "white", color: "white" },
       }}
@@ -736,7 +740,6 @@ const SendFund = () => {
           padding: "10px 20px",
           borderRadius: "18px",
           border: errAddress ? "1px solid #FC2727" : "none",
-
           overflow: "auto",
           marginTop: "10px",
         }}
@@ -867,10 +870,10 @@ const SendFund = () => {
           color="secondary"
           sx={{
             fontWeight: 600,
-            marginRight: "10px",
+            marginRight: "20px",
             width: "150px",
             height: "45px",
-            borderRadius: "10px",
+            borderRadius:isMobileMode?'40px': "10px",
             // color: "white",
             color: theme.palette.text.primary,
           }}
@@ -885,7 +888,8 @@ const SendFund = () => {
             fontWeight: 600,
             width: "150px",
             height: "45px",
-            borderRadius: "10px",
+            // borderRadius: "10px",
+            borderRadius:isMobileMode?'40px': "10px",
             color: "white",
             // color: theme.palette.text.primary,
           }}
