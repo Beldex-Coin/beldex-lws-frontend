@@ -18,6 +18,7 @@ export default function TransactionDetails(props: any) {
   const status = transactionDetails[0].isConfirmed ? transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Received" : "Pending";
   // transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
   console.log("prop propps ::", props.transactionDetails[0]);
+  // console.log("status transactionDetails::",status)
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
     return date
@@ -66,7 +67,7 @@ export default function TransactionDetails(props: any) {
         <Typography
           sx={{
             fontWeight: 600,
-            color: status === "Sent" ? "#FC2727" : "#20D030",
+            color: status === "Sent" ? "#FC2727" :status==='Pending'?(theme) => theme.palette.secondary.light: "#20D030",
             fontSize: '1.2rem'
           }}
         >
@@ -119,7 +120,8 @@ export default function TransactionDetails(props: any) {
             sx={{
               fontSize: "1rem",
               fontWeight: 600,
-              color: status === "Sent" ? "#FC2727" : "#20D030",
+              color: status === "Sent" ? "#FC2727" :status==='Pending'?(theme) => theme.palette.secondary.light: "#20D030",
+
             }}
           >
             {/* {transactionDetails[0].total_received/1e9} BDX */}
