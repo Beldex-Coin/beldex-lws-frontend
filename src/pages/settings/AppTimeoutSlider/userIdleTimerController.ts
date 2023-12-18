@@ -101,7 +101,7 @@ const userIdleTimerController = (cb?:any): UserIdleInWindowController => {
     let appTimeoutAfterS: number =userIdleSetTimerRef.current ||  120;
     console.log('userIdleIntervalTimerFn ::',numberOfSecondsSinceLastUserInteractionRef.current)
 
-    if (appTimeoutAfterS === -1) {
+    if (appTimeoutAfterS === 1500) {
       return;
     }
     // console.log('numberOfSecondsSinceLastUserInteractionRef',numberOfSecondsSinceLastUserInteractionRef.current)

@@ -117,7 +117,7 @@ export default function Balance() {
             fontWeight: 300,
             color: (theme) => theme.palette.text.primary,
             fontSize: '1.2rem',
-            paddingLeft: '5px',
+            paddingLeft: '12px',
           }}>Balance</Typography>
         </Box>
         <Box className="balance" sx={{

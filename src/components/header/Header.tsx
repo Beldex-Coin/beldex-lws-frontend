@@ -56,13 +56,21 @@ const DesktopNavigation = () => {
 
   const titleValidator = () => {
     const defaultTitle = "Home";
-
-    if (walletDetails.isLogin) {
-      return window.location.pathname === "/settings"
-        ? "Settings"
-        : "My Beldex Wallet";
-    } else {
+    const location = window.location.pathname;
+  
+    if (!walletDetails.isLogin) {
       return defaultTitle;
+    }
+  
+    switch (location) {
+      case "/settings":
+        return "Settings";
+      case "/privacy":
+        return "Privacy";
+      case "/terms":
+        return "Terms";
+      default:
+        return "My Beldex Wallet";
     }
   };
 

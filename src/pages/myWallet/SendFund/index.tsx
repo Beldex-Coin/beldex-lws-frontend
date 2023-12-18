@@ -879,7 +879,7 @@ const SendFund = () => {
           }}
           onClick={clearStates}
         >
-          <RefreshIcon /> Reset
+          <RefreshIcon  sx={{marginRight:'7px'}}/> Reset
         </Button>
         <Button
           variant="contained"
@@ -891,11 +891,12 @@ const SendFund = () => {
             // borderRadius: "10px",
             borderRadius:isMobileMode?'40px': "10px",
             color: "white",
+            
             // color: theme.palette.text.primary,
           }}
           onClick={() => sendFundFieldValidation()}
         >
-          <CallMadeIcon />
+          <CallMadeIcon sx={{marginRight:'7px'}}/>
           Send
         </Button>
       </Box>
@@ -972,6 +973,7 @@ const SendFund = () => {
                     height: "45px",
                     borderRadius: "10px",
                     color: theme.palette.text.primary,
+                    
                   }}
                   onClick={() => intiate_transaction()}
                 >

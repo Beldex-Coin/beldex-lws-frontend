@@ -18,6 +18,7 @@ import { useAppSelector } from "../../../stores/hooks";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { seedDetailSelector, seedDetailState } from "../../../stores/features/seedDetailSlice";
 import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
+import Loader from "../../loader";
 const mnemonic_languages = require('@bdxi/beldex-locales');
 
 export default function DisplaySeed() {
@@ -29,12 +30,14 @@ export default function DisplaySeed() {
   const [language, setLanguage] = useState("English");
   const [isCopied, setIsCopied] = useState(false);
   const [secretKeys, setSecretKeys] = React.useState<any>(() => []);
+  const [loading,setLoading]=useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   useEffect(() => {
+    // setLoading(true)
     console.log('--coreBridgeInstance-', coreBridgeInstance)
     if (coreBridgeInstance.beldex_utils.newly_created_wallet) {
       let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
@@ -42,6 +45,8 @@ export default function DisplaySeed() {
       console.log('-dispatch recSeed---', recSeed);
       recSeed.isLogin=false; 
       setSecretKeys(recSeed);
+    // setLoading(false)
+
       
     }
   }, [coreBridgeInstance.beldex_utils])
@@ -64,6 +69,8 @@ export default function DisplaySeed() {
 
   }
   return (
+    <>
+     {/* {loading && <Loader /> }  */}
     <Box
       className="DisplaySeed"
       sx={{
@@ -245,5 +252,6 @@ export default function DisplaySeed() {
       <ToastMsg ref={toastMsgRef} />
 
     </Box>
+    </>
   );
 }
