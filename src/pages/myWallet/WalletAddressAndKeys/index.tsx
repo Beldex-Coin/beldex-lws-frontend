@@ -36,7 +36,7 @@ export default function WalletAddressAndKeys() {
         marginTop: "20px",
         padding:!seedVisible?"10px 20px" :"20px",
         borderRadius: "20px",
-        backgroundColor: (theme) => theme.palette.background.default,
+        backgroundColor:isMobileMode?(theme) => theme.palette.mode==="dark"?"#24242F":"#FCFCFC" :(theme) => theme.palette.background.default,
       }}
     >
       <Box

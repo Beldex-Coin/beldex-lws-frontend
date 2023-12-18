@@ -25,7 +25,7 @@ export default function TransactionList(props: any) {
         month: "short",
         day: "numeric",
       })
-      .toUpperCase();
+      ;
   };
 
   const decimalValidation = (amount: string) => {

@@ -38,6 +38,9 @@ export default function CustomPagination(props: any) {
               backgroundColor: "#D1D1D3",
               height: "20px",
             },
+            "& .Mui-selected:hover":{
+               backgroundColor:'#D1D1D3 !important'
+            },
             // "& .MuiPaginationItem-firstLast":{
             //   color: 'white'
 

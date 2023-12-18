@@ -84,9 +84,9 @@ const DesktopNavigation = () => {
           sx={styles.menuIconContainer}
           onClick={() => navigate("/settings")}
         >
-          <SettingIconDark
+          {walletDetails.isLogin && <SettingIconDark
             styles={{ fill: (theme: any) => theme.palette.secondary.light }}
-          />
+          />}
         </IconButton>
       </Box>
     </Box>
@@ -98,6 +98,8 @@ const MobileNavigation = () => {
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
   const colorMode = React.useContext(ColorContext);
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Tab") {
@@ -353,9 +355,10 @@ const MobileNavigation = () => {
       >
         <MoonDark styles={{ width: "20px", height: "20px" ,fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
       </IconButton>
+      { walletDetails.isLogin && 
       <IconButton onClick={() => navigate("/settings")}>
         <SettingIconDark styles={{ width: "20px", height: "20px",fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
-      </IconButton>
+      </IconButton>}
       <IconButton
         ref={anchorRef}
         id="composition-button"
@@ -390,7 +393,7 @@ const Header = () => {
                 MyBeldex
               </Typography>
               <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
-                V0.0.5
+                V 0.0.6
               </Typography>
             </Box>
           </Box>

@@ -58,7 +58,7 @@ export default function About(props: any) {
           fontSize: 14,
         }}
       >
-        Version 0.0.5
+        Version 0.0.6
       </Typography>
 
       <Typography
