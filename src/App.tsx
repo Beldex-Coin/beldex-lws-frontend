@@ -130,7 +130,7 @@ function App() {
               }
             }}
           />
-          <Box sx={{ minHeight: "100vh", padding: "20px" }}>
+          <Box sx={{ height: "100vh", padding: "20px" }}>
             <Header />
             <Box
               sx={{

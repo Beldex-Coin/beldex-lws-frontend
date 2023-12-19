@@ -27,8 +27,8 @@ import { ColorContext } from "../../ColorContext";
 import { useSelector } from "react-redux";
 import MyWallet from "../../icons/MyWallet";
 import Privacy from "../../icons/Privacy";
-import Term from '../../icons/Terms';
-import Support from '../../icons/Support';
+import Term from "../../icons/Terms";
+import Support from "../../icons/Support";
 const styles = {
   logoContainer: {
     padding: 0,
@@ -57,18 +57,22 @@ const DesktopNavigation = () => {
   const titleValidator = () => {
     const defaultTitle = "Home";
     const location = window.location.pathname;
-  
-    if (!walletDetails.isLogin) {
+
+    if (!walletDetails.isLogin && (location==='/mywallet' ||location==='/' )) {
       return defaultTitle;
     }
-  
+
     switch (location) {
+      // case "/":
+      //   return "Home";
       case "/settings":
         return "Settings";
       case "/privacy":
         return "Privacy";
       case "/terms":
         return "Terms";
+      case "/support":
+        return "Support";
       default:
         return "My Beldex Wallet";
     }
@@ -92,9 +96,11 @@ const DesktopNavigation = () => {
           sx={styles.menuIconContainer}
           onClick={() => navigate("/settings")}
         >
-          {walletDetails.isLogin && <SettingIconDark
-            styles={{ fill: (theme: any) => theme.palette.secondary.light }}
-          />}
+          {walletDetails.isLogin && (
+            <SettingIconDark
+              styles={{ fill: (theme: any) => theme.palette.secondary.light }}
+            />
+          )}
         </IconButton>
       </Box>
     </Box>
@@ -107,7 +113,6 @@ const MobileNavigation = () => {
   const navigate = useNavigate();
   const colorMode = React.useContext(ColorContext);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
-
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Tab") {
@@ -193,7 +198,7 @@ const MobileNavigation = () => {
                     <ListItemIcon sx={{ minWidth: "40px" }}>
                       <MyWallet
                         sx={{
-                          fill:(theme: any) => theme.palette.secondary.light,
+                          fill: (theme: any) => theme.palette.secondary.light,
                         }}
                       />
                     </ListItemIcon>
@@ -204,7 +209,7 @@ const MobileNavigation = () => {
                           fontWeight: "400",
                         },
                       }}
-                      primary="My Wallet"
+                      primary="Wallet"
                     />
                   </ListItemButton>
                   <ListItemButton
@@ -225,14 +230,16 @@ const MobileNavigation = () => {
                       setOpenMenu(false); navigate("/privacy");
                     }}
                   >
-                    <ListItemIcon sx={{ minWidth: '40px' }}>
-            {/* <DraftsIcon
+                    <ListItemIcon sx={{ minWidth: "40px" }}>
+                      {/* <DraftsIcon
               sx={{ fill: selectedIndex === 1 ? "#00D030" : "#D1D1D3" }}
             /> */}
-            <Privacy
-              sx={{ fill:(theme: any) => theme.palette.secondary.light }}
-            />
-          </ListItemIcon>
+                      <Privacy
+                        sx={{
+                          fill: (theme: any) => theme.palette.secondary.light,
+                        }}
+                      />
+                    </ListItemIcon>
                     <ListItemText
                       sx={{
                         color: (theme) => theme.palette.text.secondary,
@@ -261,11 +268,13 @@ const MobileNavigation = () => {
                       setOpenMenu(false); navigate("/terms");
                     }}
                   >
-                     <ListItemIcon sx={{ minWidth: '40px' }}>
-            <Term
-              sx={{ fill: (theme: any) => theme.palette.secondary.light }}
-            />
-          </ListItemIcon>
+                    <ListItemIcon sx={{ minWidth: "40px" }}>
+                      <Term
+                        sx={{
+                          fill: (theme: any) => theme.palette.secondary.light,
+                        }}
+                      />
+                    </ListItemIcon>
                     <ListItemText
                       sx={{
                         color: (theme) => theme.palette.text.secondary,
@@ -292,11 +301,13 @@ const MobileNavigation = () => {
                     }}
                     onClick={() => setOpenMenu(false)}
                   >
-                  <ListItemIcon sx={{ minWidth: '40px' }}>
-            <Support
-              sx={{ fill:(theme: any) => theme.palette.secondary.light }}
-            />
-          </ListItemIcon>
+                    <ListItemIcon sx={{ minWidth: "40px" }}>
+                      <Support
+                        sx={{
+                          fill: (theme: any) => theme.palette.secondary.light,
+                        }}
+                      />
+                    </ListItemIcon>
                     <ListItemText
                       sx={{
                         color: (theme) => theme.palette.text.secondary,
@@ -361,12 +372,27 @@ const MobileNavigation = () => {
         sx={styles.menuIconContainer}
         onClick={colorMode.toggleColorMode}
       >
-        <MoonDark styles={{ width: "20px", height: "20px" ,fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
+        <MoonDark
+          styles={{
+            width: "20px",
+            height: "20px",
+            fill: (theme: any) =>
+              theme.palette.mode === "dark" ? "#D1D1D3" : "#818181",
+          }}
+        />
       </IconButton>
-      { walletDetails.isLogin && 
-      <IconButton onClick={() => navigate("/settings")}>
-        <SettingIconDark styles={{ width: "20px", height: "20px",fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
-      </IconButton>}
+      {walletDetails.isLogin && (
+        <IconButton onClick={() => navigate("/settings")}>
+          <SettingIconDark
+            styles={{
+              width: "20px",
+              height: "20px",
+              fill: (theme: any) =>
+                theme.palette.mode === "dark" ? "#D1D1D3" : "#818181",
+            }}
+          />
+        </IconButton>
+      )}
       <IconButton
         ref={anchorRef}
         id="composition-button"
@@ -375,7 +401,14 @@ const MobileNavigation = () => {
         aria-haspopup="true"
         onClick={() => setOpenMenu(!openMenu)}
       >
-        <MenuDark styles={{ width: "22px", height: "20px",fill:(theme: any) => theme.palette.mode==="dark"?"#D1D1D3":"#818181"  }} />
+        <MenuDark
+          styles={{
+            width: "22px",
+            height: "20px",
+            fill: (theme: any) =>
+              theme.palette.mode === "dark" ? "#D1D1D3" : "#818181",
+          }}
+        />
       </IconButton>
     </React.Fragment>
   );

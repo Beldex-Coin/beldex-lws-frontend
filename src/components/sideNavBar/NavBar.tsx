@@ -20,6 +20,7 @@ import Website from '../../icons/Website';
 import MyWallet from '../../icons/MyWallet';
 import { ColorContext } from '../../ColorContext';
 import { useTheme } from "@emotion/react";
+import { useSelector } from "react-redux";
 
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
@@ -68,7 +69,8 @@ export default function NavBar() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  const routerPath = ['/mywallet', '/privacy', '/terms']
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+  const routerPath = ['/mywallet', '/privacy', '/terms',"/support"]
   const colorMode = React.useContext(ColorContext);
   const theme = useTheme();
   useEffect(() => {
@@ -81,7 +83,7 @@ export default function NavBar() {
   ) => {
     console.log("index....:",index);
     setSelectedIndex(index);
-    if (index < 3) navigate(routerPath[index]);
+    if (index < 5) navigate(routerPath[index]);
 
   };
   const handleToggle = (value: string) => () => {
@@ -146,7 +148,7 @@ export default function NavBar() {
                 fontWeight: selectedIndex === 0 ? "600" : "400"
               }
             }}
-            primary="My Wallet"
+            primary="Wallet"
           />
           {selectedIndex === 0 && (
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 0) }} />

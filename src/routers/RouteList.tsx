@@ -7,6 +7,7 @@ import MyWallet from "../pages/myWallet";
 import Terms from "../pages/term";
 import Privacy from "../pages/privacy";
 import Settings from "../pages/settings";
+import Support from "../pages/support";
 interface RouteListObj {
     id: string,
     title: string,
@@ -77,7 +78,7 @@ export const CommonList: Array<RouteListObj> =[
     {
         id: 'support',
         title: 'Support',
-        component: '',
+        component: <Support />,
         path: '/support'
     },
     {

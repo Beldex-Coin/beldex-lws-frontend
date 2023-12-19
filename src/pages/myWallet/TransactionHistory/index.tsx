@@ -43,7 +43,7 @@ export default function TransactionHistory() {
     const stateCachedTransactions = []; // to finalize
     const transactions_length = transaction.length;
     for (let i = 0; i < transactions_length; i++) {
-          console.log("New_StateCachedTransactions ::",transaction[i])
+          // console.log("New_StateCachedTransactions ::",transaction[i])
       stateCachedTransactions.push(
         New_StateCachedTransaction(
           transaction[i],
