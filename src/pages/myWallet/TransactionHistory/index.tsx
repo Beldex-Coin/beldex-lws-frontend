@@ -274,7 +274,7 @@ export default function TransactionHistory() {
           >
             <TransactionList
               transactions={
-                isMobileMode
+                isMobileMode && pagenatedTxnHistory.length>0
                   ? pagenatedTxnHistory[page - 1]
                   : transactionHistory
               }

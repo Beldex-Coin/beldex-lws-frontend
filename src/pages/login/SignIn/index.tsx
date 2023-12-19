@@ -99,7 +99,6 @@ export default function SignIn() {
           console.log("login__err:", login__err);
           return;
         }
-        setLoading(false)
 
         console.log("---new_address-", new_address);
         console.log(
@@ -107,6 +106,8 @@ export default function SignIn() {
           received__generated_locally
         );
         console.log("---start_height-", start_height);
+        setLoading(false)
+
         navigate("/mywallet");
       };
       coreBridgeInstance.hostedMoneroAPIClient.LogIn(
@@ -241,8 +242,8 @@ export default function SignIn() {
                       backgroundColor: (theme: any) =>
                         theme.palette.secondary.main,
                       fill: "#1BB71F",
-                      boxShadow:
-                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                      // boxShadow:
+                      //   "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                     }}
                   />
                 </IconButton>

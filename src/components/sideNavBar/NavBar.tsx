@@ -228,6 +228,7 @@ export default function NavBar() {
           sx={{
             m: 0.5,
             p: 2,
+            mb: "auto",
             maxHeight: "60px",
             "&.Mui-selected": {
               background: (theme) => theme.palette.common.white,
@@ -257,7 +258,7 @@ export default function NavBar() {
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 3) }} />
           )}
         </ListItemButton>
-        <ListItemButton
+        {/* <ListItemButton
           selected={selectedIndex === 4}
           sx={{
             m: 0.5,
@@ -291,7 +292,7 @@ export default function NavBar() {
           {selectedIndex === 4 && (
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 4) }} />
           )}
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItem sx={{ p: 2 }}>
           <ListItemIcon sx={{ minWidth: '30px' }}>
             <MoonDark styles={{ width: '18px', height: '18px', fill: (theme: any) => theme.palette.mode === 'dark' ? "#d1d1d3" : '#8787A8' }} />

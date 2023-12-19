@@ -121,6 +121,13 @@ function App() {
                 background:
                   theme.palette.mode == "dark" ? "#585870" : "#C7C7C7",
               },
+              "& .MuiButton-root":{
+                textTransform: 'capitalize !important',
+
+              },
+              "& .MuiButton-containedPrimary:hover":{
+               opacity:0.7
+              }
             }}
           />
           <Box sx={{ minHeight: "100vh", padding: "20px" }}>

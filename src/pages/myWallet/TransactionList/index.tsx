@@ -53,6 +53,8 @@ export default function TransactionList(props: any) {
   return (
     <Box className="transactionList">
       {transactions[0]?.status==="initiat"?<div>
+      {/* {true?<div> */}
+
        <Box
         sx={{
           position: "absolute",
@@ -62,10 +64,10 @@ export default function TransactionList(props: any) {
           left: "50%",
           transform: "translate(-50%, -50%)",
           backgroundColor: "rgba(0, 0, 0, 0.8)",
-          padding: "20px",
+          // padding: "20px",
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-          zIndex: 99,
+          zIndex: (theme: any) => theme.zIndex.modal + 1,
         }}
       >
         <Box

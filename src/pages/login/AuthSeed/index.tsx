@@ -23,12 +23,14 @@ import { useAppSelector } from "../../../stores/hooks";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
 import { useAppDispatch } from "../../../stores/hooks";
+import Loader from "../../loader";
 
 export default function AuthSeed() {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [mnemonicSeed, setMnemonicSeed] = useState("");
   const [seedToggleList, setToggleList] = useState([]);
+  const [loading,setLoading]=useState<boolean>(false);
   const navigate = useNavigate();
   const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
   const [userMnemonic, setUserMnemonic] = React.useState<any>(() => []);
@@ -65,6 +67,7 @@ export default function AuthSeed() {
 
   const validateComponentsForLogin = (seedData: any) => {
     try {
+      setLoading(true)
       const loginValidate =
         coreBridgeInstance.beldex_utils.validate_components_for_login(
           seedData.address_string,
@@ -100,6 +103,8 @@ export default function AuthSeed() {
           received__generated_locally
         );
         console.log("---start_height-", start_height);
+      setLoading(false)
+
         navigate("/mywallet");
       };
       coreBridgeInstance.hostedMoneroAPIClient.LogIn(
@@ -112,6 +117,8 @@ export default function AuthSeed() {
       // error is are throwing
       let Error = typeof error === "string" ? error : "" + error;
       console.log("Error:", Error);
+      setLoading(false)
+
     }
   };
 
@@ -125,6 +132,7 @@ export default function AuthSeed() {
   };
 
   return (
+    <>  {loading && <Loader /> }  
     <Box
       className="AuthSeed"
       sx={{
@@ -348,5 +356,6 @@ export default function AuthSeed() {
         )}
       </Box>
     </Box>
+    </>
   );
 }
