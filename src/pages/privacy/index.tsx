@@ -4,7 +4,7 @@ const Privacy = () => {
     const theme:any = useTheme();
     return (
         <Box sx={{height: "calc(100vh - 107px)", overflowY: "auto" }}>
-            <Typography sx={{  color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px' }}>Privacy Page</Typography>
+            <Typography sx={{  color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px' }}>Privacy </Typography>
             <Box sx={{  color:theme.palette.text.primary, fontSize: '20px', margin: '0px 40px 40px' }}>
                 <Typography>
                     Please read through this Privacy Policy carefully as it may affect your rights and it also helps you understand how much we value the privacy of your data.                </Typography>

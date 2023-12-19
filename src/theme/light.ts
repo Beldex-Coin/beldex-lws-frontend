@@ -51,6 +51,13 @@ export const lightTheme: ThemeOptions = {
         fontWeightBold: 'bold',
     },
     components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              textTransform: 'capitalize'
+            }
+          },
+        },
         MuiCssBaseline: {
             styleOverrides: `
             @font-face {

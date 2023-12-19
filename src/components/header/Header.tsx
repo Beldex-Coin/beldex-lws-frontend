@@ -187,7 +187,7 @@ const MobileNavigation = () => {
                       },
                     }}
                     onClick={() => {
-                      setOpenMenu(false), navigate("/mywallet");
+                      setOpenMenu(false); navigate("/mywallet");
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: "40px" }}>
@@ -222,7 +222,7 @@ const MobileNavigation = () => {
                       },
                     }}
                     onClick={() => {
-                      setOpenMenu(false), navigate("/privacy");
+                      setOpenMenu(false); navigate("/privacy");
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: '40px' }}>
@@ -258,7 +258,7 @@ const MobileNavigation = () => {
                       },
                     }}
                     onClick={() => {
-                      setOpenMenu(false), navigate("/terms");
+                      setOpenMenu(false); navigate("/terms");
                     }}
                   >
                      <ListItemIcon sx={{ minWidth: '40px' }}>

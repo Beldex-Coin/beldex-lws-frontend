@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button, Typography, Checkbox, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, Checkbox, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UncheckRectIcon from "../../../icons/uncheckRectIcon";
 import CheckedCheckBox from "../../../icons/checkedCheckbox"
-import { useTheme } from "@emotion/react";
+// import { useTheme } from "@emotion/react";
 
 export default function SignUp() {
   const theme: any = useTheme();
