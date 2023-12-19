@@ -2,16 +2,18 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertProps } from '@mui/material/Alert';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+
 
 export interface ToastMsgRef {
   showAlert: (message: string, severity: AlertProps['severity']) => void;
 }
 
 const ToastMsg: React.ForwardRefRenderFunction<ToastMsgRef> = (_, ref) => {
+   const theme=useTheme()
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<string>('');
   const [severity, setSeverity] = useState<string>('success');
@@ -49,11 +51,11 @@ const ToastMsg: React.ForwardRefRenderFunction<ToastMsgRef> = (_, ref) => {
       {/* <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           This is a success message!
         </Alert> */}
-        <Box sx={{backgroundColor:colorSelector(severity),padding:'10px 20px',borderRadius:'10px'}} display={'flex'} flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
+        <Box sx={{backgroundColor:theme.palette.mode==="dark"?'#242433':"#F0F0F0",padding:'10px 20px',borderRadius:'10px'}} display={'flex'} flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
        {/* <Typography>{message}</Typography> */}
-      {severity === "success" && <CheckCircleIcon sx={{color:'white',mr:'5px',fontSize:'1.2rem'}} />}
-      {severity === "error" && <ReportProblemIcon sx={{color:'white',mr:'5px',fontSize:'1.2rem'}}/>}
-       <Typography sx={{fontWeight:'500',fontSize:'1.1rem',color:'white'}}>{message}</Typography>
+      {severity === "success" && <CheckCircleIcon sx={{color:'#00AD07',mr:'5px',fontSize:'1.2rem'}} />}
+      {severity === "error" && <ReportProblemIcon sx={{color:'#FC2727',mr:'5px',fontSize:'1.2rem'}}/>}
+       <Typography sx={{fontWeight:'500',fontSize:'1.1rem',color:colorSelector(severity)}}>{message}</Typography>
 
        {/* <IconButton
         size="small"

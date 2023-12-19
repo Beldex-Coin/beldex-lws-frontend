@@ -15,7 +15,11 @@ export default function TransactionDetails(props: any) {
   const amount = beldex_amount_format_utils.formatMoney(
     transactionDetails[0].amount
   );
-  const status = transactionDetails[0].isConfirmed ? transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Received" : "Pending";
+  const status = transactionDetails[0].isConfirmed
+    ? transactionDetails[0].approx_float_amount < 0
+      ? "Sent"
+      : "Received"
+    : "Pending";
   // transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
   console.log("prop propps ::", props.transactionDetails[0]);
   // console.log("status transactionDetails::",status)
@@ -30,7 +34,7 @@ export default function TransactionDetails(props: any) {
         minute: "numeric",
         second: "numeric",
       })
-      .toUpperCase();
+      ;
   };
   const copyText = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -47,7 +51,7 @@ export default function TransactionDetails(props: any) {
     <Box
       className="transactionDetails"
       mt={2}
-    // sx={{background:(theme) => theme.palette.success.main}}
+      // sx={{background:(theme) => theme.palette.success.main}}
     >
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Box display="flex" flexDirection="row" alignItems="center">
@@ -56,7 +60,7 @@ export default function TransactionDetails(props: any) {
               transform: "rotate(225deg)",
               fontSize: "2rem",
               cursor: "pointer",
-              "&:hover": { opacity: 0.8 }
+              "&:hover": { opacity: 0.8 },
             }}
             onClick={() => setTransactionDetails([])}
           />
@@ -67,14 +71,21 @@ export default function TransactionDetails(props: any) {
         <Typography
           sx={{
             fontWeight: 600,
-            color: status === "Sent" ? "#FC2727" :status==='Pending'?(theme) => theme.palette.secondary.light: "#20D030",
-            fontSize: '1.2rem'
+            color: status === "Received" ? "#20D030" : "#FC2727",
+            fontSize: "1.2rem",
           }}
         >
           {/* {transactionDetails[0].total_received/1e9} BDX */}
           {amount} BDX
         </Typography>
-        <Typography sx={{ fontWeight: 400, color: (theme) => theme.palette.secondary.light }}>{status}</Typography>
+        <Typography
+          sx={{
+            fontWeight: 400,
+            color: (theme) => theme.palette.secondary.light,
+          }}
+        >
+          {status}
+        </Typography>
       </Box>
 
       <Box pl={1}>
@@ -120,8 +131,8 @@ export default function TransactionDetails(props: any) {
             sx={{
               fontSize: "1rem",
               fontWeight: 600,
-              color: status === "Sent" ? "#FC2727" :status==='Pending'?(theme) => theme.palette.secondary.light: "#20D030",
-
+              // color: status === "Sent" ? "#FC2727" :status==='Pending'?"#FC2727": "#20D030",
+              color: status === "Received" ? "#20D030" : "#FC2727",
             }}
           >
             {/* {transactionDetails[0].total_received/1e9} BDX */}
@@ -153,12 +164,20 @@ export default function TransactionDetails(props: any) {
                 color: "#7D7D9C",
               }}
             >
-              {transactionDetails[0].payment_id ? transactionDetails[0].payment_id : "None"}
+              {transactionDetails[0].payment_id
+                ? transactionDetails[0].payment_id
+                : "None"}
             </Typography>
           </Box>
-          <IconButton onClick={() => copyText(transactionDetails[0].payment_id)} disabled={!transactionDetails[0].payment_id} >
+          <IconButton
+            onClick={() => copyText(transactionDetails[0].payment_id)}
+            disabled={!transactionDetails[0].payment_id}
+          >
             <ContentCopyIcon
-              sx={{ fontSize: "1.4rem", fill: transactionDetails[0].payment_id ? "#20D030" : "#8787A8" }}
+              sx={{
+                fontSize: "1.4rem",
+                fill: transactionDetails[0].payment_id ? "#20D030" : "#8787A8",
+              }}
             ></ContentCopyIcon>
           </IconButton>
         </Box>
@@ -216,7 +235,11 @@ export default function TransactionDetails(props: any) {
             Ring size
           </Typography>
 
-          <Typography sx={{ fontSize: "1rem", fontWeight: 400, padding: '0.5rem' }}>10</Typography>
+          <Typography
+            sx={{ fontSize: "1rem", fontWeight: 400, padding: "0.5rem" }}
+          >
+            10
+          </Typography>
         </Box>
         {/* <Box mt={3} mb={2} sx={{ height: "0.5px" }}></Box> */}
       </Box>

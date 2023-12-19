@@ -116,18 +116,18 @@ export default function Balance() {
           <Typography className="text" sx={{
             fontWeight: 300,
             color: (theme) => theme.palette.text.primary,
-            fontSize: '1.2rem',
+            fontSize: '1.5rem',
             paddingLeft: '12px',
           }}>Balance</Typography>
         </Box>
         <Box className="balance" sx={{
-          fontWeight: 600, fontSize: "1.3rem", display: 'flex', alignItems: 'center', marginTop: '8px', color: (theme) => theme.palette.text.primary,
+          fontWeight: 600, fontSize: "1.6rem", display: 'flex', alignItems: 'center', marginTop: '8px', color: (theme) => theme.palette.text.primary,
         }}>
           {walletDetails.unlocked_balance}
           <Typography
             className="currency"
             sx={{
-              fontWeight: 600, fontSize: "1.3rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
+              fontWeight: 600, fontSize: "1.6rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
               marginRight: '5px',
               marginLeft: '5px',
             }}
