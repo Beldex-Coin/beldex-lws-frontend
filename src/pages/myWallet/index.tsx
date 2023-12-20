@@ -39,11 +39,13 @@ const MyWallet = () => {
       sx={{
         display: isMobileMode ? "block" : "flex",
         gap: "20px",
-        minHeight: "100%",
+        // minHeight: "100%",
+        height:'100%',
         padding:isMobileMode?"0": "20px",
+        overflow:isMobileMode?"unset":'hidden'
       }}
     >
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%",overflow:'auto' }}>
         <Balance />
         <WalletAddressAndKeys />
         <TransactionHistory />
@@ -53,6 +55,9 @@ const MyWallet = () => {
           minWidth: "320px",
           background: (theme) => theme.palette.success.main,
           borderRadius: "25px",
+          padding:'30px 10px',
+          mt:isMobileMode?2:'unset',
+          mb:isMobileMode?2:'unset',
         }}
       >
         <SendFund />

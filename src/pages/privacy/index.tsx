@@ -1,11 +1,12 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from "@emotion/react";
 const Privacy = () => {
     const theme: any = useTheme();
+    const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
     return (
         <Box sx={{ height: "calc(100vh - 107px)", overflowY: "auto" }}>
-            <Typography sx={{ color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px', textAlign: 'center' }}>Privacy Page</Typography>
-            <Box sx={{ color: theme.palette.text.primary, fontSize: '20px', margin: '0px 40px 40px' }}>
+            <Typography sx={{ color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin:'40px 40px 25px', textAlign: 'center' }}>Privacy</Typography>
+            <Box sx={{ color: theme.palette.text.primary, fontSize: '20px', margin:isMobileMode?"0":'40px 40px 25px',}}>
                 <Typography>
                     Please read through this Privacy Policy carefully as it may affect your rights and it also helps you understand how much we value the privacy of your data.                </Typography>
                 <Typography sx={{ marginTop: '20px' }}>

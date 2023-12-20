@@ -21,7 +21,7 @@ export default function TransactionDetails(props: any) {
       : "Received"
     : "Pending";
   // transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
-  console.log("prop propps ::", props.transactionDetails[0]);
+  // console.log("prop propps ::", props.transactionDetails[0]);
   // console.log("status transactionDetails::",status)
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
@@ -72,7 +72,7 @@ export default function TransactionDetails(props: any) {
   return (
     <Box
       className="transactionDetails"
-      mt={2}
+      
       // sx={{background:(theme) => theme.palette.success.main}}
     >
       <Box display="flex" flexDirection="row" justifyContent="space-between">
@@ -93,7 +93,8 @@ export default function TransactionDetails(props: any) {
         <Typography
           sx={{
             fontWeight: 600,
-            color: status === "Received" ? "#20D030" : "#FC2727",
+            // color: status === "Received" ? "#20D030" : "#FC2727",
+            color: transactionDetails[0].approx_float_amount < 0 ? "#FC2727" : "#20D030",
             fontSize: "1.2rem",
           }}
         >
@@ -154,11 +155,12 @@ export default function TransactionDetails(props: any) {
               fontSize: "1rem",
               fontWeight: 600,
               // color: status === "Sent" ? "#FC2727" :status==='Pending'?"#FC2727": "#20D030",
-              color: status === "Received" ? "#20D030" : "#FC2727",
+              // color: status === "Received" ? "#20D030" : "#FC2727",
+              color: transactionDetails[0].approx_float_amount < 0 ? "#FC2727" : "#20D030",
             }}
           >
             {/* {transactionDetails[0].total_received/1e9} BDX */}
-            {amount} BDX
+            {decimalValidation(amount)} BDX
           </Typography>
         </Box>
         <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
