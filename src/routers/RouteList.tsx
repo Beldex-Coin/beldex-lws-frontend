@@ -48,7 +48,7 @@ export const LoginList: Array<RouteListObj> = [
     },
     // {
     //     id: 'myWallet',
-    //     title: 'My Wallet',
+    //     title: 'Wallet',
     //     component: <MyWallet/>,
     //     path: '/mywallet'
     // },

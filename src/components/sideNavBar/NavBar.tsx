@@ -81,7 +81,7 @@ export default function NavBar() {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
-    console.log("index....:",index);
+    console.log("index....:", index);
     setSelectedIndex(index);
     if (index < 5) navigate(routerPath[index]);
 
@@ -133,7 +133,8 @@ export default function NavBar() {
               "&:hover": {
                 background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px"
           }}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
@@ -167,7 +168,8 @@ export default function NavBar() {
               "&:hover": {
                 background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px",
           }}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
@@ -203,7 +205,9 @@ export default function NavBar() {
               "&:hover": {
                 background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px"
+
           }}
           onClick={(event) => handleListItemClick(event, 2)}
         >
@@ -238,7 +242,8 @@ export default function NavBar() {
               "&:hover": {
                 background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px"
           }}
           onClick={(event) => handleListItemClick(event, 3)}
         >
@@ -273,7 +278,8 @@ export default function NavBar() {
               "&:hover": {
                 background: (theme) => theme.palette.common.white
               }
-            }
+            },
+           borderRadius: "15px",
           }}
           onClick={(event) => handleListItemClick(event, 4)}
         >

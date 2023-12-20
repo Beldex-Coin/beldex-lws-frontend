@@ -1,17 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import { useTheme } from "@emotion/react";
 const Privacy = () => {
-    const theme:any = useTheme();
+    const theme: any = useTheme();
     return (
-        <Box sx={{height: "calc(100vh - 107px)", overflowY: "auto" }}>
-            <Typography sx={{  color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px' }}>Privacy </Typography>
-            <Box sx={{  color:theme.palette.text.primary, fontSize: '20px', margin: '0px 40px 40px' }}>
+        <Box sx={{ height: "calc(100vh - 107px)", overflowY: "auto" }}>
+            <Typography sx={{ color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px', textAlign: 'center' }}>Privacy Page</Typography>
+            <Box sx={{ color: theme.palette.text.primary, fontSize: '20px', margin: '0px 40px 40px' }}>
                 <Typography>
                     Please read through this Privacy Policy carefully as it may affect your rights and it also helps you understand how much we value the privacy of your data.                </Typography>
                 <Typography sx={{ marginTop: '20px' }}>
                     Last Updated: 6 Feb 2023
                 </Typography>
-                <Typography sx={{ color: theme.palette.text.primary,marginTop: '20px', fontWeight: 700 }}>
+                <Typography sx={{ color: theme.palette.text.primary, marginTop: '20px', fontWeight: 700 }}>
                     1. Introduction
                 </Typography>
                 <Typography>
@@ -20,13 +20,13 @@ const Privacy = () => {
                 <Typography>
                     We may change this Privacy Policy from time to time. If we make changes, we will notify you by changing the “Last Updated” date at the top of this page and, in some cases, we may provide you with additional notice by adding a statement to our blog page on Medium, social media accounts or sending you push notifications on your device. Unfortunately, because we don’t store your details (see below for exactly what we do and don’t store), we can’t notify you of any changes via email. Therefore, we encourage you to review the Privacy Policy whenever you access the Services to stay informed about our information practices and the ways you can join us in protecting your privacy.
                 </Typography>
-                <Typography sx={{ marginTop: '20px', fontWeight: 700,color: theme.palette.text.primary }}>
+                <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>
                     2. Collection of Information
                 </Typography>
                 <Typography>
                     Information you provide to us - We collect information you provide directly to us. When opening a wallet, you’ll notice that you will provide literally no information directly to us so this usually relates to communications between you and our support teams or for any once-off interactive features (in these circumstances, we will usually explain exactly how that information will be used so don’t worry).
                 </Typography>
-                <Typography sx={{ marginTop: '20px'}}>
+                <Typography sx={{ marginTop: '20px' }}>
                     Information we collect automatically when you use the Services - When you access or use our Services, we automatically collect information about you, including:
                     <Typography component={'ul'}>
                         <Typography component={'li'}>
@@ -41,7 +41,7 @@ const Privacy = () => {
                             When an error occurs, we collect information about the error (such as the date and error type) and we also log information about the type of device, browser and operating system you were using at the time of the error in the form of your user agent but, in circumstances in which there isn’t an error, this information will not be collected.                        </Typography>
                     </Typography>
                 </Typography>
-                <Typography sx={{ marginTop: '20px'}}>
+                <Typography sx={{ marginTop: '20px' }}>
                     Information we do not collect – Because we care about your privacy, there is some information which we have deliberately designed our systems not to collect, including:
                     <Typography component={'ul'}>
                         <Typography component={'li'}>
@@ -61,7 +61,7 @@ const Privacy = () => {
                         </Typography>
                     </Typography>
                 </Typography>
-                <Typography sx={{ marginTop: '20px', fontWeight: 700,color: theme.palette.text.primary }}>
+                <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>
                     3. Use of Information
                 </Typography>
                 <Typography>
@@ -87,7 +87,7 @@ const Privacy = () => {
                         </Typography>
                     </Typography>
                 </Typography>
-                <Typography sx={{ marginTop: '20px', fontWeight: 700,color: theme.palette.text.primary }}>
+                <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>
                     4. Sharing of Information
                 </Typography>
                 <Typography>
@@ -116,13 +116,13 @@ const Privacy = () => {
                 <Typography>
                     But note that, as far as possible, any information we share will be aggregated or de-identified information which cannot reasonably be used to identify you.
                 </Typography>
-                <Typography sx={{ marginTop: '20px', fontWeight: 700,color: theme.palette.text.primary }}>
+                <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>
                     5. Security
                 </Typography>
                 <Typography>
                     As users of our own Services, we take its security very seriously and ensure that we apply reasonable measures to help protect information about you from loss, theft, misuse, unauthorized access, disclosure, alteration and destruction. However, as we do not collect the most important information about you and your use of the Services, the security of your information is also in your hands and we recommend that you take this as seriously as we do.
                 </Typography>
-                <Typography sx={{ marginTop: '20px', fontWeight: 700,color: theme.palette.text.primary }}>
+                <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>
                     6. Your Rights in Relation to Your Information
                 </Typography>
                 <Typography>
@@ -151,7 +151,7 @@ const Privacy = () => {
                 <Typography>
                     It is important to remember that, because we collect so little data on you, it will often be difficult to identify which information is yours which could make the exercise of any of the above rights impossible in the circumstances.
                 </Typography>
-                <Typography sx={{ marginTop: '20px', fontWeight: 700,color: theme.palette.text.primary }}>
+                <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>
                     7. Contact Us
                 </Typography>
                 <Typography>

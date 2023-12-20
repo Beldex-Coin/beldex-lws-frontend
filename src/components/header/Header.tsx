@@ -74,7 +74,7 @@ const DesktopNavigation = () => {
       case "/support":
         return "Support";
       default:
-        return "My Beldex Wallet";
+        return "Wallet";
     }
   };
 
@@ -430,11 +430,11 @@ const Header = () => {
               <LogoWhite sx={{ width: "1.2em", height: "1.2em" }} />
             )}
             <Box>
-              <Typography sx={{ fontSize: "18px", fontWeight: "bold" }}>
-                MyBeldex
+              <Typography  sx={{ fontSize: "18px", fontWeight: "bold" }}>
+                Beldex&nbsp;Wallet
               </Typography>
               <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
-                V 0.0.6
+                V 0.0.8
               </Typography>
             </Box>
           </Box>

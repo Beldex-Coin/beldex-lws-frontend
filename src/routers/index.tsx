@@ -4,9 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import MyWallet from "../pages/myWallet";
 import Settings from "../pages/settings";
 const RouteList = () => {
-  
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
-  console.log("walletDetails.isLogin walletDetails.isLogin",walletDetails.isLogin)
 
   const DashBoardAuth = ({ children }: { children: JSX.Element }) => {
     if (!walletDetails.isLogin) {

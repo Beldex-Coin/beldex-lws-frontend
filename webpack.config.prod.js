@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
   output: {
@@ -89,8 +89,5 @@ module.exports = {
     new Dotenv({
       defaults: true
     })
-    // new webpack.ProvidePlugin({
-    //   process: 'process/browser',
-    // }),
   ]
 }
