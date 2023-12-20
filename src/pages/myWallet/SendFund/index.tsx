@@ -18,8 +18,6 @@ import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
 
-
-
 import Modal from "@mui/material/Modal";
 import SuccessTxnTickIconWhite from "../../../icons/SuccessTxnTickIconWhite";
 import SuccessTxnTickIconDark from "../../../icons/SuccessTxnTickIconDark";
@@ -79,7 +77,7 @@ const SendFund = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width:isMobileMode? 352:552,
+    width: isMobileMode ? 352 : 552,
     bgcolor: "background.paper",
     // border: "2px solid #000",
     boxShadow: 24,
@@ -168,6 +166,7 @@ const SendFund = () => {
     } catch (err) {
       console.log("errorr:", err)  // Invalid address
       console.log("Invalid address")
+      handleShowToastMsg('Invalid address', false);
       //   return ToastUtils.pushToastError('invalidAddress', 'Invalid address');
     }
   }
@@ -180,9 +179,9 @@ const SendFund = () => {
       setToAddress(value);
     }
   };
-  const handleShowToastMsg = () => {
+  const handleShowToastMsg = (message: string, status: boolean) => {
     if (toastMsgRef.current) {
-      toastMsgRef.current.showAlert('Error ', 'error');
+      toastMsgRef.current.showAlert(message, status ? 'success' : 'error');
     }
   };
 
@@ -299,8 +298,7 @@ const SendFund = () => {
     } else {
       errStr = failureCodeMessage_byEnumVal[code];
     }
-    console.log("error ::", errStr);
-    handleShowToastMsg();
+    handleShowToastMsg(errStr, false);
     clearStates();
     const err = new Error(errStr);
     console.error(err);
@@ -455,8 +453,8 @@ const SendFund = () => {
         </Typography>
 
         <Box textAlign={"center"} mt={2}>
-        
-          {theme.palette.mode==='dark'?<SuccessTxnTickIconDark sx={{width:'8rem',height:'8rem'}} /> :<SuccessTxnTickIconWhite sx={{width:'8rem',height:'8rem'}} />}
+
+          {theme.palette.mode === 'dark' ? <SuccessTxnTickIconDark sx={{ width: '8rem', height: '8rem' }} /> : <SuccessTxnTickIconWhite sx={{ width: '8rem', height: '8rem' }} />}
         </Box>
         <Box textAlign={"center"} mt={2}>
           <Button
@@ -489,8 +487,8 @@ const SendFund = () => {
       sx={{
         padding: "30px 20px 50px",
         height: "100%",
-        marginTop:isMobileMode?"10px":'unset',
-        borderRadius:'20px',
+        marginTop: isMobileMode ? "10px" : 'unset',
+        borderRadius: '20px',
         background: (theme) => theme.palette.success.main,
         ".MuiSelect-iconFilled": { fill: "white", color: "white" },
       }}
@@ -543,7 +541,7 @@ const SendFund = () => {
       <Typography
         mr={1}
         textAlign="center"
-        sx={{ fontSize:'1.2rem', fontWeight: 600 }}
+        sx={{ fontSize: '1.2rem', fontWeight: 600 }}
       >
         {walletDetails.unlocked_balance}{" "}
         <span style={{ color: "#20D030" }}>BDX</span>
@@ -583,7 +581,7 @@ const SendFund = () => {
         <Box
           sx={{
             // background: "#1C1C26",
-            backgroundColor: (theme) => theme.palette.mode==="dark"?"#1C1C26":"#F2F2F2",
+            backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
             padding: "0 20px",
             width: "100%",
             color: "white",
@@ -720,11 +718,11 @@ const SendFund = () => {
         multiline
         sx={{
           width: "100%",
-          minHeight:'110px',
+          minHeight: '110px',
           maxHeight: "125px",
           color: theme.palette.text.primary,
           // backgroundColor: (theme) => theme.palette.background.default,
-          backgroundColor: (theme) => theme.palette.mode==="dark"?"#1C1C26":"#F2F2F2",
+          backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
           padding: "10px 20px",
           borderRadius: "18px",
           border: errAddress ? "1px solid #FC2727" : "none",
@@ -861,13 +859,13 @@ const SendFund = () => {
             marginRight: "20px",
             width: "150px",
             height: "45px",
-            borderRadius:isMobileMode?'40px': "10px",
+            borderRadius: isMobileMode ? '40px' : "10px",
             // color: "white",
             color: theme.palette.text.primary,
           }}
           onClick={clearStates}
         >
-          <RefreshIcon  sx={{marginRight:'7px'}}/> Reset
+          <RefreshIcon sx={{ marginRight: '7px' }} /> Reset
         </Button>
         <Button
           variant="contained"
@@ -877,14 +875,14 @@ const SendFund = () => {
             width: "150px",
             height: "45px",
             // borderRadius: "10px",
-            borderRadius:isMobileMode?'40px': "10px",
+            borderRadius: isMobileMode ? '40px' : "10px",
             color: "white",
-            
+
             // color: theme.palette.text.primary,
           }}
           onClick={() => sendFundFieldValidation()}
         >
-          <CallMadeIcon sx={{marginRight:'7px'}}/>
+          <CallMadeIcon sx={{ marginRight: '7px' }} />
           Send
         </Button>
       </Box>
@@ -960,7 +958,7 @@ const SendFund = () => {
                     height: "45px",
                     borderRadius: "10px",
                     color: '#fff',
-                    
+
                   }}
                   onClick={() => intiate_transaction()}
                 >
@@ -969,19 +967,19 @@ const SendFund = () => {
                 </Button>
               </Box>
               :
-              <Box mt={2} sx={{ backgroundColor:theme.palette.mode==='dark'? "#32324A":'#fff', padding: '10px 20px', borderRadius: '10px' }}  >
+              <Box mt={2} sx={{ backgroundColor: theme.palette.mode === 'dark' ? "#32324A" : '#fff', padding: '10px 20px', borderRadius: '10px' }}  >
                 <Typography
-                  sx={{ color: '#77778B', fontWeight: 400, fontSize: isMobileMode?"0.8rem":'1rem' }}
+                  sx={{ color: '#77778B', fontWeight: 400, fontSize: isMobileMode ? "0.8rem" : '1rem' }}
                 >
-                  Sending <span style={{color:'#00AD07',fontWeight:'700',fontSize:'1.1rem'}}>{amount} BDX.. </span>{txnStatus}
+                  Sending <span style={{ color: '#00AD07', fontWeight: '700', fontSize: '1.1rem' }}>{amount} BDX.. </span>{txnStatus}
                 </Typography>
               </Box>
             }
           </Box>
-          : 
+          :
           <PaymentSuccessDialog />
 
-         } 
+        }
 
 
       </Modal>

@@ -93,7 +93,7 @@ export default function PreferenceSetting(props: any) {
         fontSize={22}
         sx={{ color: theme.palette.text.primary, fontWeight: 600 }}
       >
-        Mybeldex Settings
+        Wallet Settings
       </Typography>
 
       <Typography
@@ -181,7 +181,7 @@ export default function PreferenceSetting(props: any) {
           onClick={()=>props.setIsPreference()}
           sx={{ color: theme.palette.text.primary }}
         >
-          About MyBeldex
+          About Beldex Wallet
         </Typography>
       </Box>
       <Box className="logout-btn-wrapper" mt={3}>

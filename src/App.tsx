@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, GlobalStyles, PaletteMode, createTheme } from "@mui/material";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -11,15 +11,17 @@ import { lightTheme } from "./theme/light";
 import { ColorContext } from "./ColorContext";
 import { CoreBridgeInstanceContext } from "./CoreBridgeInstanceContext";
 import RouteList from "./routers";
-
+import ToastMsg, { ToastMsgRef } from "./components/snackbar/ToastMsg";
 const mnemonic_languages = require("@bdxi/beldex-locales");
 const appBridge = require("@bdxi/beldex-app-bridge");
 const HostedMoneroAPIClient = require("@bdxi/beldex-hosted-api");
 const BackgroundAPIResponseParser = require("@bdxi/beldex-response-parser-utils");
 
 function App() {
+
   const [mode, setMode] = React.useState<PaletteMode>("dark");
   const [bdxUtils, setBDXUtils] = React.useState<any>({});
+  const toastMsgRef = useRef<ToastMsgRef>(null);
 
   const colorMode = React.useMemo(
     () => ({
@@ -76,10 +78,25 @@ function App() {
     );
     beldex_utils.set_Utils_data(context);
   };
+
+  const handleShowToastMsg = () => {
+    if (toastMsgRef.current) {
+      toastMsgRef.current.showAlert("You are offline. Connect to the Internet.", "error");
+    }
+  };
+
   // console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
   }, []);
+
+  useEffect(() => {
+    const isOnLine = navigator.onLine
+    if (!isOnLine) {
+      handleShowToastMsg();
+    }
+  })
+
 
   const theme = React.useMemo(
     () => createTheme(mode === "light" ? lightTheme : darkTheme),
@@ -121,12 +138,12 @@ function App() {
                 background:
                   theme.palette.mode == "dark" ? "#585870" : "#C7C7C7",
               },
-              "& .MuiButton-root":{
+              "& .MuiButton-root": {
                 textTransform: 'capitalize !important',
 
               },
-              "& .MuiButton-containedPrimary:hover":{
-               opacity:0.7
+              "& .MuiButton-containedPrimary:hover": {
+                opacity: 0.7
               }
             }}
           />
@@ -144,7 +161,7 @@ function App() {
               <Box
                 sx={{
                   minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-                  background:isMobileMode?"unset": theme.palette.background.paper,
+                  background: isMobileMode ? "unset" : theme.palette.background.paper,
                   borderRadius: "25px",
                 }}
               >
@@ -156,6 +173,7 @@ function App() {
           </Box>
         </ThemeProvider>
       </CoreBridgeInstanceContext.Provider>
+      <ToastMsg ref={toastMsgRef} />
     </ColorContext.Provider>
   );
 }

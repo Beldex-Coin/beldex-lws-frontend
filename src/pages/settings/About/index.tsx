@@ -37,7 +37,7 @@ export default function About(props: any) {
         mb={4}
         sx={{ color: theme.palette.text.primary, fontWeight: 700 }}
       >
-        About Mybeldex
+        About Beldex Wallet
       </Typography>
       {theme.palette.mode === "dark" ? (
         <LogoDark sx={{ width:isMobileMode?"3em": "4em", height:isMobileMode?"3em": "4em" }} />
@@ -50,7 +50,7 @@ export default function About(props: any) {
         fontSize={22}
         sx={{ color: theme.palette.text.primary, fontWeight: 700 }}
       >
-        MyBeldex
+        Beldex Wallet
       </Typography>
       <Typography
         sx={{
@@ -58,7 +58,7 @@ export default function About(props: any) {
           fontSize: 14,
         }}
       >
-        Version 0.0.6
+        Version 0.0.8
       </Typography>
 
       <Typography

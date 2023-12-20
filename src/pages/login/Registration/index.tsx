@@ -55,7 +55,7 @@ export default function Registration() {
             fontSize: "1.5rem",
           }}
         >
-          MyBeldex
+          Beldex Wallet
         </Typography>
         <Box>
           <Box
@@ -87,9 +87,10 @@ export default function Registration() {
             color: (theme) => theme.palette.text.secondary,
             fontWeight: 400,
             fontSize: isMobileMode ? "0.8rem" : "1rem",
+            lineHeight:'2rem'
           }}
         >
-          Welcome to MyBeldex! Let’s get started :)
+          Welcome to Beldex Wallet! Let’s get started :)
         </Typography>
 
         <Box>

@@ -42,6 +42,28 @@ export default function TransactionDetails(props: any) {
     handleShowToastMsg();
   };
 
+  const decimalValidation = (amount: string) => {
+    // const actualAmount: any = beldex_amount_format_utils.formatMoney(amount);
+    return Number(amount.replace("-", "")).toFixed(4);
+  }
+
+  const paymentIdZeroValidation = (payment_id: any) => {
+    let index = 0;
+    let zeroCount = 0;
+    if (payment_id) {
+      while (index < (payment_id.length).toString()) {
+        if (payment_id.slice(index, index + 1) == "0") {
+          zeroCount = zeroCount + 1;
+        }
+        index++;
+      }
+      if (zeroCount == 16) {
+        return '';
+      }
+      return payment_id;
+    }
+  }
+
   const handleShowToastMsg = () => {
     if (toastMsgRef.current) {
       toastMsgRef.current.showAlert("Copied ", "success");
@@ -76,7 +98,7 @@ export default function TransactionDetails(props: any) {
           }}
         >
           {/* {transactionDetails[0].total_received/1e9} BDX */}
-          {amount} BDX
+          {decimalValidation(amount)} BDX
         </Typography>
         <Typography
           sx={{
@@ -141,48 +163,41 @@ export default function TransactionDetails(props: any) {
         </Box>
         <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
 
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-          mt={3}
-        >
-          <Box>
-            <Typography
-              sx={{
-                fontWeight: 400,
-                fontSize: "1.1rem",
-              }}
-            >
-              Payment ID
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: 400,
-                fontSize: "14px",
-                color: "#7D7D9C",
-              }}
-            >
-              {transactionDetails[0].payment_id
-                ? transactionDetails[0].payment_id
-                : "None"}
-            </Typography>
-          </Box>
-          <IconButton
-            onClick={() => copyText(transactionDetails[0].payment_id)}
-            disabled={!transactionDetails[0].payment_id}
+        {paymentIdZeroValidation(transactionDetails[0].payment_id) && <Box>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mt={3}
           >
-            <ContentCopyIcon
-              sx={{
-                fontSize: "1.4rem",
-                fill: transactionDetails[0].payment_id ? "#20D030" : "#8787A8",
-              }}
-            ></ContentCopyIcon>
-          </IconButton>
-        </Box>
-        <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
-
+            <Box>
+              <Typography
+                sx={{
+                  fontWeight: 400,
+                  fontSize: "1.1rem",
+                }}
+              >
+                Payment ID
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  color: "#7D7D9C",
+                }}
+              >
+                {paymentIdZeroValidation(transactionDetails[0].payment_id)}
+              </Typography>
+            </Box>
+            <IconButton onClick={() => copyText(transactionDetails[0].payment_id)} disabled={!transactionDetails[0].payment_id} >
+              <ContentCopyIcon
+                sx={{ fontSize: "1.4rem", fill: transactionDetails[0].payment_id ? "#20D030" : "#8787A8" }}
+              ></ContentCopyIcon>
+            </IconButton>
+          </Box>
+          <Box mt={3} sx={{ height: "0.5px", backgroundColor: "#8787A8" }}></Box>
+        </Box>}
         <Box
           display="flex"
           flexDirection="row"

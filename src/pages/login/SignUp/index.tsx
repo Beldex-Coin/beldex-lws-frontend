@@ -173,7 +173,7 @@ export default function SignUp() {
               Web browsers are insecure
             </Typography>
             <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontWeight: 400 }}>
-              The convenience of MyBeldex for web comes at a security cost.
+              The convenience of Beldex Wallet for web comes at a security cost.
             </Typography>
           </Box>
         </Box>
