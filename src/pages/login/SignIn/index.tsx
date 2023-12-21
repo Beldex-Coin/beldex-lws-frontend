@@ -166,6 +166,14 @@ export default function SignIn() {
   )
 
   return (
+    <Box
+    className="appWrapper"
+      sx={{
+        minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
+        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        borderRadius: "25px",
+      }}
+    >
     <>
       <Loader />
       {!showSignWithKey && (
@@ -316,5 +324,6 @@ export default function SignIn() {
       )}
       {showSignWithKey && <SignInWithKey cbFunction={signWithKey} />}
     </>
+    </Box>
   );
 }

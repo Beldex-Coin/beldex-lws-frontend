@@ -12,6 +12,14 @@ const Settings = () => {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
+    <Box
+    className="appWrapper"
+    sx={{
+      minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
+      background: isMobileMode ? "unset" : theme.palette.background.paper,
+      borderRadius: "25px",
+    }}
+  >
     <Box sx={{ padding:isMobileMode?"0":"25px" }}>
       <Box sx={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
         <OutboundIcon
@@ -38,6 +46,7 @@ const Settings = () => {
         {isPreference ? <PreferenceSetting  setIsPreference={()=>setIsPreference(false)}/> : <About setIsPreference={()=>setIsPreference(true)} />}
       </Box>
       {/* <Typography  sx={{color: 'white',fontSize: '20px',textAlign: 'center',fontWeight: 500,margin: '40px'}}>Settings Page</Typography> */}
+    </Box>
     </Box>
   );
 };

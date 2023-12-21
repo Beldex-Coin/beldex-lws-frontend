@@ -29,6 +29,7 @@ import MyWallet from "../../icons/MyWallet";
 import Privacy from "../../icons/Privacy";
 import Term from "../../icons/Terms";
 import Support from "../../icons/Support";
+import { MUIWrapperContext } from "../../theme/MUIWrapper";
 const styles = {
   logoContainer: {
     padding: 0,
@@ -58,7 +59,7 @@ const DesktopNavigation = () => {
     const defaultTitle = "Home";
     const location = window.location.pathname;
 
-    if (!walletDetails.isLogin && (location==='/mywallet' ||location==='/' )) {
+    if (!walletDetails.isLogin && (location === '/mywallet' || location === '/')) {
       return defaultTitle;
     }
 
@@ -111,7 +112,7 @@ const MobileNavigation = () => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
-  const colorMode = React.useContext(ColorContext);
+  const muiUtils: any = React.useContext(MUIWrapperContext);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
 
   function handleListKeyDown(event: React.KeyboardEvent) {
@@ -299,7 +300,7 @@ const MobileNavigation = () => {
                         },
                       },
                     }}
-                    onClick={() => {setOpenMenu(false), navigate("/support")}}
+                    onClick={() => {setOpenMenu(false); navigate("/support")}}
                   >
                     <ListItemIcon sx={{ minWidth: "40px" }}>
                       <Support
@@ -370,7 +371,7 @@ const MobileNavigation = () => {
 
       <IconButton
         sx={styles.menuIconContainer}
-        onClick={colorMode.toggleColorMode}
+        onClick={muiUtils.toggleColorMode}
       >
         <MoonDark
           styles={{
@@ -418,7 +419,6 @@ const Header = () => {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  console.log(" theme.palette.mode theme.palette.mode ::", theme.palette.mode);
   return (
     <Fragment>
       <AppBar position="fixed" sx={styles.appbar} elevation={9}>
@@ -430,7 +430,7 @@ const Header = () => {
               <LogoWhite sx={{ width: "2.2em", height: "2.2em" }} />
             )}
             <Box>
-              <Typography  sx={{ fontSize: "18px", fontWeight: "bold" }}>
+              <Typography sx={{ fontSize: "18px", fontWeight: "bold" }}>
                 Beldex&nbsp;Wallet
               </Typography>
               <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
