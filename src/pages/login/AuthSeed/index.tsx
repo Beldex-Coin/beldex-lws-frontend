@@ -194,7 +194,7 @@ export default function AuthSeed() {
               backgroundColor: (theme) =>
                 theme.palette.mode === "dark" ? "#1F1F2E" : "#F5F5F5",
               padding: "0 20px",
-              borderRadius: "10px",
+              borderRadius: "12px",
               overflow: "auto",
             }}
           />
