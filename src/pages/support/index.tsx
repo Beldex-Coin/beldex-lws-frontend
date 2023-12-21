@@ -74,7 +74,7 @@ const Support = () => {
             ) : (
               <DiscordWhite sx={{ width: "3rem", height: "3rem" }} />
             )}
-            <Typography sx={{ textAlign: "center" }}>Github</Typography>
+            <Typography sx={{ textAlign: "center" }}>Discord</Typography>
           </Box>
           <Box
                          sx={iconBoxStyle}
@@ -89,7 +89,7 @@ const Support = () => {
           <Box
                          sx={iconBoxStyle}
 
-            onClick={()=>handleOpenNewTab('https://github.com/Beldex-Coin/beldex/')}
+            onClick={()=>handleOpenNewTab('https://github.com/Beldex-Coin/beldex-lws-frontend')}
 
           >
             {theme.palette.mode === "dark" ? (
