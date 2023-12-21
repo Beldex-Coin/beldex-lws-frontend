@@ -194,6 +194,7 @@ const SendFund = () => {
     //   );
     //   return
     // }
+   
     if (!amount) {
       // setErrAmount('please enter the amount to send.');
       setErrAmount("Invalid Amount");
@@ -212,6 +213,7 @@ const SendFund = () => {
       // return ToastUtils.pushToastError('notEnoughBalance', 'Not enough unlocked balance');
       // setErrAmount('Not enough unlocked balance')
       setErrAmount("Invalid Amount");
+      handleShowToastMsg("Not enough unlocked balance", false);
 
       console.log("Not enough unlocked balance");
       return;
@@ -485,10 +487,11 @@ const SendFund = () => {
     <Box
       className="sendFund"
       sx={{
-        padding: "30px 20px 50px",
+        padding: `0 ${isMobileMode?'15px':'20px'}`,
         height: "100%",
-        marginTop: isMobileMode ? "10px" : 'unset',
-        borderRadius: '20px',
+        marginTop:isMobileMode?"10px":'unset',
+        borderRadius:'20px',
+        overflow:'auto',
         background: (theme) => theme.palette.success.main,
         ".MuiSelect-iconFilled": { fill: "white", color: "white" },
       }}
@@ -536,7 +539,7 @@ const SendFund = () => {
         >
           Total Balance
         </Typography>
-        <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} />
+        {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} /> */}
       </Box>
       <Typography
         mr={1}
@@ -680,7 +683,7 @@ const SendFund = () => {
         >
           {estimtionFees}
         </Typography>
-        <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} />
+        {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} /> */}
       </Box>
       <Box
         display="flex"
@@ -701,9 +704,9 @@ const SendFund = () => {
           }}
         >
           To
-          <InfoOutlinedIcon
+          {/* <InfoOutlinedIcon
             sx={{ color: "#8787A8", fontSize: 14, marginLeft: "6px" }}
-          />
+          /> */}
         </Typography>
         <Typography
           sx={{ color: "#FC2727", fontWeight: 400, fontSize: "0.9rem" }}
@@ -765,7 +768,7 @@ const SendFund = () => {
               // color: "white",
               // background: "#1C1C26",
               color: theme.palette.text.primary,
-              backgroundColor: (theme) => theme.palette.background.default,
+              backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
               padding: "0 20px",
               borderRadius: "18px",
               overflow: "auto",
@@ -800,7 +803,7 @@ const SendFund = () => {
         >
           Priority
         </Typography>
-        <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 14 }} />
+        {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 14 }} /> */}
         <Select
           sx={{
             color: theme.palette.text.primary,

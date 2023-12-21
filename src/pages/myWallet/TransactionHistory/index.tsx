@@ -16,6 +16,7 @@ const pollingPeriodTimeInterval_s = 15;
 export default function TransactionHistory() {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet=useMediaQuery(theme.breakpoints.down("md"))
   const [page, setPage] = useState(1);
 
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
@@ -209,7 +210,9 @@ export default function TransactionHistory() {
         background: (theme) => theme.palette.success.light,
         padding: "20px",
         borderRadius: "20px",
-        height: isMobileMode ? "592px" : '545px',
+        // height: isMobileMode ? "592px" : '545px',
+        // height:'67%'
+        height:isMobileMode?"unset":isTablet?"560px": 'calc(100vh - 356px)'
       }}
       mt={2}
     >
@@ -267,7 +270,7 @@ export default function TransactionHistory() {
           </Box>
           <Box mt={2}
             sx={{
-              height: isMobileMode ? '75%' : "90%",
+              height: isMobileMode ? '75%' : "87%",
               overflowY: "auto",
               padding: "0 10px",
             }}

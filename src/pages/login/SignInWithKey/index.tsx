@@ -171,7 +171,8 @@ export default function SignInWithKey(props: any) {
             Existing Wallet
           </Typography>
           <Typography mt={2} sx={{ fontWeight: 700 }}>
-            Address <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "}
+            Address 
+            {/* <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "} */}
           </Typography>
           <Box mt={1}>
             <Input
@@ -194,7 +195,8 @@ export default function SignInWithKey(props: any) {
           </Box>
 
           <Typography sx={{ fontWeight: 700 }} mt={2}>
-            View Key <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "}
+            View Key 
+            {/* <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "} */}
           </Typography>
           <Box mt={1} display="flex" flexDirection="row">
             <Input
@@ -217,7 +219,8 @@ export default function SignInWithKey(props: any) {
           </Box>
 
           <Typography sx={{ fontWeight: 700 }} mt={2}>
-            Spend Key <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "}
+            Spend Key 
+            {/* <InfoOutlinedIcon sx={{ fontSize: "0.9rem" }} />{" "} */}
           </Typography>
           <Box mt={1} display="flex" flexDirection="row">
             <Input

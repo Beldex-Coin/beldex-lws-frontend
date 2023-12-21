@@ -147,14 +147,15 @@ function App() {
               }
             }}
           />
-          <Box sx={{ height: "100vh", padding: "20px" }}>
+          <Box sx={{ height:isMobileMode?"unset":"100vh", padding: "20px" }}>
             <Header />
             <Box
               sx={{
                 paddingTop: "65px",
                 display: "flex",
                 gap: "20px",
-                minHeight: "calc(100vh - 45px)",
+                height: "100%"
+                // minHeight: "calc(100vh - 45px)",
               }}
             >
               {!isMobileMode && <NavBar />}

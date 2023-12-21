@@ -74,7 +74,7 @@ export default function Registration() {
             />
           </Box>
         </Box>
-        <Box sx={{ width: "87%", height: "auto" }} mt={5}>
+        <Box sx={{ width: "87%", height: "auto",maxWidth:'900px' }} mt={5}>
           <img
             src={theme.palette.mode === 'dark' ? HomeScreenDark : HomeScreenLight}
             style={{ width: "100%", height: "100%" }}

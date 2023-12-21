@@ -33,7 +33,7 @@ const styles = {
   logoContainer: {
     padding: 0,
     display: "flex",
-    gap: 2,
+    gap: 1,
     alignItems: "center",
     "&:hover": {
       backgroundColor: "transparent",
@@ -82,7 +82,7 @@ const DesktopNavigation = () => {
     <Box
       sx={{
         display: "flex",
-        padding: "0 0 0 121px",
+        padding: "0 0 0 100px",
         width: "100%",
         justifyContent: "space-between",
       }}
@@ -299,7 +299,7 @@ const MobileNavigation = () => {
                         },
                       },
                     }}
-                    onClick={() => setOpenMenu(false)}
+                    onClick={() => {setOpenMenu(false), navigate("/support")}}
                   >
                     <ListItemIcon sx={{ minWidth: "40px" }}>
                       <Support
@@ -425,9 +425,9 @@ const Header = () => {
         <Toolbar disableGutters={true}>
           <Box sx={styles.logoContainer} onClick={() => navigate("/")}>
             {theme.palette.mode === "dark" ? (
-              <LogoDark sx={{ width: "1.2em", height: "1.2em" }} />
+              <LogoDark sx={{ width: "2.2em", height: "2.2em" }} />
             ) : (
-              <LogoWhite sx={{ width: "1.2em", height: "1.2em" }} />
+              <LogoWhite sx={{ width: "2.2em", height: "2.2em" }} />
             )}
             <Box>
               <Typography  sx={{ fontSize: "18px", fontWeight: "bold" }}>
