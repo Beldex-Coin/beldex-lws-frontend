@@ -434,7 +434,7 @@ const Header = () => {
                 Beldex&nbsp;Wallet
               </Typography>
               <Typography sx={{ fontSize: "13px", fontWeight: 400 }}>
-                V 0.0.8
+                V 1.0.0 ALPHA
               </Typography>
             </Box>
           </Box>
