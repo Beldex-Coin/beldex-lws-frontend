@@ -74,7 +74,6 @@ export default function Balance() {
       const getBalance = (total_sent: any, total_received: any, locked_balance: any) => {
         let amountJSBigInt = Balance_JSBigInt(total_sent, total_received);
         const balance = beldex_amount_format_utils.formatMoney(amountJSBigInt);
-        console.log("Actaul balance balance:", balance)
         dispatch(setBalance(balance));
       }
 

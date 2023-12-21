@@ -18,18 +18,18 @@ interface UserIdleInWindowController {
   reEnableUserIdle: () => void;
 }
 
-const userIdleTimerController = (cb?:any): UserIdleInWindowController => {
+const userIdleTimerController = (cb?: any): UserIdleInWindowController => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
- const timer=walletDetails.timer
+  const timer = walletDetails.timer
 
   // let timer=walletDetails.timer ;
   const [isUserIdle, setIsUserIdle] = useState(false);
   const numberOfSecondsSinceLastUserInteractionRef = useRef(0);
   const numberOfRequestsToLockUserIdleAsDisabledRef = useRef(0);
-  const userIdleIntervalTimerRef = useRef<number | null|any>(null);
-  const userIdleSetTimerRef = useRef<number | null|any>(timer);
+  const userIdleIntervalTimerRef = useRef<number | null | any>(null);
+  const userIdleSetTimerRef = useRef<number | null | any>(timer);
 
 
   const EventName_userDidBecomeIdle = 'EventName_userDidBecomeIdle';
@@ -51,14 +51,14 @@ const userIdleTimerController = (cb?:any): UserIdleInWindowController => {
   }, []); // Empty dependency array means this useEffect runs once on mount
 
   useEffect(() => {
-    userIdleSetTimerRef.current=timer
+    userIdleSetTimerRef.current = timer
 
     if (numberOfRequestsToLockUserIdleAsDisabledRef.current > 0) {
       disableUserIdle();
     } else {
       reEnableUserIdle();
     }
-  }, [numberOfRequestsToLockUserIdleAsDisabledRef.current,timer]);
+  }, [numberOfRequestsToLockUserIdleAsDisabledRef.current, timer]);
 
   const disableUserIdle = (): void => {
     numberOfRequestsToLockUserIdleAsDisabledRef.current += 1;
@@ -97,15 +97,10 @@ const userIdleTimerController = (cb?:any): UserIdleInWindowController => {
 
   const userIdleIntervalTimerFn = (): void => {
     numberOfSecondsSinceLastUserInteractionRef.current += 1;
-
-    let appTimeoutAfterS: number =userIdleSetTimerRef.current ||  120;
-    console.log('userIdleIntervalTimerFn ::',numberOfSecondsSinceLastUserInteractionRef.current)
-
+    let appTimeoutAfterS: number = userIdleSetTimerRef.current || 120;
     if (appTimeoutAfterS === 1500) {
       return;
     }
-    // console.log('numberOfSecondsSinceLastUserInteractionRef',numberOfSecondsSinceLastUserInteractionRef.current)
-
     if (numberOfSecondsSinceLastUserInteractionRef.current >= userIdleSetTimerRef.current) {
       if (!isUserIdle) {
         userDidBecomeIdle();

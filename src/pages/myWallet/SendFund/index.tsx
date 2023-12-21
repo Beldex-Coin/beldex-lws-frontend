@@ -17,10 +17,11 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
-
+import { setTransactionhistory } from "../../../stores/features/seedDetailSlice";
 import Modal from "@mui/material/Modal";
 import SuccessTxnTickIconWhite from "../../../icons/SuccessTxnTickIconWhite";
 import SuccessTxnTickIconDark from "../../../icons/SuccessTxnTickIconDark";
+import { useAppDispatch } from "../../../stores/hooks";
 const JSBigInt = require("@bdxi/beldex-bigint").BigInteger;
 const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
 const beldex_config = require("@bdxi/beldex-config");
@@ -32,6 +33,7 @@ const SendFund = () => {
   const toastMsgRef = useRef<ToastMsgRef>(null);
   const netType: any = process.env.NETTYPE;
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useAppDispatch();
 
   // const [currency, setCurrency] = useState("AUD");
   const [priority, setPriority] = useState(5);
@@ -194,7 +196,7 @@ const SendFund = () => {
     //   );
     //   return
     // }
-   
+
     if (!amount) {
       // setErrAmount('please enter the amount to send.');
       setErrAmount("Invalid Amount");
@@ -397,13 +399,15 @@ const SendFund = () => {
         approx_float_amount: -1 * total_sent__atomicUnitString, // -1 cause it's outgoing
         // amount: new JSBigInt(sentAmount), // not really used (note if you uncomment, import JSBigInt)
         //
-        payment_id: params.final_payment_id, // b/c `payment_id` may be nil of short pid was used to fabricate an integrated address
+        payment_id: params.final_payment_id ? params.final_payment_id : "", // b/c `payment_id` may be nil of short pid was used to fabricate an integrated address
         //
         // info we can only preserve locally
         tx_fee: params.used_fee,
         tx_key: params.tx_key,
         target_address: params.target_address,
+        isConfirmed: false
       };
+      dispatch(setTransactionhistory(mockedTransaction));
       // fn(null, mockedTransaction, params.isXMRAddressIntegrated, params.integratedAddressPIDForDisplay)
       //
       // manually insert .. and subsequent fetches from the server will be
@@ -487,11 +491,11 @@ const SendFund = () => {
     <Box
       className="sendFund"
       sx={{
-        padding: `0 ${isMobileMode?'15px':'20px'}`,
+        padding: `0 ${isMobileMode ? '15px' : '20px'}`,
         height: "100%",
-        marginTop:isMobileMode?"10px":'unset',
-        borderRadius:'20px',
-        overflow:'auto',
+        marginTop: isMobileMode ? "10px" : 'unset',
+        borderRadius: '20px',
+        overflow: 'auto',
         background: (theme) => theme.palette.success.main,
         ".MuiSelect-iconFilled": { fill: "white", color: "white" },
       }}

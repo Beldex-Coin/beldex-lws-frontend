@@ -17,8 +17,9 @@ export interface seedDetailState {
     pub_spendKey_string: string;
     isWalletCreated?: boolean;
     unlocked_balance?: number;
-    timer?:number;
-    isLogin?:boolean,
+    timer?: number;
+    isLogin?: boolean,
+    transactionPoolHistory?: Array<any>;
 
 }
 
@@ -34,8 +35,9 @@ export const initialState: seedDetailState = {
     isWalletCreated: false,
     loading: false,
     unlocked_balance: 0,
-    isLogin:false,
-    timer:120
+    isLogin: false,
+    timer: 120,
+    transactionPoolHistory: []
 }
 
 const seedDetailSlice = createSlice({
@@ -46,7 +48,6 @@ const seedDetailSlice = createSlice({
             state.loading = action.payload
         },
         setSeedDetails(state, action) {
-            console.log('----action---', action)
             state.address_string = action.payload.address_string;
             state.mnemonic_language = action.payload.mnemonic_language;
             state.mnemonic_string = action.payload.mnemonic_string;
@@ -55,22 +56,21 @@ const seedDetailSlice = createSlice({
             state.sec_seed_string = action.payload.sec_seed_string;
             state.sec_spendKey_string = action.payload.sec_spendKey_string;
             state.sec_viewKey_string = action.payload.sec_viewKey_string;
-            state.isLogin=action.payload.isLogin
-            // state = {...action.payload}
-            console.log('----state---', state)
-
+            state.isLogin = action.payload.isLogin;
         },
         setBalance(state, action) {
             state.unlocked_balance = action.payload
         },
-        setIdleTimer(state,action)
-        {
-            state.timer=action.payload
+        setIdleTimer(state, action) {
+            state.timer = action.payload
+        },
+        setTransactionhistory(state, action) {
+            state.transactionPoolHistory = action.payload;
         }
     }
 })
 
-export const { setSeedDetails, toggleLoading, setBalance,setIdleTimer } = seedDetailSlice.actions;
+export const { setSeedDetails, toggleLoading, setBalance, setIdleTimer, setTransactionhistory } = seedDetailSlice.actions;
 export const seedDetailSelector = (state: RootState) => state.seedDetailReducer;
 
 export default seedDetailSlice.reducer;
