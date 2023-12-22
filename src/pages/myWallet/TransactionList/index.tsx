@@ -8,13 +8,8 @@ import loadingIcon from "../../../icons/loading.gif";
 
 export default function TransactionList(props: any) {
   const transactions = props?.transactions?.length ? props?.transactions : [];
-
   const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
   const theme: any = useTheme();
-  // console.log("transactions ::", transactions);
-
-  // const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
-  // console.log("transactions ::", transactions);
 
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
@@ -25,8 +20,12 @@ export default function TransactionList(props: any) {
     });
   };
 
-  const decimalValidation = (amount: string) => {
-    const actualAmount: any = beldex_amount_format_utils.formatMoney(amount);
+  const decimalValidation = (transaction: any) => {
+    if (transaction.hasOwnProperty('isJustSentTransaction')) {
+      const actualAmount: any = beldex_amount_format_utils.formatMoney(transaction.total_sent);
+      return Number(actualAmount.replace("-", "")).toFixed(4);
+    }
+    const actualAmount: any = beldex_amount_format_utils.formatMoney(transaction.amount);
     return Number(actualAmount.replace("-", "")).toFixed(4);
   };
 
@@ -45,6 +44,7 @@ export default function TransactionList(props: any) {
       }
       return payment_id;
     }
+    return "";
   };
 
   return (
@@ -105,7 +105,7 @@ export default function TransactionList(props: any) {
                   fontSize: "1.1rem",
                 }}
               >
-                {decimalValidation(transaction.amount)} BDX
+                {decimalValidation(transaction)} BDX
                 {/* {transaction.total_received/1e9} BDX */}
               </Typography>
               <Typography sx={{ color: "#D1D1D3", fontSize: "0.8rem" }}>
@@ -121,7 +121,8 @@ export default function TransactionList(props: any) {
                   textAlign={"end"}
                   sx={{ color: "#8787A8", fontSize: "14px" }}
                 >
-                  {transaction.isConfirmed ? "Confirmed" : "Pending"}
+                  {transaction.hasOwnProperty('isJustSentTransaction') ? "Transaction in pool" :
+                    transaction.isConfirmed ? "Confirmed" : "Pending"}
                 </Typography>
               </Box>
               <ArrowRightIcon sx={{ fill: "#8787A8", fontSize: "2rem" }} />
@@ -146,13 +147,12 @@ export default function TransactionList(props: any) {
             height="300px"
             margin="auto"
             sx={{
-              border: `${
-                theme.palette.mode == "dark"
-                  ? "2px solid #454556"
-                  : "2px solid #D7D7D7"
-              }`,
+              border: `${theme.palette.mode == "dark"
+                ? "2px solid #454556"
+                : "2px solid #D7D7D7"
+                }`,
               borderRadius: "8px",
-              backgroundColor:theme.palette.mode == "dark"?'#2E2E3C':'#F8F8F8'
+              backgroundColor: theme.palette.mode == "dark" ? '#2E2E3C' : '#F8F8F8'
             }}
           >
             <Box>

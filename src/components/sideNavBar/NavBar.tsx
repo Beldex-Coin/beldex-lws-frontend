@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useMediaQuery, useTheme } from '@mui/material';
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -19,8 +20,8 @@ import Support from '../../icons/Support';
 import Website from '../../icons/Website';
 import MyWallet from '../../icons/MyWallet';
 import { ColorContext } from '../../ColorContext';
-import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
+import { MUIWrapperContext } from "../../theme/MUIWrapper";
 
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
@@ -70,9 +71,10 @@ export default function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
-  const routerPath = ['/mywallet', '/privacy', '/terms',"/support"]
-  const colorMode = React.useContext(ColorContext);
+  const routerPath = ['/mywallet', '/privacy', '/terms', "/support"]
+  const muiUtils: any = React.useContext(MUIWrapperContext);
   const theme = useTheme();
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   useEffect(() => {
     const routerIndex = routerPath.findIndex((item: string) => item === location.pathname);
     setSelectedIndex(routerIndex);
@@ -81,7 +83,6 @@ export default function NavBar() {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
-    console.log("index....:", index);
     setSelectedIndex(index);
     if (index < 5) navigate(routerPath[index]);
 
@@ -105,6 +106,9 @@ export default function NavBar() {
     } else {
       return selectedIndex === selectedInd ? theme.palette.text.primary : "#222222"  //theme.palette.text.secondary
     }
+  }
+  if (isMobileMode) {
+    return <></>
   }
   return (
     <Box sx={{ minWidth: '225px', background: (theme) => theme.palette.background.paper, borderRadius: '25px' }}>
@@ -311,7 +315,7 @@ export default function NavBar() {
             }} />
           <AntSwitch
             onChange={handleToggle("dark")}
-            onClick={colorMode.toggleColorMode}
+            onClick={muiUtils.toggleColorMode}
             checked={checked.indexOf("dark") !== -1}
             inputProps={{ "aria-label": "ant design" }}
           />

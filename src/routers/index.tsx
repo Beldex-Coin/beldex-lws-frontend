@@ -5,7 +5,6 @@ import MyWallet from "../pages/myWallet";
 import Settings from "../pages/settings";
 const RouteList = () => {
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
-
   const DashBoardAuth = ({ children }: { children: JSX.Element }) => {
     if (!walletDetails.isLogin) {
       return <Navigate to="/" />;

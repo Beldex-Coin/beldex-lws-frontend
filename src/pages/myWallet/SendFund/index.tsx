@@ -17,10 +17,11 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
-
+import { setTransactionhistory } from "../../../stores/features/seedDetailSlice";
 import Modal from "@mui/material/Modal";
 import SuccessTxnTickIconWhite from "../../../icons/SuccessTxnTickIconWhite";
 import SuccessTxnTickIconDark from "../../../icons/SuccessTxnTickIconDark";
+import { useAppDispatch } from "../../../stores/hooks";
 const JSBigInt = require("@bdxi/beldex-bigint").BigInteger;
 const beldex_amount_format_utils = require("@bdxi/beldex-money-format");
 const beldex_config = require("@bdxi/beldex-config");
@@ -32,6 +33,7 @@ const SendFund = () => {
   const toastMsgRef = useRef<ToastMsgRef>(null);
   const netType: any = process.env.NETTYPE;
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useAppDispatch();
 
   // const [currency, setCurrency] = useState("AUD");
   const [priority, setPriority] = useState(5);
@@ -179,6 +181,16 @@ const SendFund = () => {
       setToAddress(value);
     }
   };
+
+  const paymentInputChange = (e: any) => {
+    const value = e.target.value;
+    // Allow only alphanumeric characters
+    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+    if (alphanumericRegex.test(value)) {
+      setManualPaymentId(value)
+    }
+  };
+  
   const handleShowToastMsg = (message: string, status: boolean) => {
     if (toastMsgRef.current) {
       toastMsgRef.current.showAlert(message, status ? 'success' : 'error');
@@ -194,7 +206,7 @@ const SendFund = () => {
     //   );
     //   return
     // }
-   
+
     if (!amount) {
       // setErrAmount('please enter the amount to send.');
       setErrAmount("Invalid Amount");
@@ -204,15 +216,13 @@ const SendFund = () => {
     if (Number(amount) == 0) {
       // return ToastUtils.pushToastError('zeroAmount', 'Amount must be greater than zero');
       // setErrAmount('Amount must be greater than zero')
-      setErrAmount("Invalid Amount");
-
-      console.log("Amount must be greater than zero");
+      setErrAmount("Amount must be greater than zero");
       return;
     }
     if (Number(amount) > walletDetails.unlocked_balance) {
       // return ToastUtils.pushToastError('notEnoughBalance', 'Not enough unlocked balance');
       // setErrAmount('Not enough unlocked balance')
-      setErrAmount("Invalid Amount");
+      setErrAmount("Not enough unlocked balance");
       handleShowToastMsg("Not enough unlocked balance", false);
 
       console.log("Not enough unlocked balance");
@@ -335,7 +345,6 @@ const SendFund = () => {
     };
 
     args.willBeginSending_fn = () => {
-      console.log("willBeginSending_fn ::");
       setTxnStatus('Fetching decoy outputs..')
     };
     args.authenticate_fn = (cb: any) => {
@@ -397,13 +406,15 @@ const SendFund = () => {
         approx_float_amount: -1 * total_sent__atomicUnitString, // -1 cause it's outgoing
         // amount: new JSBigInt(sentAmount), // not really used (note if you uncomment, import JSBigInt)
         //
-        payment_id: params.final_payment_id, // b/c `payment_id` may be nil of short pid was used to fabricate an integrated address
+        payment_id: params.final_payment_id ? params.final_payment_id : "", // b/c `payment_id` may be nil of short pid was used to fabricate an integrated address
         //
         // info we can only preserve locally
         tx_fee: params.used_fee,
         tx_key: params.tx_key,
         target_address: params.target_address,
+        isConfirmed: false
       };
+      dispatch(setTransactionhistory(mockedTransaction));
       // fn(null, mockedTransaction, params.isXMRAddressIntegrated, params.integratedAddressPIDForDisplay)
       //
       // manually insert .. and subsequent fetches from the server will be
@@ -487,11 +498,11 @@ const SendFund = () => {
     <Box
       className="sendFund"
       sx={{
-        padding: `0 ${isMobileMode?'15px':'20px'}`,
+        padding: `0 ${isMobileMode ? '15px' : '20px'}`,
         height: "100%",
-        marginTop:isMobileMode?"10px":'unset',
-        borderRadius:'20px',
-        overflow:'auto',
+        marginTop: isMobileMode ? "10px" : 'unset',
+        borderRadius: '20px',
+        overflow: 'auto',
         background: (theme) => theme.palette.success.main,
         ".MuiSelect-iconFilled": { fill: "white", color: "white" },
       }}
@@ -588,7 +599,7 @@ const SendFund = () => {
             padding: "0 20px",
             width: "100%",
             color: "white",
-            borderRadius: "18px",
+            borderRadius: "12px",
             border: errAmount ? "1px solid #FC2727" : "none",
           }}
           display="flex"
@@ -727,7 +738,7 @@ const SendFund = () => {
           // backgroundColor: (theme) => theme.palette.background.default,
           backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
           padding: "10px 20px",
-          borderRadius: "18px",
+          borderRadius: "12px",
           border: errAddress ? "1px solid #FC2727" : "none",
           overflow: "auto",
           marginTop: "10px",
@@ -762,6 +773,7 @@ const SendFund = () => {
             placeholder="Enter the Payment ID"
             disableUnderline={true}
             value={manualPaymentId}
+            inputProps={{ maxLength: 16 }}
             sx={{
               width: "100%",
               height: "55px",
@@ -770,10 +782,10 @@ const SendFund = () => {
               color: theme.palette.text.primary,
               backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
               padding: "0 20px",
-              borderRadius: "18px",
+              borderRadius: "12px",
               overflow: "auto",
             }}
-            onChange={(event: any) => setManualPaymentId(event?.target.value)}
+            onChange={(event: any) =>paymentInputChange(event)}
           />
         </>
       ) : (
@@ -852,7 +864,7 @@ const SendFund = () => {
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
-        mt={5}
+        mt={'35px'}
       >
         <Button
           variant="contained"

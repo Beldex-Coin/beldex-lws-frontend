@@ -9,20 +9,22 @@ import { CoreBridgeInstanceContext } from "../../../CoreBridgeInstanceContext";
 import { useSelector } from "react-redux";
 import TransactionDetails from "./../TransactionDetails";
 import { useTheme } from "@emotion/react";
+import { setTransactionhistory } from "../../../stores/features/seedDetailSlice";
+import { useAppDispatch } from "../../../stores/hooks";
 const JSBigInt = require('@bdxi/beldex-bigint').BigInteger;
 const beldex_amount_format_utils = require('@bdxi/beldex-money-format')
 const pollingPeriodTimeInterval_s = 15;
 
 export default function TransactionHistory() {
+  const dispatch = useAppDispatch();
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet=useMediaQuery(theme.breakpoints.down("md"))
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"))
   const [page, setPage] = useState(1);
-
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext);
   const [transactionHistory, setTransactionHistory] = React.useState<any>(
-    () => [{status:'initiat'}]
+    () => [{ status: 'initiat' }]
   );
   const [transactionDetails, setTransactionDetails] = React.useState<any>(
     () => []
@@ -30,12 +32,12 @@ export default function TransactionHistory() {
   const [pagenatedTxnHistory, setPagenatedTxnHistory] = React.useState<any>(
     () => []
   );
-
   const New_StateCachedTransactions = (
     transactions: any,
     account_scanned_height: any,
     blockchain_height: number
   ) => {
+
     // this function is preferred for public access
     // as it caches the derivations of the above accessors.
     // these things could maybe be derived on reception from API instead of on each access
@@ -44,7 +46,7 @@ export default function TransactionHistory() {
     const stateCachedTransactions = []; // to finalize
     const transactions_length = transaction.length;
     for (let i = 0; i < transactions_length; i++) {
-          // console.log("New_StateCachedTransactions ::",transaction[i])
+      // console.log("New_StateCachedTransactions ::",transaction[i])
       stateCachedTransactions.push(
         New_StateCachedTransaction(
           transaction[i],
@@ -168,11 +170,18 @@ export default function TransactionHistory() {
                 console.log("err:", err);
                 return
               }
+              console.log('transactions history ::',transactions)
               let customizeTxn = New_StateCachedTransactions(
                 transactions,
                 account_scanned_height,
                 blockchain_height
               );
+              let newTransaction = walletDetails.transactionPoolHistory;
+              if ((newTransaction != undefined && newTransaction != null) && (Object.keys(newTransaction).length !== 0 || newTransaction.length < 0)) {
+                if (newTransaction.hash !== customizeTxn[0].hash) {
+                  customizeTxn.unshift(walletDetails.transactionPoolHistory);
+                }
+              }
               setTransactionHistory(customizeTxn);
               isMobileMode && calcPageCount(customizeTxn);
             }
@@ -212,7 +221,7 @@ export default function TransactionHistory() {
         borderRadius: "20px",
         // height: isMobileMode ? "592px" : '545px',
         // height:'67%'
-        height:isMobileMode?"unset":isTablet?"560px": 'calc(100vh - 356px)'
+        height: isMobileMode ? "unset" : isTablet ? "560px" : 'calc(100vh - 356px)'
       }}
       mt={2}
     >
@@ -277,7 +286,7 @@ export default function TransactionHistory() {
           >
             <TransactionList
               transactions={
-                isMobileMode && pagenatedTxnHistory.length>0
+                isMobileMode && pagenatedTxnHistory.length > 0
                   ? pagenatedTxnHistory[page - 1]
                   : transactionHistory
               }

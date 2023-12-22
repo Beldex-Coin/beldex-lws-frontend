@@ -16,7 +16,6 @@ export default function Balance() {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useAppDispatch();
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext)
-  console.log('--isMobileMode-', isMobileMode);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   // const balance = useSelector((state: any) =>console.log('balance ::',state.seedDetailReducer) );
 
@@ -74,7 +73,6 @@ export default function Balance() {
       const getBalance = (total_sent: any, total_received: any, locked_balance: any) => {
         let amountJSBigInt = Balance_JSBigInt(total_sent, total_received);
         const balance = beldex_amount_format_utils.formatMoney(amountJSBigInt);
-        console.log("Actaul balance balance:", balance)
         dispatch(setBalance(balance));
       }
 

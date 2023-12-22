@@ -12,17 +12,23 @@ export default function TransactionDetails(props: any) {
   const { transactionDetails, setTransactionDetails } = props;
   const toastMsgRef = useRef<ToastMsgRef>(null);
 
-  const amount = beldex_amount_format_utils.formatMoney(
-    transactionDetails[0].amount
-  );
-  const status = transactionDetails[0].isConfirmed
-    ? transactionDetails[0].approx_float_amount < 0
-      ? "Sent"
-      : "Received"
-    : "Pending";
-  // transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
-  // console.log("prop propps ::", props.transactionDetails[0]);
-  // console.log("status transactionDetails::",status)
+  let amount;
+  let status;
+  if (transactionDetails[0].hasOwnProperty('isJustSentTransaction')) {
+    amount = beldex_amount_format_utils.formatMoney(
+      transactionDetails[0].total_sent
+    );
+    status = 'Transaction in pool';
+  } else {
+    amount = beldex_amount_format_utils.formatMoney(
+      transactionDetails[0].amount
+    );
+    status = transactionDetails[0].isConfirmed
+      ? transactionDetails[0].approx_float_amount < 0
+        ? "Sent"
+        : "Received"
+      : "Pending";
+  }
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
     return date

@@ -61,7 +61,6 @@ export default function AuthSeed() {
     const checkUserSeedValid = userMnemonic.every(
       (val: string, index: number) => val === seedList[index]
     );
-    console.log('checkUserSeedValid',checkUserSeedValid)
     setHideTryAgainCont(checkUserSeedValid);
 
     checkUserSeedValid && validateComponentsForLogin(seedDetails);
@@ -134,6 +133,14 @@ export default function AuthSeed() {
   };
 
   return (
+    <Box
+    className="appWrapper"
+    sx={{
+      minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
+      background: isMobileMode ? "unset" : theme.palette.background.paper,
+      borderRadius: "25px",
+    }}
+  >   
     <>  {loading && <Loader /> }  
     <Box
       className="AuthSeed"
@@ -186,7 +193,7 @@ export default function AuthSeed() {
               backgroundColor: (theme) =>
                 theme.palette.mode === "dark" ? "#1F1F2E" : "#F5F5F5",
               padding: "0 20px",
-              borderRadius: "10px",
+              borderRadius: "12px",
               overflow: "auto",
             }}
           />
@@ -359,5 +366,6 @@ export default function AuthSeed() {
       </Box>
     </Box>
     </>
+    </Box>
   );
 }

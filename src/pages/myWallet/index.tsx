@@ -37,30 +37,38 @@ const MyWallet = () => {
   return (
     <Box
       sx={{
-        display: isMobileMode ? "block" : "flex",
-        gap: "20px",
-        // minHeight: "100%",
-        height:'100%',
-        padding:isMobileMode?"0": "20px",
-        overflow:isMobileMode?"unset":'hidden'
+        minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
+        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        borderRadius: "25px",
       }}
     >
-      <Box sx={{ width: "100%",overflow:'auto' }}>
-        <Balance />
-        <WalletAddressAndKeys />
-        <TransactionHistory />
-      </Box>
       <Box
         sx={{
-          minWidth: "320px",
-          background: (theme) => theme.palette.success.main,
-          borderRadius: "25px",
-          padding:'30px 10px',
-          mt:isMobileMode?2:'unset',
-          mb:isMobileMode?2:'unset',
+          display: isMobileMode ? "block" : "flex",
+          gap: "20px",
+          // minHeight: "100%",
+          height: '100%',
+          padding: isMobileMode ? "0" : "20px",
+          overflow: isMobileMode ? "unset" : 'hidden'
         }}
       >
-        <SendFund />
+        <Box sx={{ width: "100%", overflow: 'auto' }}>
+          <Balance />
+          <WalletAddressAndKeys />
+          <TransactionHistory />
+        </Box>
+        <Box
+          sx={{
+            minWidth: "320px",
+            background: (theme) => theme.palette.success.main,
+            borderRadius: "25px",
+            padding: '30px 10px',
+            mt: isMobileMode ? 2 : 'unset',
+            mb: isMobileMode ? 2 : 'unset',
+          }}
+        >
+          <SendFund />
+        </Box>
       </Box>
     </Box>
   );

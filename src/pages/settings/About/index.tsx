@@ -40,9 +40,19 @@ export default function About(props: any) {
         About Beldex Wallet
       </Typography>
       {theme.palette.mode === "dark" ? (
-        <LogoDark sx={{ width:isMobileMode?"3em": "4em", height:isMobileMode?"3em": "4em" }} />
+        <LogoDark
+          sx={{
+            width: isMobileMode ? "3em" : "4em",
+            height: isMobileMode ? "3em" : "4em",
+          }}
+        />
       ) : (
-        <LogoWhite sx={{ width:isMobileMode?"3em": "4em", height:isMobileMode?"3em": "4em" }} />
+        <LogoWhite
+          sx={{
+            width: isMobileMode ? "3em" : "4em",
+            height: isMobileMode ? "3em" : "4em",
+          }}
+        />
       )}
 
       <Typography
@@ -55,10 +65,10 @@ export default function About(props: any) {
       <Typography
         sx={{
           color: theme.palette.text.secondary,
-          fontSize: 14,
+          fontSize: 12,
         }}
       >
-        Version 0.0.8
+        {process.env.WEB_VERSION}
       </Typography>
 
       <Typography
@@ -89,7 +99,7 @@ export default function About(props: any) {
             // marginRight: "10px",
             width: "250px",
             height: "45px",
-            borderRadius:isMobileMode?"40px": "20px",
+            borderRadius: isMobileMode ? "40px" : "20px",
           }}
           onClick={() => props.setIsPreference()}
         >

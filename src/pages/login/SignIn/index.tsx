@@ -39,7 +39,6 @@ export default function SignIn() {
   }
 
   const validatingMnemonic = () => {
-    console.log("----user entered seed---", userMnemonic);
     if (
       userMnemonic === "" ||
       userMnemonic === null ||
@@ -122,9 +121,7 @@ export default function SignIn() {
         setShowErrMsg(true);
         setErrMsg("The phrase is Invalid!");
       }
-      setLoading(false)
-
-      console.log("Error:", err);
+      setLoading(false);
     }
   };
 
@@ -166,6 +163,14 @@ export default function SignIn() {
   )
 
   return (
+    <Box
+    className="appWrapper"
+      sx={{
+        minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
+        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        borderRadius: "25px",
+      }}
+    >
     <>
       <Loader />
       {!showSignWithKey && (
@@ -216,7 +221,7 @@ export default function SignIn() {
                   color: (theme) => theme.palette.text.secondary,
                   backgroundColor: (theme) => theme.palette.secondary.main,
                   padding: "5px 20px",
-                  borderRadius: "18px",
+                  borderRadius: "12px",
                   overflow: "auto",
                 }}
               />
@@ -316,5 +321,6 @@ export default function SignIn() {
       )}
       {showSignWithKey && <SignInWithKey cbFunction={signWithKey} />}
     </>
+    </Box>
   );
 }

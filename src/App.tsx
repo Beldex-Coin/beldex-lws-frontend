@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from "react";
-import { Box, GlobalStyles, PaletteMode, createTheme } from "@mui/material";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
-// import theme from './theme/theme';
+import { Box, GlobalStyles, PaletteMode, useMediaQuery, useTheme } from "@mui/material";
 import NavBar from "./components/sideNavBar/NavBar";
 import Header from "./components/header/Header";
 import "./App.scss";
-import { darkTheme } from "./theme/dark";
-import { lightTheme } from "./theme/light";
-import { ColorContext } from "./ColorContext";
 import { CoreBridgeInstanceContext } from "./CoreBridgeInstanceContext";
 import RouteList from "./routers";
+import MUIWrapper from "./theme/MUIWrapper";
 import ToastMsg, { ToastMsgRef } from "./components/snackbar/ToastMsg";
+
 const mnemonic_languages = require("@bdxi/beldex-locales");
 const appBridge = require("@bdxi/beldex-app-bridge");
 const HostedMoneroAPIClient = require("@bdxi/beldex-hosted-api");
@@ -19,20 +15,8 @@ const BackgroundAPIResponseParser = require("@bdxi/beldex-response-parser-utils"
 
 function App() {
 
-  const [mode, setMode] = React.useState<PaletteMode>("dark");
   const [bdxUtils, setBDXUtils] = React.useState<any>({});
   const toastMsgRef = useRef<ToastMsgRef>(null);
-
-  const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode: PaletteMode) =>
-          prevMode === "light" ? "dark" : "light"
-        );
-      },
-    }),
-    []
-  );
   const netType: any = process.env.NETTYPE;
   const config: any = {
     nettype: parseInt(netType), // critical setting 0 - MAINNET, 2 - STAGENET
@@ -85,7 +69,6 @@ function App() {
     }
   };
 
-  // console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
   }, []);
@@ -97,85 +80,34 @@ function App() {
     }
   })
 
-
-  const theme = React.useMemo(
-    () => createTheme(mode === "light" ? lightTheme : darkTheme),
-    [mode]
-  );
+  const theme = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-
   const isEmpty = Object.keys(bdxUtils).length === 0;
-
   if (isEmpty) {
     return <div>Loading....</div>;
   }
 
   return (
-    <ColorContext.Provider value={colorMode}>
-      <CoreBridgeInstanceContext.Provider value={beldex_utils}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <GlobalStyles
-            styles={{
-              "*::-webkit-scrollbar": {
-                width: "5px",
-              },
-              "*::-webkit-scrollbar-track": {
-                // "-webkit-box-shadow": "inset 0 0 5px grey",
-                // boxShadow: "inset 0 0 5px grey",
-                borderRadius: "10px",
-                backgroundColor:
-                  theme.palette.mode == "dark"
-                    ? theme.palette.background.default
-                    : "#F2F2F2",
-              },
-              "*::-webkit-scrollbar-thumb": {
-                background:
-                  theme.palette.mode == "dark" ? "#585870" : "#C7C7C7",
-                borderRadius: "10px",
-              },
-              "*::-webkit-scrollbar-thumb:hover": {
-                background:
-                  theme.palette.mode == "dark" ? "#585870" : "#C7C7C7",
-              },
-              "& .MuiButton-root": {
-                textTransform: 'capitalize !important',
-
-              },
-              "& .MuiButton-containedPrimary:hover": {
-                opacity: 0.7
-              }
+    <CoreBridgeInstanceContext.Provider value={beldex_utils}>
+      <MUIWrapper>
+        <Box sx={{ height: isMobileMode ? "unset" : "100vh", padding: "20px" }}>
+          <Header />
+          <Box
+            sx={{
+              paddingTop: "65px",
+              display: "flex",
+              gap: "20px",
+              height: "100%"
+              // minHeight: "calc(100vh - 45px)",
             }}
-          />
-          <Box sx={{ height:isMobileMode?"unset":"100vh", padding: "20px" }}>
-            <Header />
-            <Box
-              sx={{
-                paddingTop: "65px",
-                display: "flex",
-                gap: "20px",
-                height: "100%"
-                // minHeight: "calc(100vh - 45px)",
-              }}
-            >
-              {!isMobileMode && <NavBar />}
-              <Box
-                sx={{
-                  minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-                  background: isMobileMode ? "unset" : theme.palette.background.paper,
-                  borderRadius: "25px",
-                }}
-              >
-                {/* <Routes> */}
-                <RouteList />
-                {/* </Routes> */}
-              </Box>
-            </Box>
+          >
+            <NavBar />
+            <RouteList />
           </Box>
-        </ThemeProvider>
-      </CoreBridgeInstanceContext.Provider>
-      <ToastMsg ref={toastMsgRef} />
-    </ColorContext.Provider>
+        </Box>
+        <ToastMsg ref={toastMsgRef} />
+      </MUIWrapper>
+    </CoreBridgeInstanceContext.Provider>
   );
 }
 

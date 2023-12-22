@@ -35,7 +35,7 @@ export default function WalletAddressAndKeys() {
       sx={{
         marginTop: "20px",
         padding:!seedVisible?"10px 20px" :"20px",
-        borderRadius: "20px",
+        borderRadius: "12px",
         backgroundColor:isMobileMode?(theme) => theme.palette.mode==="dark"?"#24242F":"#FCFCFC" :(theme) => theme.palette.background.default,
       }}
     >
