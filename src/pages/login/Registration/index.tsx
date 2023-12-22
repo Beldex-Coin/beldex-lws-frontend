@@ -7,8 +7,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../../stores/hooks";
-import { setSeedDetails } from "../../../stores/features/seedDetailSlice";
 import coinImg from "../../../icons/coin.png";
 import HomeScreenDark from "../../../icons/Home_screen_dark.png";
 import HomeScreenLight from "../../../icons/Home_screen_light.png";
@@ -18,7 +16,6 @@ const mnemonic_languages = require("@bdxi/beldex-locales");
 
 export default function Registration() {
   const theme: any = useTheme();
-  //const dispatch = useAppDispatch();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
@@ -74,7 +71,7 @@ export default function Registration() {
             />
           </Box>
         </Box>
-        <Box sx={{ width: "87%", height: "auto",maxWidth:'900px' }} mt={5}>
+        <Box sx={{ width: "87%", height: "auto", maxWidth: '900px' }} mt={5}>
           <img
             src={theme.palette.mode === 'dark' ? HomeScreenDark : HomeScreenLight}
             style={{ width: "100%", height: "100%" }}
@@ -87,7 +84,7 @@ export default function Registration() {
             color: (theme) => theme.palette.text.secondary,
             fontWeight: 400,
             fontSize: isMobileMode ? "0.8rem" : "1rem",
-            lineHeight:'2rem'
+            lineHeight: '2rem'
           }}
         >
           Welcome to Beldex Wallet! Let’s get started :)
