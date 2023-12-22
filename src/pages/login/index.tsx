@@ -13,8 +13,6 @@ const Home = () => {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const initialSetUp = async () => {
     // const coreBridgeInstance = await require('@bdxi/beldex-app-bridge')({});
-    // console.log('---coreBridgeInstance---', coreBridgeInstance)
-
   }
 
   return (

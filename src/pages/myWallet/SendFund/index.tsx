@@ -216,15 +216,13 @@ const SendFund = () => {
     if (Number(amount) == 0) {
       // return ToastUtils.pushToastError('zeroAmount', 'Amount must be greater than zero');
       // setErrAmount('Amount must be greater than zero')
-      setErrAmount("Invalid Amount");
-
-      console.log("Amount must be greater than zero");
+      setErrAmount("Amount must be greater than zero");
       return;
     }
     if (Number(amount) > walletDetails.unlocked_balance) {
       // return ToastUtils.pushToastError('notEnoughBalance', 'Not enough unlocked balance');
       // setErrAmount('Not enough unlocked balance')
-      setErrAmount("Invalid Amount");
+      setErrAmount("Not enough unlocked balance");
       handleShowToastMsg("Not enough unlocked balance", false);
 
       console.log("Not enough unlocked balance");
@@ -347,7 +345,6 @@ const SendFund = () => {
     };
 
     args.willBeginSending_fn = () => {
-      console.log("willBeginSending_fn ::");
       setTxnStatus('Fetching decoy outputs..')
     };
     args.authenticate_fn = (cb: any) => {
@@ -867,7 +864,7 @@ const SendFund = () => {
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
-        mt={5}
+        mt={'35px'}
       >
         <Button
           variant="contained"

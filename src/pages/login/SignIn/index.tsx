@@ -39,7 +39,6 @@ export default function SignIn() {
   }
 
   const validatingMnemonic = () => {
-    console.log("----user entered seed---", userMnemonic);
     if (
       userMnemonic === "" ||
       userMnemonic === null ||
@@ -122,9 +121,7 @@ export default function SignIn() {
         setShowErrMsg(true);
         setErrMsg("The phrase is Invalid!");
       }
-      setLoading(false)
-
-      console.log("Error:", err);
+      setLoading(false);
     }
   };
 
