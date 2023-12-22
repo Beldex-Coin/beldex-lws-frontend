@@ -129,8 +129,6 @@ export default function SignInWithKey(props: any) {
       setLoading(false)
       setShowErrMsg(true);
       setErrMsg(Error);
-
-      console.log("Error:", Error);
     }
   };
 

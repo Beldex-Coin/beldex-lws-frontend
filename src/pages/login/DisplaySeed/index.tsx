@@ -41,7 +41,6 @@ export default function DisplaySeed() {
     if (coreBridgeInstance.beldex_utils.newly_created_wallet) {
       let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
       const recSeed = coreBridgeInstance.beldex_utils.newly_created_wallet(compatibleLocaleCode, 1)
-      console.log('-dispatch recSeed---', recSeed);
       recSeed.isLogin = false;
       setSecretKeys(recSeed);
     }

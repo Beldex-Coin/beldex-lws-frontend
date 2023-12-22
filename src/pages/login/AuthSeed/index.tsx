@@ -61,7 +61,6 @@ export default function AuthSeed() {
     const checkUserSeedValid = userMnemonic.every(
       (val: string, index: number) => val === seedList[index]
     );
-    console.log('checkUserSeedValid',checkUserSeedValid)
     setHideTryAgainCont(checkUserSeedValid);
 
     checkUserSeedValid && validateComponentsForLogin(seedDetails);

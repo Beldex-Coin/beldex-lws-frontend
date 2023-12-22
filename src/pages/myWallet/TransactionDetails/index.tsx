@@ -29,9 +29,6 @@ export default function TransactionDetails(props: any) {
         : "Received"
       : "Pending";
   }
-  // transactionDetails[0].approx_float_amount < 0 ? "Sent" : "Receive";
-  // console.log("prop propps ::", props.transactionDetails[0]);
-  // console.log("status transactionDetails::",status)
   const dateString = (dateVal: any) => {
     const date = new Date(dateVal);
     return date

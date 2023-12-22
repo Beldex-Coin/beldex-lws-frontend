@@ -16,7 +16,6 @@ export default function Balance() {
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useAppDispatch();
   const coreBridgeInstance = React.useContext(CoreBridgeInstanceContext)
-  console.log('--isMobileMode-', isMobileMode);
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   // const balance = useSelector((state: any) =>console.log('balance ::',state.seedDetailReducer) );
 

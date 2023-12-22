@@ -36,7 +36,6 @@ const ToastMsg: React.ForwardRefRenderFunction<ToastMsgRef> = (_, ref) => {
   };
 
   const showAlert = (newMessage: string, newSeverity:string='success') => {
-    // console.log("severity severity",severity)
     setMessage(newMessage);
     setSeverity(newSeverity);
     setOpen(true);

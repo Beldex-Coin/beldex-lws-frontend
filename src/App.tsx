@@ -69,7 +69,6 @@ function App() {
     }
   };
 
-  // console.log("beldex_utils:", beldex_utils)
   useEffect(() => {
     getBridgeInstance();
   }, []);

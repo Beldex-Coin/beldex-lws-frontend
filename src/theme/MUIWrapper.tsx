@@ -11,11 +11,11 @@ import { darkTheme } from "./dark";
   and initiating it with *null* would be uncomfortable :)
 */
 export const MUIWrapperContext = createContext({
-  toggleColorMode: () => {},
+  toggleColorMode: () => { },
 });
 
 export default function MUIWrapper({
-  children}: {
+  children }: {
     children: React.ReactNode;
   }) {
   const [mode, setMode] = useState("dark");
@@ -42,7 +42,6 @@ export default function MUIWrapper({
         {
           ...(mode === "light" ? lightTheme : darkTheme),
           typography: {
-            fontWeightRegular: 400,
             fontSize: 12,
           
           },
@@ -55,7 +54,7 @@ export default function MUIWrapper({
   return (
     <MUIWrapperContext.Provider value={muiWrapperUtils}>
       <ThemeProvider theme={theme}>
-      <CssBaseline />
+        <CssBaseline />
         <GlobalStyles
           styles={{
             "*::-webkit-scrollbar": {
@@ -89,7 +88,7 @@ export default function MUIWrapper({
           }}
         />
         {children}
-        </ThemeProvider>
+      </ThemeProvider>
     </MUIWrapperContext.Provider>
   );
 }
