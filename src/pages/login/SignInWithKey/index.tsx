@@ -21,9 +21,9 @@ export default function SignInWithKey(props: any) {
   const theme: any = useTheme();
   const navigate = useNavigate();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-  const [userAddress, setUserAddress] = React.useState<any>();
-  const [userViewKey, setUserViewKey] = React.useState<any>();
-  const [userSpendKey, setUserSpendKey] = React.useState<any>();
+  const [userAddress, setUserAddress] = React.useState<any>("");
+  const [userViewKey, setUserViewKey] = React.useState<any>("");
+  const [userSpendKey, setUserSpendKey] = React.useState<any>("");
   const [showErrMsg, setShowErrMsg] = React.useState<boolean>(false);
   const [errMsg, setErrMsg] = React.useState<string>("");
   const [loading,setLoading]=useState<boolean>(false);

@@ -26,7 +26,7 @@ const Privacy = () => {
           <Typography>
             This Privacy Policy explains how information and data about you is collected, used and disclosed by Beldex and its group companies ("we" or "us"). This Privacy Policy (together with our Terms of Service and any other documents referred to in this document or the Terms of Service) applies to information we collect when you use our websites, mobile applications, hosted Beldex accounts and other online products and services (collectively, the "Services") or when you otherwise interact with us.
           </Typography>
-          <Typography>
+          <Typography sx={{fontSize:'14px'}}>
             We may change this Privacy Policy from time to time. If we make changes, we will notify you by changing the “Last Updated” date at the top of this page and, in some cases, we may provide you with additional notice by adding a statement to our blog page on Medium, social media accounts or sending you push notifications on your device. Unfortunately, because we don’t store your details (see below for exactly what we do and don’t store), we can’t notify you of any changes via email. Therefore, we encourage you to review the Privacy Policy whenever you access the Services to stay informed about our information practices and the ways you can join us in protecting your privacy.
           </Typography>
           <Typography sx={{ marginTop: '20px', fontWeight: 700, color: theme.palette.text.primary }}>

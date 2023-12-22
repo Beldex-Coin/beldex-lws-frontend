@@ -65,11 +65,11 @@ const Support = () => {
           }}
         >
           <Box>
-            {theme.palette.mode === "dark" ? (
-              <SupportIcon sx={{ width: isMobileMode ? '20rem' : "38rem", height: isMobileMode ? '20rem' : "28rem" }} />
-            ) : (
-              <SupportIconWhite sx={{ width: isMobileMode ? '20rem' : "38rem", height: isMobileMode ? '20rem' : "28rem" }} />
-            )}
+          {theme.palette.mode === "dark" ? (
+            <SupportIcon sx={{ width:isMobileMode?'20rem':"23rem", height:isMobileMode?'20rem':"20rem"}} />
+          ) : (
+            <SupportIconWhite sx={{ width:isMobileMode?'20rem':"23rem", height:isMobileMode?'20rem':"20rem"}} />
+          )}
           </Box>
           <Box mt={1} sx={{ display: "flex", width: isMobileMode ? "352px" : '425px', marginX: "auto", justifyContent: 'space-around' }}>
             <Box

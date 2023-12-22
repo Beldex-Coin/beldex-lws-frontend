@@ -181,6 +181,16 @@ const SendFund = () => {
       setToAddress(value);
     }
   };
+
+  const paymentInputChange = (e: any) => {
+    const value = e.target.value;
+    // Allow only alphanumeric characters
+    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+    if (alphanumericRegex.test(value)) {
+      setManualPaymentId(value)
+    }
+  };
+  
   const handleShowToastMsg = (message: string, status: boolean) => {
     if (toastMsgRef.current) {
       toastMsgRef.current.showAlert(message, status ? 'success' : 'error');
@@ -592,7 +602,7 @@ const SendFund = () => {
             padding: "0 20px",
             width: "100%",
             color: "white",
-            borderRadius: "18px",
+            borderRadius: "12px",
             border: errAmount ? "1px solid #FC2727" : "none",
           }}
           display="flex"
@@ -731,7 +741,7 @@ const SendFund = () => {
           // backgroundColor: (theme) => theme.palette.background.default,
           backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
           padding: "10px 20px",
-          borderRadius: "18px",
+          borderRadius: "12px",
           border: errAddress ? "1px solid #FC2727" : "none",
           overflow: "auto",
           marginTop: "10px",
@@ -766,6 +776,7 @@ const SendFund = () => {
             placeholder="Enter the Payment ID"
             disableUnderline={true}
             value={manualPaymentId}
+            inputProps={{ maxLength: 16 }}
             sx={{
               width: "100%",
               height: "55px",
@@ -774,10 +785,10 @@ const SendFund = () => {
               color: theme.palette.text.primary,
               backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
               padding: "0 20px",
-              borderRadius: "18px",
+              borderRadius: "12px",
               overflow: "auto",
             }}
-            onChange={(event: any) => setManualPaymentId(event?.target.value)}
+            onChange={(event: any) =>paymentInputChange(event)}
           />
         </>
       ) : (

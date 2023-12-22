@@ -28,8 +28,27 @@ export default function MUIWrapper({
     []
   );
 
+  // const theme = useMemo(
+  //   () => createTheme(mode === "light" ? lightTheme : darkTheme,{
+  //     typography: {
+  //       fontSize: 16, // Set the default font size
+  //       // You can customize other typography options here
+  //     },),
+  //   [mode]
+  // );
   const theme = useMemo(
-    () => createTheme(mode === "light" ? lightTheme : darkTheme),
+    () =>
+      createTheme(
+        {
+          ...(mode === "light" ? lightTheme : darkTheme),
+          typography: {
+            fontWeightRegular: 400,
+            fontSize: 12,
+          
+          },
+        },
+        [mode]
+      ),
     [mode]
   );
 

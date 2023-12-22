@@ -224,7 +224,7 @@ export default function SignIn() {
                   color: (theme) => theme.palette.text.secondary,
                   backgroundColor: (theme) => theme.palette.secondary.main,
                   padding: "5px 20px",
-                  borderRadius: "18px",
+                  borderRadius: "12px",
                   overflow: "auto",
                 }}
               />
