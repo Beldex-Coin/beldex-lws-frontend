@@ -1,17 +1,19 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack')
-
+const CopyPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js'
+    filename: 'index_bundle.js',
+    publicPath: '/'
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
     // static: './dist',
     // port: 3000,
     // contentBase: path.resolve(__dirname, "dist"),
@@ -60,6 +62,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json', '.scss'],
+    fallback: {
+      fs: false,
+      util: require.resolve('util/'),
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      path: require.resolve('path-browserify'),
+      process: require.resolve('process/browser')
+    }
   },
   plugins: [
     new HTMLWebpackPlugin({
@@ -67,8 +77,18 @@ module.exports = {
       filename: './index.html'
     }),
     new webpack.ProvidePlugin({
+      process: 'process',
       Buffer: ['buffer', 'Buffer'],
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: './node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.js', to: '../assets/BeldexLibAppCpp_WASM.js', force: true, noErrorOnMissing: true },
+        { from: './node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.wasm', to: '../assets/BeldexLibAppCpp_WASM.wasm', force: true, noErrorOnMissing: true },
+      ]
+    }),
+    new Dotenv({
+      defaults: true
+    })
     // new webpack.ProvidePlugin({
     //   process: 'process/browser',
     // }),

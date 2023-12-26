@@ -4,28 +4,43 @@ export const lightTheme: ThemeOptions = {
     palette: {
         mode: "light",
         primary: {
-            main: "#00D030",
-            light: "Blue",
-            dark: "#00D090",
-            contrastText: "#000"
+            main: "#00C708",
+            light: "#FCFCFC",
+            dark: "#00AD07",
+            contrastText: "#000",
         },
-        secondary: {
+        info: {
+            main: '#2879FB'
+        },
+        error: {
+            main: '#E22B2B'
+        },
+        success: {
             main: "#FCFCFC",
-            light: "#FCFCFC"
+            light: "#FCFCFC",
+            dark:'#7D7D9C'
+
+        }, 
+        secondary: {
+          main: "#F5F5F5",
+          light:'#7F7F88',
+          dark:'#7D7D9C'
+          
         },
         text: {
             primary: '#222222',
-            secondary: '#7F7F88'
+            secondary: '#7F7F88'  //
         },
-        // common: {
-        //     white: '#FCFCFC',
-        //     black: '#2B2B3C'
-        // },
+        common: {
+            black: '#8787A8',
+            white:'#F8F8F8'
+        },
         background: {
-            paper: "#f8f8f8",
+            paper: "#F0F0F0",
             // paper: "#F2F2F2",
-            default: "#F2F2F2"
-        }
+            default: "#F8F8F8"
+            
+        },
     },
 
     typography: {
@@ -36,6 +51,13 @@ export const lightTheme: ThemeOptions = {
         fontWeightBold: 'bold',
     },
     components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              textTransform: 'capitalize'
+            }
+          },
+        },
         MuiCssBaseline: {
             styleOverrides: `
             @font-face {

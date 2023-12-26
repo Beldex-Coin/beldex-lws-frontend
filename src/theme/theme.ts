@@ -7,7 +7,8 @@ const theme = createTheme({
         main: "#00D030"
       },
       secondary: {
-        main: "#444455"
+        main: "#444455",
+        
       },
       info: {
         main: "#2879FB"
@@ -22,6 +23,7 @@ const theme = createTheme({
       fontWeightRegular: 400,
       fontWeightMedium: 500,
       fontWeightBold:'bold',
+      
     },
     components: {
       MuiCssBaseline: {

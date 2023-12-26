@@ -7,6 +7,7 @@ import MyWallet from "../pages/myWallet";
 import Terms from "../pages/term";
 import Privacy from "../pages/privacy";
 import Settings from "../pages/settings";
+import Support from "../pages/support";
 interface RouteListObj {
     id: string,
     title: string,
@@ -14,7 +15,7 @@ interface RouteListObj {
     path: string
 }
 
-const RouteList: Array<RouteListObj> = [
+export const LoginList: Array<RouteListObj> = [
     {
         id: 'home',
         title: 'Home',
@@ -45,12 +46,22 @@ const RouteList: Array<RouteListObj> = [
         component: <AuthSeed/>,
         path: '/authSeed'
     },
-    {
-        id: 'myWallet',
-        title: 'My Wallet',
-        component: <MyWallet/>,
-        path: '/mywallet'
-    },
+    // {
+    //     id: 'myWallet',
+    //     title: 'Wallet',
+    //     component: <MyWallet/>,
+    //     path: '/mywallet'
+    // },
+   
+
+    // {
+    //     id: 'settings',
+    //     title: 'Settings',
+    //     component: <Settings/>,
+    //     path: '/settings'
+    // }
+]
+export const CommonList: Array<RouteListObj> =[
     {
         id: 'privacy',
         title: 'Privacy',
@@ -67,7 +78,7 @@ const RouteList: Array<RouteListObj> = [
     {
         id: 'support',
         title: 'Support',
-        component: '',
+        component: <Support />,
         path: '/support'
     },
     {
@@ -76,13 +87,6 @@ const RouteList: Array<RouteListObj> = [
         component: '',
         path: '/website'
     },
-
-    {
-        id: 'settings',
-        title: 'Settings',
-        component: <Settings/>,
-        path: '/settings'
-    }
 ]
 
-export default RouteList;
+

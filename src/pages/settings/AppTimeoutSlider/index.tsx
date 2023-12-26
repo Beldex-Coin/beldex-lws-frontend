@@ -2,14 +2,30 @@ import {  useState } from "react";
 import "./style.scss";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { Typography, colors } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import userIdleTimerController from "./userIdleTimerController";
+import { setIdleTimer } from "../../../stores/features/seedDetailSlice";
+import { useAppDispatch } from "../../../stores/hooks";
+import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 export default function AppTimeoutSlider() {
-  const [timer, setTimer] = useState<number>(0);
+  const theme:any = useTheme();
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+  const dispatch = useAppDispatch();
+
+  const [timer, setTimer] = useState<number>(walletDetails.timer);
+  
+
+
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
       setTimer(newValue);
+      console.log("newValue newValue ::",newValue)
+      dispatch(setIdleTimer(newValue))
     }
   };
+
   function valueLabelFormat(value: number) {
     return value < 60
       ? value + " s"
@@ -41,6 +57,10 @@ export default function AppTimeoutSlider() {
           onChange={handleChange}
           valueLabelFormat={valueLabelFormat}
           sx={{
+            ".MuiSlider-valueLabel": {
+              backgroundColor:theme.palette.success.main,
+              color: theme.palette.text.primary
+            },
             "& .MuiSlider-track": {
               border: "none",
             },

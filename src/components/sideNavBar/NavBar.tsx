@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useMediaQuery, useTheme } from '@mui/material';
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -19,7 +20,8 @@ import Support from '../../icons/Support';
 import Website from '../../icons/Website';
 import MyWallet from '../../icons/MyWallet';
 import { ColorContext } from '../../ColorContext';
-import { useTheme } from "@emotion/react";
+import { useSelector } from "react-redux";
+import { MUIWrapperContext } from "../../theme/MUIWrapper";
 
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
@@ -68,10 +70,11 @@ export default function NavBar() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  const routerPath = ['/mywallet', '/privacy', '/terms']
-  const colorMode = React.useContext(ColorContext);
+  const walletDetails = useSelector((state: any) => state.seedDetailReducer);
+  const routerPath = ['/mywallet', '/privacy', '/terms', "/support"]
+  const muiUtils: any = React.useContext(MUIWrapperContext);
   const theme = useTheme();
-  console.log('---theme---', theme)
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   useEffect(() => {
     const routerIndex = routerPath.findIndex((item: string) => item === location.pathname);
     setSelectedIndex(routerIndex);
@@ -81,7 +84,7 @@ export default function NavBar() {
     index: number
   ) => {
     setSelectedIndex(index);
-    if (index < 3) navigate(routerPath[index]);
+    if (index < 5) navigate(routerPath[index]);
 
   };
   const handleToggle = (value: string) => () => {
@@ -97,15 +100,18 @@ export default function NavBar() {
     setChecked(newChecked);
   };
 
-  const getTextColor= (theme: any, selectedInd: number) => {
-    if(theme.palette.mode === 'dark') {
+  const getTextColor = (theme: any, selectedInd: number) => {
+    if (theme.palette.mode === 'dark') {
       return (selectedIndex === selectedInd ? "white" : theme.palette.text.secondary)
     } else {
-      return selectedIndex === selectedInd ? theme.palette.text.primary : theme.palette.text.secondary
+      return selectedIndex === selectedInd ? theme.palette.text.primary : "#222222"  //theme.palette.text.secondary
     }
   }
+  if (isMobileMode) {
+    return <></>
+  }
   return (
-    <Box sx={{ width: '350px', background: (theme) => theme.palette.background.paper, borderRadius: '25px' }}>
+    <Box sx={{ minWidth: '225px', background: (theme) => theme.palette.background.paper, borderRadius: '25px' }}>
       <List
         sx={{
           // width: "100%",
@@ -126,17 +132,18 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px"
           }}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <MyWallet
-              sx={{ fill: selectedIndex === 0 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 0 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -146,7 +153,7 @@ export default function NavBar() {
                 fontWeight: selectedIndex === 0 ? "600" : "400"
               }
             }}
-            primary="My Wallet"
+            primary="Wallet"
           />
           {selectedIndex === 0 && (
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 0) }} />
@@ -160,12 +167,13 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px",
           }}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
@@ -173,7 +181,7 @@ export default function NavBar() {
               sx={{ fill: selectedIndex === 1 ? "#00D030" : "#D1D1D3" }}
             /> */}
             <Privacy
-              sx={{ fill: selectedIndex === 1 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 1 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -196,18 +204,20 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px"
+
           }}
           onClick={(event) => handleListItemClick(event, 2)}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Term
-              sx={{ fill: selectedIndex === 2 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 2 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -228,20 +238,22 @@ export default function NavBar() {
           sx={{
             m: 0.5,
             p: 2,
+            mb: "auto",
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
-            }
+            },
+            borderRadius: "15px"
           }}
           onClick={(event) => handleListItemClick(event, 3)}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Support
-              sx={{ fill: selectedIndex === 3 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 3 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -257,7 +269,7 @@ export default function NavBar() {
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 3) }} />
           )}
         </ListItemButton>
-        <ListItemButton
+        {/* <ListItemButton
           selected={selectedIndex === 4}
           sx={{
             m: 0.5,
@@ -265,18 +277,19 @@ export default function NavBar() {
             p: 2,
             maxHeight: "60px",
             "&.Mui-selected": {
-              background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2",
+              background: (theme) => theme.palette.common.white,
               borderRadius: "15px",
               "&:hover": {
-                background: (theme) => theme.palette.mode === 'dark' ? "#32324A" : "#f2f2f2"
+                background: (theme) => theme.palette.common.white
               }
-            }
+            },
+           borderRadius: "15px",
           }}
           onClick={(event) => handleListItemClick(event, 4)}
         >
           <ListItemIcon sx={{ minWidth: '40px' }}>
             <Website
-              sx={{ fill: selectedIndex === 4 ? "#00D030" : "#D1D1D3" }}
+              sx={{ fill: selectedIndex === 4 ? "#00D030" : (theme: any) => theme.palette.secondary.light }}
             />
           </ListItemIcon>
           <ListItemText
@@ -291,17 +304,18 @@ export default function NavBar() {
           {selectedIndex === 4 && (
             <KeyboardArrowRightRoundedIcon sx={{ fill: getTextColor(theme, 4) }} />
           )}
-        </ListItemButton>
-        <ListItem sx={{ p: 2 }} onClick={colorMode.toggleColorMode}>
+        </ListItemButton> */}
+        <ListItem sx={{ p: 2 }}>
           <ListItemIcon sx={{ minWidth: '30px' }}>
-            <MoonDark styles={{ width: '18px', height: '18px' }} />
+            <MoonDark styles={{ width: '18px', height: '18px', fill: (theme: any) => theme.palette.mode === 'dark' ? "#d1d1d3" : '#8787A8' }} />
           </ListItemIcon>
           <ListItemText id="switch-list-label-bluetooth" primary="Dark Mode"
             sx={{
-              color: (theme) => theme.palette.text.secondary
+              color: (theme) => theme.palette.common.black
             }} />
           <AntSwitch
             onChange={handleToggle("dark")}
+            onClick={muiUtils.toggleColorMode}
             checked={checked.indexOf("dark") !== -1}
             inputProps={{ "aria-label": "ant design" }}
           />
