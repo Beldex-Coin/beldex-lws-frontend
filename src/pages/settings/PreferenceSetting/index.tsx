@@ -10,6 +10,7 @@ import {
   setSeedDetails,
   setBalance,
   setIdleTimer,
+  setUserLogout
 } from "../../../stores/features/seedDetailSlice";
 
 import {
@@ -74,9 +75,9 @@ export default function PreferenceSetting(props: any) {
   // };
 
   const logout = () => {
-    dispatch(setSeedDetails(initialState));
-    dispatch(setBalance(0));
-    dispatch(setIdleTimer(120))
+    dispatch(setUserLogout());
+    // dispatch(setBalance(0));
+    // dispatch(setIdleTimer(120))
     handleClose;
     navigate("/");
 

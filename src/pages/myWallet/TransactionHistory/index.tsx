@@ -170,7 +170,6 @@ export default function TransactionHistory() {
                 console.log("err:", err);
                 return
               }
-              console.log('transactions history ::',transactions)
               let customizeTxn = New_StateCachedTransactions(
                 transactions,
                 account_scanned_height,
