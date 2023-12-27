@@ -74,7 +74,8 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: './public/index.html',
-      filename: './index.html'
+      filename: './index.html',
+      favicon:'./public/favicon.ico'
     }),
     new webpack.ProvidePlugin({
       process: 'process',
@@ -82,12 +83,15 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: './node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.js', to: '../assets/BeldexLibAppCpp_WASM.js', force: true, noErrorOnMissing: true },
-        { from: './node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.wasm', to: '../assets/BeldexLibAppCpp_WASM.wasm', force: true, noErrorOnMissing: true },
+        { from: './node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.js', to: '../dist/assets/BeldexLibAppCpp_WASM.js', force: true, noErrorOnMissing: true },
+        { from: './node_modules/@bdxi/beldex-app-bridge/BeldexLibAppCpp_WASM.wasm', to: '../dist/assets/BeldexLibAppCpp_WASM.wasm', force: true, noErrorOnMissing: true },
       ]
     }),
     new Dotenv({
       defaults: true
     })
+    // new webpack.ProvidePlugin({dist
+    //   process: 'process/browser',
+    // }),
   ]
 }

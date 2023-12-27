@@ -1,6 +1,6 @@
 {
   "name": "my-beldex-wallet",
-  "version": "v1.0.0 Beta",
+  "version": "1.0.0 Beta",
   "private": true,
   "dependencies": {
     "@bdxi/beldex-app-bridge": "^1.6.0",

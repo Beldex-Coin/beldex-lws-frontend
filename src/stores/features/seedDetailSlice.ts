@@ -58,6 +58,9 @@ const seedDetailSlice = createSlice({
             state.sec_viewKey_string = action.payload.sec_viewKey_string;
             state.isLogin = action.payload.isLogin;
         },
+        setUserLogout(){
+         return initialState   
+        },
         setBalance(state, action) {
             state.unlocked_balance = action.payload
         },
@@ -70,7 +73,7 @@ const seedDetailSlice = createSlice({
     }
 })
 
-export const { setSeedDetails, toggleLoading, setBalance, setIdleTimer, setTransactionhistory } = seedDetailSlice.actions;
+export const { setSeedDetails, toggleLoading, setBalance, setIdleTimer, setTransactionhistory ,setUserLogout} = seedDetailSlice.actions;
 export const seedDetailSelector = (state: RootState) => state.seedDetailReducer;
 
 export default seedDetailSlice.reducer;

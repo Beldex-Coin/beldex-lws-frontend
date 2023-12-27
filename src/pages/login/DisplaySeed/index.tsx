@@ -39,8 +39,9 @@ export default function DisplaySeed() {
   useEffect(() => {
     // setLoading(true)
     if (coreBridgeInstance.beldex_utils.newly_created_wallet) {
+      const netType: any = process.env.NETTYPE;
       let compatibleLocaleCode = mnemonic_languages.compatibleCodeFromLocale(window.navigator.language)
-      const recSeed = coreBridgeInstance.beldex_utils.newly_created_wallet(compatibleLocaleCode, 1)
+      const recSeed = coreBridgeInstance.beldex_utils.newly_created_wallet(compatibleLocaleCode, parseInt(netType))
       recSeed.isLogin = false;
       setSecretKeys(recSeed);
     }
