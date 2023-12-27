@@ -7,7 +7,10 @@ import { CoreBridgeInstanceContext } from "./CoreBridgeInstanceContext";
 import RouteList from "./routers";
 import MUIWrapper from "./theme/MUIWrapper";
 import ToastMsg, { ToastMsgRef } from "./components/snackbar/ToastMsg";
-
+import { useAppDispatch } from "./stores/hooks";
+import {
+  setUserLogout
+} from "./stores/features/seedDetailSlice";
 const mnemonic_languages = require("@bdxi/beldex-locales");
 const appBridge = require("@bdxi/beldex-app-bridge");
 const HostedMoneroAPIClient = require("@bdxi/beldex-hosted-api");
@@ -24,6 +27,7 @@ function App() {
     version: process.env.APP_VERSION,
     name: process.env.APP_NAME,
   };
+  const dispatch = useAppDispatch();
   const beldex_utils: any = React.useMemo(
     () => ({
       set_Utils_data: (data: any) => {
@@ -70,7 +74,15 @@ function App() {
   };
 
   useEffect(() => {
+    const alertUser = (e: any) => {
+      dispatch(setUserLogout());
+    };
+
+    window.addEventListener("beforeunload", alertUser);
     getBridgeInstance();
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
   }, []);
 
   useEffect(() => {

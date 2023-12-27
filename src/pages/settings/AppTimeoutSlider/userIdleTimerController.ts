@@ -7,6 +7,7 @@ import {
   setSeedDetails,
   setBalance,
   setIdleTimer,
+  setUserLogout
 } from "../../../stores/features/seedDetailSlice";
 
 
@@ -108,10 +109,10 @@ const userIdleTimerController = (cb?: any): UserIdleInWindowController => {
     }
   };
   const logout = () => {
-    dispatch(setSeedDetails(initialState));
-    dispatch(setBalance(0));
-    dispatch(setIdleTimer(120))
-    navigate("/");
+    dispatch(setUserLogout());
+  //   dispatch(setBalance(0));
+  //   dispatch(setIdleTimer(120))
+  //   navigate("/");
   };
 
   const userDidComeBackFromIdle = (): void => {
