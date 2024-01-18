@@ -8,11 +8,13 @@ const Terms = () => {
       className="appWrapper"
       sx={{
         minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        background: isMobileMode ? theme.palette.success.main : theme.palette.background.paper,
         borderRadius: "25px",
+        padding:'20px' ,
       }}
     >
-      <Box sx={{ height: "calc(100vh - 107px)", overflowY: "auto" }}>
+      {/* <Box sx={{ height: "calc(100vh - 107px)", overflowY: "auto" }}> */}
+      <Box sx={{  height:isMobileMode?"calc(100vh - 200px)": "100%", overflowY: "auto" }}>
         <Typography sx={{ color: theme.palette.text.primary, fontSize: '20px', fontWeight: 700, margin: '40px 40px 25px', textAlign: 'center' }}>Terms of Service</Typography>
         <Box sx={{ color: theme.palette.text.primary, fontSize: '20px', margin: isMobileMode ? "0" : '40px 40px 25px', }}>
           <Typography>

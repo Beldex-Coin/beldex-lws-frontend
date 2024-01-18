@@ -39,7 +39,7 @@ export default function Registration() {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          marginTop: "50px",
+          marginTop:isMobileMode||istabletMode ?"unset": "50px",
           borderRadius: "20px",
           position: "relative",
         }}
@@ -71,7 +71,7 @@ export default function Registration() {
             />
           </Box>
         </Box>
-        <Box sx={{ width: "87%", height: "auto", maxWidth: '900px' }} mt={5}>
+        <Box sx={{ width: "80%", height: "auto", maxWidth: '900px' }} mt={5}>
           <img
             src={theme.palette.mode === 'dark' ? HomeScreenDark : HomeScreenLight}
             style={{ width: "100%", height: "100%" }}
@@ -131,7 +131,7 @@ export default function Registration() {
               // borderRadius: "10px",
               color: "white",
               height: "50px",
-              marginLeft: isMobileMode || istabletMode ? "0" : "10px",
+              marginLeft: isMobileMode ? "0" : "10px",
               marginTop: isMobileMode ? "10px" : '10px',
               width: isMobileMode ? "100%" : "200px",
               borderRadius: isMobileMode ? "40px" : "10px",

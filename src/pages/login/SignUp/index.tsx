@@ -9,6 +9,8 @@ export default function SignUp() {
   const theme: any = useTheme();
   const [checkAgreeTerm, setAgreeTerm] = useState(false);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
+
   const navigate = useNavigate();
 
   const agreeTerm = (e: any) => {
@@ -19,7 +21,7 @@ export default function SignUp() {
       className="appWrapper"
       sx={{
         minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        background: isMobileMode || istabletMode ? "unset" : theme.palette.background.paper,
         borderRadius: "25px",
       }}
     >

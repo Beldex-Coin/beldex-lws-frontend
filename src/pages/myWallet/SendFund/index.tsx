@@ -209,20 +209,22 @@ const SendFund = () => {
 
     if (!amount) {
       // setErrAmount('please enter the amount to send.');
-      setErrAmount("Invalid Amount");
-
+      // setErrAmount("Invalid Amount");
+      setErrAmount("Invalid");
+      handleShowToastMsg("please enter the amount to send.", false);
       return console.log("please enter the amount to send.");
     }
     if (Number(amount) == 0) {
       // return ToastUtils.pushToastError('zeroAmount', 'Amount must be greater than zero');
       // setErrAmount('Amount must be greater than zero')
-      setErrAmount("Amount must be greater than zero");
+      setErrAmount("Invalid");
+      handleShowToastMsg("Amount must be greater than zero", false);
       return;
     }
     if (Number(amount) > walletDetails.unlocked_balance) {
       // return ToastUtils.pushToastError('notEnoughBalance', 'Not enough unlocked balance');
       // setErrAmount('Not enough unlocked balance')
-      setErrAmount("Not enough unlocked balance");
+      setErrAmount("Invalid");
       handleShowToastMsg("Not enough unlocked balance", false);
 
       console.log("Not enough unlocked balance");
@@ -567,7 +569,7 @@ const SendFund = () => {
         justifyContent="space-between"
         alignItems="center"
         sx={{
-          width: "72%",
+          width: "65%",
         }}
       >
         <Typography
@@ -762,6 +764,7 @@ const SendFund = () => {
                 color: "#289AFB",
                 textDecoration: "underline",
                 marginLeft: "5px",
+                cursor:'pointer',
               }}
               onClick={() => generatePaymentId()}
             >

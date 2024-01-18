@@ -10,12 +10,13 @@ const Settings = () => {
   const navigate = useNavigate();
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Box
     className="appWrapper"
     sx={{
-      minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
+      minWidth: isMobileMode || istabletMode ? "100%" : "calc(100% - 250px)",
       background: isMobileMode ? "unset" : theme.palette.background.paper,
       borderRadius: "25px",
     }}

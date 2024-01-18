@@ -11,6 +11,8 @@ import { useAppDispatch } from "./stores/hooks";
 import {
   setUserLogout
 } from "./stores/features/seedDetailSlice";
+import TitleMobileView from "./components/titleMobleView";
+
 const mnemonic_languages = require("@bdxi/beldex-locales");
 const appBridge = require("@bdxi/beldex-app-bridge");
 const HostedMoneroAPIClient = require("@bdxi/beldex-hosted-api");
@@ -73,6 +75,15 @@ function App() {
     }
   };
 
+  const theme = useTheme();
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
+  const istabletModePortrait = useMediaQuery(theme.breakpoints.between(734,900));
+  const below1000=useMediaQuery(theme.breakpoints.down(900));
+  
+  console.log("inner width ::",window.innerWidth)
+
+  const isEmpty = Object.keys(bdxUtils).length === 0;
 
   useEffect(() => {
     const alertUser = (e: any) => {
@@ -94,9 +105,9 @@ function App() {
     }
   })
 
-  const theme = useTheme();
-  const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-  const isEmpty = Object.keys(bdxUtils).length === 0;
+  // const theme = useTheme();
+  // const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  // const isEmpty = Object.keys(bdxUtils).length === 0;
   if (isEmpty) {
     return <div>Loading....</div>;
   }
@@ -104,14 +115,17 @@ function App() {
   return (
     <CoreBridgeInstanceContext.Provider value={beldex_utils}>
       <MUIWrapper>
-        <Box sx={{ height: isMobileMode ? "unset" : "100vh", padding: "20px" }}>
+      <Box sx={{ height: below1000 &&window.innerWidth>window.innerHeight ?  "unset" : "100vh", padding: "20px" }}>
+
+        {/* <Box sx={{ height: isMobileMode ? "unset" : "100vh", padding: "20px" }}> */}
           <Header />
+          <TitleMobileView />
           <Box
             sx={{
-              paddingTop: "65px",
+              paddingTop:isMobileMode||istabletMode?'unset': "65px",
               display: "flex",
               gap: "20px",
-              height: "100%"
+              height:isMobileMode? "unset":istabletMode?"70%": "100%",
               // minHeight: "calc(100vh - 45px)",
             }}
           >

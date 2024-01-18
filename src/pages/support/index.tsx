@@ -9,38 +9,49 @@ import DiscordWhite from "../../icons/DiscordWhite";
 const Support = () => {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
   const handleOpenNewTab = (url: any) => {
     // Replace 'your-link-here' with the desired URL
 
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   const iconBoxStyle = {
-    backgroundColor: theme.palette.mode === "dark" ? "#323243" : '#E5E5E5',
+    backgroundColor: theme.palette.mode === "dark" ? "#323243" : "#E5E5E5",
     width: "100px",
     height: "100px",
     borderRadius: "20px",
     textAlign: "center",
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    cursor: 'pointer',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    cursor: "pointer",
     "&:hover": {
-      backgroundColor: theme.palette.mode === "dark" ? '#3F3F53' : '#FAFAFA'
-    }
-  }
+      backgroundColor: theme.palette.mode === "dark" ? "#3F3F53" : "#FAFAFA",
+    },
+  };
 
   return (
     <Box
       className="appWrapper"
       sx={{
-        minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        minWidth: isMobileMode || istabletMode ? "100%" : "calc(100% - 250px)",
+        background:
+          isMobileMode || istabletMode
+            ? "unset"
+            : theme.palette.background.paper,
         borderRadius: "25px",
       }}
     >
-      <Box sx={{ height: "calc(100vh - 107px)", overflowY: "auto" }}>
+      {/* <Box sx={{ height: "calc(100vh - 107px)", overflowY: "auto" }}> */}
+      <Box
+        sx={{
+          // height: isMobileMode || istabletMode ? "80vh" : "calc(100vh - 107px)",
+          height:'100%',
+          overflowY: "auto",
+        }}
+      >
         {/* <Typography
         sx={{
           color: theme.palette.text.primary,
@@ -56,7 +67,7 @@ const Support = () => {
           sx={{
             color: theme.palette.text.primary,
             fontSize: "20px",
-            margin: isMobileMode ? 'unset' : "0px 40px 40px",
+            margin: isMobileMode ? "unset" : "0px 40px 40px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -65,16 +76,36 @@ const Support = () => {
           }}
         >
           <Box>
-          {theme.palette.mode === "dark" ? (
-            <SupportIcon sx={{ width:isMobileMode?'20rem':"23rem", height:isMobileMode?'20rem':"20rem"}} />
-          ) : (
-            <SupportIconWhite sx={{ width:isMobileMode?'20rem':"23rem", height:isMobileMode?'20rem':"20rem"}} />
-          )}
+            {theme.palette.mode === "dark" ? (
+              <SupportIcon
+                sx={{
+                  width: isMobileMode ? "20rem" : "23rem",
+                  height: isMobileMode ? "20rem" : "20rem",
+                }}
+              />
+            ) : (
+              <SupportIconWhite
+                sx={{
+                  width: isMobileMode ? "20rem" : "23rem",
+                  height: isMobileMode ? "20rem" : "20rem",
+                }}
+              />
+            )}
           </Box>
-          <Box mt={1} sx={{ display: "flex", width: isMobileMode ? "352px" : '425px', marginX: "auto", justifyContent: 'space-around' }}>
+          <Box
+            mt={1}
+            sx={{
+              display: "flex",
+              width: isMobileMode ? "100%" : "425px",
+              marginX: "auto",
+              justifyContent: "space-around",
+            }}
+          >
             <Box
               sx={iconBoxStyle}
-              onClick={() => handleOpenNewTab('https://discord.com/invite/Hj4MAmA5gs')}
+              onClick={() =>
+                handleOpenNewTab("https://discord.com/invite/Hj4MAmA5gs")
+              }
             >
               {theme.palette.mode === "dark" ? (
                 <DiscordDark sx={{ width: "3rem", height: "3rem" }} />
@@ -85,9 +116,7 @@ const Support = () => {
             </Box>
             <Box
               sx={iconBoxStyle}
-
-              onClick={() => handleOpenNewTab('https://t.me/official_beldex')}
-
+              onClick={() => handleOpenNewTab("https://t.me/official_beldex")}
             >
               <TelegramIcon sx={{ width: "3rem", height: "3rem" }} />
 
@@ -95,9 +124,11 @@ const Support = () => {
             </Box>
             <Box
               sx={iconBoxStyle}
-
-              onClick={() => handleOpenNewTab('https://github.com/Beldex-Coin/beldex-lws-frontend')}
-
+              onClick={() =>
+                handleOpenNewTab(
+                  "https://github.com/Beldex-Coin/beldex-lws-frontend"
+                )
+              }
             >
               {theme.palette.mode === "dark" ? (
                 <GitHupDark sx={{ width: "3rem", height: "3rem" }} />

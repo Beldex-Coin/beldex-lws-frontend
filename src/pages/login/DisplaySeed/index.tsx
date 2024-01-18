@@ -25,6 +25,8 @@ export default function DisplaySeed() {
   const theme: any = useTheme();
   // const seedDetails: seedDetailState = useAppSelector(seedDetailSelector);
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
+
   const toastMsgRef = useRef<ToastMsgRef>(null);
 
   const [language, setLanguage] = useState("English");
@@ -68,8 +70,8 @@ export default function DisplaySeed() {
     <Box
       className="appWrapper"
       sx={{
-        minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-        background: isMobileMode ? "unset" : theme.palette.background.paper,
+        minWidth: isMobileMode  ? "100%" : "calc(100% - 250px)",
+        background: isMobileMode ||istabletMode  ? "unset" : theme.palette.background.paper,
         borderRadius: "25px",
       }}
     >     {/* {loading && <Loader /> }  */}

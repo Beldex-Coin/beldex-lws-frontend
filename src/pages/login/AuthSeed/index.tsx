@@ -28,6 +28,8 @@ import Loader from "../../loader";
 export default function AuthSeed() {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
+
   const [mnemonicSeed, setMnemonicSeed] = useState("");
   const [seedToggleList, setToggleList] = useState([]);
   const [loading,setLoading]=useState<boolean>(false);
@@ -137,7 +139,7 @@ export default function AuthSeed() {
     className="appWrapper"
     sx={{
       minWidth: isMobileMode ? "100%" : "calc(100% - 250px)",
-      background: isMobileMode ? "unset" : theme.palette.background.paper,
+      background: isMobileMode ||istabletMode ? "unset" : theme.palette.background.paper,
       borderRadius: "25px",
     }}
   >   

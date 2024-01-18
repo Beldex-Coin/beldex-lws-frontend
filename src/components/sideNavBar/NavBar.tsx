@@ -75,6 +75,8 @@ export default function NavBar() {
   const muiUtils: any = React.useContext(MUIWrapperContext);
   const theme = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
+
   useEffect(() => {
     const routerIndex = routerPath.findIndex((item: string) => item === location.pathname);
     setSelectedIndex(routerIndex);
@@ -83,6 +85,9 @@ export default function NavBar() {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
+    if (!walletDetails.isLogin && (routerPath[index] === '/mywallet' && location.pathname === '/')) { 
+      return ;
+    }
     setSelectedIndex(index);
     if (index < 5) navigate(routerPath[index]);
 
@@ -107,7 +112,7 @@ export default function NavBar() {
       return selectedIndex === selectedInd ? theme.palette.text.primary : "#222222"  //theme.palette.text.secondary
     }
   }
-  if (isMobileMode) {
+  if (isMobileMode || istabletMode) {
     return <></>
   }
   return (

@@ -12,7 +12,7 @@ import ToastMsg, { ToastMsgRef } from "../../../components/snackbar/ToastMsg";
 export default function WalletAddressAndKeys() {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
   const walletDetails = useSelector((state: any) => state.seedDetailReducer);
   const [seedVisible, setSeedVisible] = useState(false);
   const toastMsgRef = useRef<ToastMsgRef>(null);
@@ -36,7 +36,8 @@ export default function WalletAddressAndKeys() {
         marginTop: "20px",
         padding:!seedVisible?"10px 20px" :"20px",
         borderRadius: "12px",
-        backgroundColor:isMobileMode?(theme) => theme.palette.mode==="dark"?"#24242F":"#FCFCFC" :(theme) => theme.palette.background.default,
+        backgroundColor:isMobileMode || istabletMode ?(theme) => theme.palette.mode==="dark"?"#24242F":"#FCFCFC" :(theme) => theme.palette.background.default,
+        
       }}
     >
       <Box

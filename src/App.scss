@@ -1,0 +1,29 @@
+
+
+.bodyWrapper{
+    height:100vh;
+    padding: 20px;
+}
+.d-center{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+/* Portrait orientation */
+@media screen and (orientation: portrait) and (max-width: 600px) {
+   .bodyWrapper{
+       height:unset ;
+       
+   }
+}
+/* Landscape orientation */
+@media screen and (orientation: landscape)and (min-width: 800px) {
+   .bodyWrapper{
+       height:100vh ;
+       
+   }
+}
+
+// @media only screen and (max-width: 600px) {
+  
+//   }

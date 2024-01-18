@@ -420,6 +420,8 @@ const MobileNavigation = () => {
 const Header = () => {
   const theme: any = useTheme();
   const isMobileMode = useMediaQuery(theme.breakpoints.down("sm"));
+  const istabletMode = useMediaQuery(theme.breakpoints.down("md"));
+
   const navigate = useNavigate();
   return (
     <Fragment>
@@ -440,7 +442,7 @@ const Header = () => {
               </Typography>
             </Box>
           </Box>
-          {isMobileMode ? <MobileNavigation /> : <DesktopNavigation />}
+          {isMobileMode || istabletMode ? <MobileNavigation /> : <DesktopNavigation />}
         </Toolbar>
       </AppBar>
     </Fragment>
