@@ -8,6 +8,8 @@ import RouteList from "./routers";
 import MUIWrapper from "./theme/MUIWrapper";
 import ToastMsg, { ToastMsgRef } from "./components/snackbar/ToastMsg";
 import { useAppDispatch } from "./stores/hooks";
+import normalizeApiUrl from "./utils/normalizeApiUrl";
+import patchBeldexNetServiceUtils from "./utils/patchBeldexNetServiceUtils";
 import {
   setUserLogout
 } from "./stores/features/seedDetailSlice";
@@ -16,6 +18,8 @@ const appBridge = require("@bdxi/beldex-app-bridge");
 const HostedMoneroAPIClient = require("@bdxi/beldex-hosted-api");
 const BackgroundAPIResponseParser = require("@bdxi/beldex-response-parser-utils");
 
+patchBeldexNetServiceUtils();
+
 function App() {
 
   const [bdxUtils, setBDXUtils] = React.useState<any>({});
@@ -23,7 +27,7 @@ function App() {
   const netType: any = process.env.NETTYPE;
   const config: any = {
     nettype: parseInt(netType), // critical setting 0 - MAINNET, 2 - STAGENET
-    apiUrl: process.env.SERVER_URL,
+    apiUrl: normalizeApiUrl(process.env.SERVER_URL),
     version: process.env.APP_VERSION,
     name: process.env.APP_NAME,
   };

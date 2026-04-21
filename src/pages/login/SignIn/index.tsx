@@ -240,9 +240,8 @@ export default function SignIn() {
                   cursor: "pointer",
                 }}
               >
-                <IconButton>
+                <IconButton onClick={assignSeed}>
                   <ContentPasteIcon
-                    onClick={assignSeed}
                     sx={{
                       backgroundColor: (theme: any) =>
                         theme.palette.secondary.main,
