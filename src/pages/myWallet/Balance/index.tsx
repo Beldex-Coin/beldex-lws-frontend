@@ -131,7 +131,7 @@ export default function Balance() {
         <Box className="balance" sx={{
           fontWeight: 600, fontSize: "1.6rem", display: 'flex', alignItems: 'center', marginTop: '8px', color: (theme) => theme.palette.text.primary,
         }}>
-          {walletDetails.unlocked_balance}
+          {totalBalance}
           <Typography
             className="currency"
             sx={{
