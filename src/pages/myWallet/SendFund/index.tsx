@@ -575,7 +575,7 @@ const SendFund = () => {
             // fontFamily: "poppins-semibold",
           }}
         >
-          Total Balance
+          Available Balance
         </Typography>
         {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} /> */}
       </Box>

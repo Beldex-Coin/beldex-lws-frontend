@@ -20,6 +20,8 @@ export default function Balance() {
   // const balance = useSelector((state: any) =>console.log('balance ::',state.seedDetailReducer) );
 
   const [lockedBalance, setLockedBalance] = React.useState<any>(() => '');
+  const [totalBalance, setTotalBalance] = React.useState<any>(() => '');
+  const [unlockedBalance, setUnlockedBalance] = React.useState<any>(() => '');
   const [totalSent, setTotalSent] = React.useState<any>(() => '');
   const [totalReceived, setTotalReceived] = React.useState<any>(() => '');
 
@@ -50,7 +52,7 @@ export default function Balance() {
             setLockedBalance(locked_balance);
             setTotalSent(total_sent);
             setTotalReceived(total_received);
-            getBalance(total_sent, total_received, locked_balance)
+            calculateBalances(total_sent, total_received, locked_balance)
           });
       }
 
@@ -70,10 +72,18 @@ export default function Balance() {
         return balance_JSBigInt
       }
 
-      const getBalance = (total_sent: any, total_received: any, locked_balance: any) => {
-        let amountJSBigInt = Balance_JSBigInt(total_sent, total_received);
-        const balance = beldex_amount_format_utils.formatMoney(amountJSBigInt);
-        dispatch(setBalance(balance));
+      const calculateBalances = (total_sent: any, total_received: any, locked_balance: any) => {
+        let totalBalanceJSBigInt = Balance_JSBigInt(total_sent, total_received);
+        let lockedBalanceJSBigInt = typeof locked_balance === 'undefined' ? new JSBigInt(0) : new JSBigInt(locked_balance);
+        let unlockedBalanceJSBigInt = totalBalanceJSBigInt.subtract(lockedBalanceJSBigInt);
+        if (unlockedBalanceJSBigInt.compare(0) < 0) {
+          unlockedBalanceJSBigInt = new JSBigInt(0);
+        }
+        const totalBalanceFormatted = beldex_amount_format_utils.formatMoney(totalBalanceJSBigInt);
+        const unlockedBalanceFormatted = beldex_amount_format_utils.formatMoney(unlockedBalanceJSBigInt);
+        setTotalBalance(totalBalanceFormatted);
+        setUnlockedBalance(unlockedBalanceFormatted);
+        dispatch(setBalance(unlockedBalanceFormatted));
       }
 
     } catch (err) {
@@ -116,7 +126,7 @@ export default function Balance() {
             color: (theme) => theme.palette.text.primary,
             fontSize: '1.5rem',
             paddingLeft: '12px',
-          }}>Balance</Typography>
+          }}>Total Balance</Typography>
         </Box>
         <Box className="balance" sx={{
           fontWeight: 600, fontSize: "1.6rem", display: 'flex', alignItems: 'center', marginTop: '8px', color: (theme) => theme.palette.text.primary,
@@ -126,6 +136,52 @@ export default function Balance() {
             className="currency"
             sx={{
               fontWeight: 600, fontSize: "1.6rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
+              marginRight: '5px',
+              marginLeft: '5px',
+            }}
+          >
+            BDX
+          </Typography>
+        </Box>
+        <Box className="unlockedBalanceTxt" sx={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
+          <Typography className="text" sx={{
+            fontWeight: 300,
+            color: (theme) => theme.palette.text.primary,
+            fontSize: '1rem',
+            paddingLeft: '0px',
+          }}>Unlocked Balance</Typography>
+        </Box>
+        <Box className="balance" sx={{
+          fontWeight: 600, fontSize: "1.2rem", display: 'flex', alignItems: 'center', marginTop: '4px', color: (theme) => theme.palette.text.primary,
+        }}>
+          {unlockedBalance}
+          <Typography
+            className="currency"
+            sx={{
+              fontWeight: 600, fontSize: "1.2rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
+              marginRight: '5px',
+              marginLeft: '5px',
+            }}
+          >
+            BDX
+          </Typography>
+        </Box>
+        <Box className="lockedBalanceTxt" sx={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
+          <Typography className="text" sx={{
+            fontWeight: 300,
+            color: (theme) => theme.palette.text.primary,
+            fontSize: '1rem',
+            paddingLeft: '0px',
+          }}>Locked Balance</Typography>
+        </Box>
+        <Box className="lockedBalance" sx={{
+          fontWeight: 600, fontSize: "1.2rem", display: 'flex', alignItems: 'center', marginTop: '4px', color: (theme) => theme.palette.text.primary,
+        }}>
+          {lockedBalance ? beldex_amount_format_utils.formatMoney(new JSBigInt(lockedBalance)) : '0'}
+          <Typography
+            className="currency"
+            sx={{
+              fontWeight: 600, fontSize: "1.2rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
               marginRight: '5px',
               marginLeft: '5px',
             }}
