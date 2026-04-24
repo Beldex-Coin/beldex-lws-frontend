@@ -804,7 +804,7 @@ const SendFund = () => {
               textDecorationLine: "underline",
               cursor: "pointer",
             }}
-            onClick={() => setRegistrationToggle(true)}
+            onClick={() => { setRegistrationToggle(true); setPriority(1); }}
           >
             + Register Master Node
           </Typography>
@@ -877,6 +877,7 @@ const SendFund = () => {
               setRegistrationToggle(false);
               setRegistrationString("");
               setErrRegistration("");
+              setPriority(5);
             }}
           >
             Back to normal transfer
