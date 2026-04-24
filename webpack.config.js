@@ -1,8 +1,32 @@
 const path = require('path');
+const fs = require('fs');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
+
+function readServerUrlFromEnvFile() {
+  const envFiles = ['.env', '.env.defaults'];
+
+  for (const envFile of envFiles) {
+    const envPath = path.join(__dirname, envFile);
+    if (!fs.existsSync(envPath)) {
+      continue;
+    }
+
+    const envContents = fs.readFileSync(envPath, 'utf8');
+    const serverUrlMatch = envContents.match(/^SERVER_URL=(.+)$/m);
+
+    if (serverUrlMatch) {
+      return serverUrlMatch[1].trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+    }
+  }
+
+  return 'lwsapi.beldex.dev';
+}
+
+const devProxyTarget = `https://${readServerUrlFromEnvFile()}`;
+
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
@@ -14,6 +38,15 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: [
+      {
+        context: ['/api'],
+        target: devProxyTarget,
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '^/api': '' }
+      }
+    ],
     // static: './dist',
     // port: 3000,
     // contentBase: path.resolve(__dirname, "dist"),
@@ -68,6 +101,7 @@ module.exports = {
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify'),
       path: require.resolve('path-browserify'),
+      vm: require.resolve('vm-browserify'),
       process: require.resolve('process/browser')
     }
   },

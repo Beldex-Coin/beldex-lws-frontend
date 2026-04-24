@@ -110,9 +110,11 @@ export default function WalletAddressAndKeys() {
             </Typography>
           </Box>
           <Box>
-            <IconButton sx={{ marginRight: "20px" }}>
+            <IconButton
+              sx={{ marginRight: "20px" }}
+              onClick={() => copyText(walletDetails.sec_viewKey_string)}
+            >
               <ContentCopyIcon
-                onClick={() => copyText(walletDetails.sec_viewKey_string)}
                 className="copyIcon"
                 sx={{
                   fontSize: "1.4rem",
@@ -150,9 +152,11 @@ export default function WalletAddressAndKeys() {
             </Typography>
           </Box>
           <Box>
-            <IconButton sx={{ marginRight: "20px" }}>
+            <IconButton
+              sx={{ marginRight: "20px" }}
+              onClick={() => copyText(walletDetails.sec_spendKey_string)}
+            >
               <ContentCopyIcon
-                onClick={() => copyText(walletDetails.sec_spendKey_string)}
                 className="copyIcon"
                 sx={{
                   fontSize: "1.4rem",
@@ -188,10 +192,12 @@ export default function WalletAddressAndKeys() {
             </Typography>
           </Box>
           <Box>
-          <IconButton  sx={{ marginRight: "20px"}}>
+          <IconButton
+            sx={{ marginRight: "20px" }}
+            onClick={() => copyText(walletDetails.mnemonic_string)}
+          >
 
               <ContentCopyIcon
-                onClick={() => copyText(walletDetails.mnemonic_string)}
                 className="copyIcon"
                 sx={{
                   fontSize: "1.4rem",

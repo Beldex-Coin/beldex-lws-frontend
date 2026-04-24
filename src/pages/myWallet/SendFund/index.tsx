@@ -43,7 +43,9 @@ const SendFund = () => {
   const [paymentIdToggle, setPaymentIdToggle] = useState(false);
   const [manualPaymentId, setManualPaymentId] = useState("");
   const [estimtionFees, setEstimationFees] = useState("");
-
+  const [registrationString, setRegistrationString] = useState("");
+  const [registrationToggle, setRegistrationToggle] = useState(false);
+  const isRegister = registrationToggle && registrationString.trim() !== "";
   // const exchangeCurrencyList = {
   //   USD: "USD",
   //   AUD: "AUD",
@@ -69,6 +71,7 @@ const SendFund = () => {
   const [txnStatus, setTxnStatus] = useState("");
   const [errAmount, setErrAmount] = useState("");
   const [errAddress, setErrAddress] = useState("");
+  const [errRegistration, setErrRegistration] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -148,6 +151,11 @@ const SendFund = () => {
     90: "Spendable balance too low",
   };
 
+  const registrationInputChange = (e: any) => {
+    setErrRegistration("");
+    setRegistrationString(e.target.value);
+  };
+
   const generatePaymentId = () => {
     let paymentId = coreBridgeInstance.beldex_utils.new_payment_id();
     setManualPaymentId(paymentId);
@@ -207,6 +215,19 @@ const SendFund = () => {
     //   return
     // }
 
+    if (registrationToggle) {
+      if (!registrationString.trim()) {
+        setErrRegistration("Registration string is required");
+        handleShowToastMsg("Please enter the registration string", false);
+        return;
+      }
+
+      setErrRegistration("");
+      handleOpen();
+      setTxnStatus("confirmation");
+      return;
+    }
+
     if (!amount) {
       // setErrAmount('please enter the amount to send.');
       setErrAmount("Invalid Amount");
@@ -251,6 +272,7 @@ const SendFund = () => {
     }
     setErrAmount("");
     setErrAddress("");
+    setErrRegistration("");
 
     // let addressValidate = await wallet.validateAddres(address);
     // if (!addressValidate) {
@@ -318,6 +340,8 @@ const SendFund = () => {
 
   const intiate_transaction = async () => {
     let args: any = {
+      registration_string: registrationString,
+      isRegister: isRegister,
       fromWallet_didFailToInitialize: false,
       fromWallet_didFailToBoot: false,
       fromWallet_needsImport: false,
@@ -451,6 +475,9 @@ const SendFund = () => {
     setIsSweepTx(false);
     setManualPaymentId("");
     setPaymentIdToggle(false);
+    setRegistrationString("");
+    setRegistrationToggle(false);
+    setErrRegistration("");
   }
 
   const PaymentSuccessDialog = () => {
@@ -462,7 +489,7 @@ const SendFund = () => {
           sx={{ fontWeight: "700" }}
           textAlign={"center"}
         >
-          Your BDX is on it’s way..
+          {isRegister ? "Masternode registered!" : "Your BDX is on it's way.."}
         </Typography>
 
         <Box textAlign={"center"} mt={2}>
@@ -548,7 +575,7 @@ const SendFund = () => {
             // fontFamily: "poppins-semibold",
           }}
         >
-          Total Balance
+          Available Balance
         </Typography>
         {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} /> */}
       </Box>
@@ -561,248 +588,301 @@ const SendFund = () => {
         <span style={{ color: "#20D030" }}>BDX</span>
       </Typography>
       <Box mt={3} mb={3} sx={{ height: "0.2px", backgroundColor: "#8787A8" }} />
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{
-          width: "72%",
-        }}
-      >
-        <Typography
-          mt={2}
-          mb={1}
-          sx={{ color: theme.palette.text.primary, fontWeight: 600 }}
-        >
-          Amount
-        </Typography>
-        <Typography
-          mt={2}
-          // mb={1}
-
-          sx={{ color: "#FC2727", fontWeight: 400, fontSize: "0.9rem" }}
-        >
-          {errAmount}
-        </Typography>
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        sx={{ width: "100%" }}
-      >
-        <Box
-          sx={{
-            // background: "#1C1C26",
-            backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
-            padding: "0 20px",
-            width: "100%",
-            color: "white",
-            borderRadius: "12px",
-            border: errAmount ? "1px solid #FC2727" : "none",
-          }}
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Input
-            placeholder="00.00"
-            disableUnderline={true}
+      {!registrationToggle ? (
+        <>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
             sx={{
-              width: "100%",
-              height: "55px",
-              // color: "white",
-              color: (theme) => theme.palette.text.secondary,
+              width: "72%",
             }}
-            value={amount}
-            onChange={(event: any) => numberOnly(event.target.value)}
-          />
-          {/* <Select
-            className="currency-dropdown"
-            disableUnderline
-            SelectDisplayProps={{
-              style: {
-                paddingTop: "5px",
-                paddingBottom: "5px",
-                background: theme.palette.success.main,
+          >
+            <Typography
+              mt={2}
+              mb={1}
+              sx={{ color: theme.palette.text.primary, fontWeight: 600 }}
+            >
+              Amount
+            </Typography>
+            <Typography
+              mt={2}
+              sx={{ color: "#FC2727", fontWeight: 400, fontSize: "0.9rem" }}
+            >
+              {errAmount}
+            </Typography>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            sx={{ width: "100%" }}
+          >
+            <Box
+              sx={{
+                backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
+                padding: "0 20px",
+                width: "100%",
+                color: "white",
+                borderRadius: "12px",
+                border: errAmount ? "1px solid #FC2727" : "none",
+              }}
+              display="flex"
+              flexDirection="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Input
+                placeholder="00.00"
+                disableUnderline={true}
+                sx={{
+                  width: "100%",
+                  height: "55px",
+                  color: (theme) => theme.palette.text.secondary,
+                }}
+                value={amount}
+                onChange={(event: any) => numberOnly(event.target.value)}
+              />
+            </Box>
+            <Button
+              color="info"
+              variant="contained"
+              onClick={() => setAmount(walletDetails.unlocked_balance)}
+              sx={{
+                marginLeft: "10px",
+                width: "100px",
+                height: "35px",
                 borderRadius: "10px",
                 fontWeight: 600,
-              },
-            }}
-            IconComponent={KeyboardArrowDownIcon}
+                color: "white",
+              }}
+            >
+              Max
+            </Button>
+          </Box>
+          <Box display="flex" flexDirection="row" mb={2} mt={1}>
+            <Typography
+              mr={1}
+              sx={{
+                color: "#8787A8",
+                fontSize: 14,
+              }}
+            >
+              {estimtionFees}
+            </Typography>
+            {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} /> */}
+          </Box>
+        </>
+      ) : (
+        <Box display="flex" flexDirection="row" mb={2} mt={2}>
+          <Typography
+            mr={1}
             sx={{
-              color: theme.palette.text.primary,
-              backgroundColor: (theme: any) => theme.palette.secondary.main,
-              height: "35px",
-              borderRadius: "10px",
-              "& .MuiSelect-icon": {
-                fill: theme.palette.text.primary,
-                color: theme.palette.text.primary,
-              },
+              color: "#8787A8",
+              fontSize: 14,
             }}
-            variant="filled"
-            inputProps={{
-              MenuProps: {
-                MenuListProps: {
-                  sx: {
-                    // color: "white",
-                    color: theme.palette.text.primary,
-                    backgroundColor: (theme: any) =>
-                      theme.palette.secondary.main,
-                    height: "300px",
-                    overflow: "auto",
-                  },
-                },
-              },
-            }}
-            value={currency}
-            defaultValue={currency}
-            onChange={(event: any) => setCurrency(event.target.value)}
           >
-            {Object.values(exchangeCurrencyList).map((item, key) => (
-              <MenuItem key={key} value={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select> */}
+            Registration uses the current transaction priority and estimated fee.
+          </Typography>
         </Box>
-        <Button
-          color="info"
-          variant="contained"
-          onClick={() => setAmount(walletDetails.unlocked_balance)}
-          sx={{
-            marginLeft: "10px",
-            width: "100px",
-            height: "35px",
-            borderRadius: "10px",
-            fontWeight: 600,
-            color: "white",
-          }}
-        >
-          Max
-        </Button>
-      </Box>
-      <Box display="flex" flexDirection="row" mb={2} mt={1}>
-        <Typography
-          mr={1}
-          sx={{
-            color: "#8787A8",
-            fontSize: 14,
-          }}
-        >
-          {estimtionFees}
-        </Typography>
-        {/* <InfoOutlinedIcon sx={{ color: "#8787A8", fontSize: 18 }} /> */}
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={
-          {
-            // width: "72%",
-          }
-        }
-      >
-        <Typography
-          component={"span"}
-          sx={{
-            color: theme.palette.text.primary,
-            fontWeight: 600,
-          }}
-        >
-          To
-          {/* <InfoOutlinedIcon
-            sx={{ color: "#8787A8", fontSize: 14, marginLeft: "6px" }}
-          /> */}
-        </Typography>
-        <Typography
-          sx={{ color: "#FC2727", fontWeight: 400, fontSize: "0.9rem" }}
-        >
-          {errAddress}
-        </Typography>
-      </Box>
-
-      <Input
-        placeholder="Beldex Address"
-        disableUnderline={true}
-        multiline
-        sx={{
-          width: "100%",
-          minHeight: '110px',
-          maxHeight: "125px",
-          color: theme.palette.text.primary,
-          // backgroundColor: (theme) => theme.palette.background.default,
-          backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
-          padding: "10px 20px",
-          borderRadius: "12px",
-          border: errAddress ? "1px solid #FC2727" : "none",
-          overflow: "auto",
-          marginTop: "10px",
-        }}
-        value={toAddress}
-        onChange={(event: any) => addressInputChange(event)}
-      />
-      {paymentIdToggle ? (
+      )}
+      {!registrationToggle ? (
         <>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={
+              {
+                // width: "72%",
+              }
+            }
+          >
+            <Typography
+              component={"span"}
+              sx={{
+                color: theme.palette.text.primary,
+                fontWeight: 600,
+              }}
+            >
+              To
+              {/* <InfoOutlinedIcon
+                sx={{ color: "#8787A8", fontSize: 14, marginLeft: "6px" }}
+              /> */}
+            </Typography>
+            <Typography
+              sx={{ color: "#FC2727", fontWeight: 400, fontSize: "0.9rem" }}
+            >
+              {errAddress}
+            </Typography>
+          </Box>
+
+          <Input
+            placeholder="Beldex Address"
+            disableUnderline={true}
+            multiline
+            sx={{
+              width: "100%",
+              minHeight: '110px',
+              maxHeight: "125px",
+              color: theme.palette.text.primary,
+              backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
+              padding: "10px 20px",
+              borderRadius: "12px",
+              border: errAddress ? "1px solid #FC2727" : "none",
+              overflow: "auto",
+              marginTop: "10px",
+            }}
+            value={toAddress}
+            onChange={(event: any) => addressInputChange(event)}
+          />
+          {paymentIdToggle ? (
+            <>
+              <Typography
+                mt={2}
+                mb={1}
+                sx={{
+                  color: theme.palette.text.primary,
+                  fontWeight: 600,
+                }}
+              >
+                Enter Payment ID or
+                <span
+                  style={{
+                    color: "#289AFB",
+                    textDecoration: "underline",
+                    marginLeft: "5px",
+                  }}
+                  onClick={() => generatePaymentId()}
+                >
+                  Generate One
+                </span>
+              </Typography>
+
+              <Input
+                placeholder="Enter the Payment ID"
+                disableUnderline={true}
+                value={manualPaymentId}
+                inputProps={{ maxLength: 16 }}
+                sx={{
+                  width: "100%",
+                  height: "55px",
+                  color: theme.palette.text.primary,
+                  backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
+                  padding: "0 20px",
+                  borderRadius: "12px",
+                  overflow: "auto",
+                }}
+                onChange={(event: any) => paymentInputChange(event)}
+              />
+            </>
+          ) : (
+            <Typography
+              mt={2}
+              mb={1}
+              sx={{
+                color: "#289AFB",
+                fontWeight: 400,
+                fontSize: "1rem",
+                textDecorationLine: "underline",
+                cursor: "pointer",
+              }}
+              onClick={() => setPaymentIdToggle(true)}
+            >
+              + Add Payment ID
+            </Typography>
+          )}
           <Typography
             mt={2}
             mb={1}
             sx={{
-              color: theme.palette.text.primary,
-              fontWeight: 600,
+              color: "#289AFB",
+              fontWeight: 400,
+              fontSize: "1rem",
+              textDecorationLine: "underline",
+              cursor: "pointer",
             }}
+            onClick={() => { setRegistrationToggle(true); setPriority(1); }}
           >
-            Enter Payment ID or
-            <span
-              style={{
-                color: "#289AFB",
-                textDecoration: "underline",
-                marginLeft: "5px",
-              }}
-              onClick={() => generatePaymentId()}
-            >
-              Generate One
-            </span>
+            + Register Master Node
           </Typography>
-
-          <Input
-            placeholder="Enter the Payment ID"
-            disableUnderline={true}
-            value={manualPaymentId}
-            inputProps={{ maxLength: 16 }}
-            sx={{
-              width: "100%",
-              height: "55px",
-              // color: "white",
-              // background: "#1C1C26",
-              color: theme.palette.text.primary,
-              backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
-              padding: "0 20px",
-              borderRadius: "12px",
-              overflow: "auto",
-            }}
-            onChange={(event: any) =>paymentInputChange(event)}
-          />
         </>
       ) : (
-        <Typography
-          mt={2}
-          mb={1}
-          sx={{
-            color: "#289AFB",
-            fontWeight: 400,
-            fontSize: "1rem",
-            textDecorationLine: "underline",
-            cursor: "pointer",
-          }}
-          onClick={() => setPaymentIdToggle(true)}
-        >
-          + Add Payment ID
-        </Typography>
+        <>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mt={2}
+          >
+            <Typography
+              component={"span"}
+              sx={{
+                color: theme.palette.text.primary,
+                fontWeight: 600,
+              }}
+            >
+              Registration String
+            </Typography>
+            <Typography
+              sx={{ color: "#FC2727", fontWeight: 400, fontSize: "0.9rem" }}
+            >
+              {errRegistration}
+            </Typography>
+          </Box>
+
+          <Input
+            placeholder="Enter the registration string"
+            disableUnderline={true}
+            multiline
+            minRows={4}
+            sx={{
+              width: "100%",
+              minHeight: "120px",
+              color: theme.palette.text.primary,
+              backgroundColor: (theme) => theme.palette.mode === "dark" ? "#1C1C26" : "#F2F2F2",
+              padding: "10px 20px",
+              borderRadius: "12px",
+              border: errRegistration ? "1px solid #FC2727" : "none",
+              overflow: "auto",
+              marginTop: "10px",
+            }}
+            value={registrationString}
+            onChange={registrationInputChange}
+          />
+          <Typography
+            mt={1}
+            sx={{
+              color: "#8787A8",
+              fontSize: 14,
+            }}
+          >
+            Paste the full master node registration string here. The send flow
+            will submit it as a registration transaction.
+          </Typography>
+          <Typography
+            mt={2}
+            mb={1}
+            sx={{
+              color: "#289AFB",
+              fontWeight: 400,
+              fontSize: "1rem",
+              textDecorationLine: "underline",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setRegistrationToggle(false);
+              setRegistrationString("");
+              setErrRegistration("");
+              setPriority(5);
+            }}
+          >
+            Back to normal transfer
+          </Typography>
+        </>
       )}
       <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
         <Typography
@@ -898,7 +978,7 @@ const SendFund = () => {
           onClick={() => sendFundFieldValidation()}
         >
           <CallMadeIcon sx={{ marginRight: '7px' }} />
-          Send
+          {registrationToggle ? "Register" : "Send"}
         </Button>
       </Box>
 
@@ -920,27 +1000,43 @@ const SendFund = () => {
             >
               Confirm Sending
             </Typography>
-            <Typography mt={1} sx={{ fontWeight: "400", fontSize: "1.1rem" }}>
-              Address :
-            </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{ wordBreak: "break-all", fontWeight: "300" }}
-            >
-              {toAddress}
-            </Typography>
-            <Typography
-              mt={1}
-              sx={{ color: "#77778B", fontWeight: "400", fontSize: "1.1rem" }}
-            >
-              Amount :{" "}
-              <Typography
-                component={"span"}
-                sx={{ color: theme.palette.text.primary }}
-              >
-                {amount}
-              </Typography>
-            </Typography>
+            {isRegister ? (
+              <>
+                <Typography mt={1} sx={{ fontWeight: "400", fontSize: "1.1rem" }}>
+                  Registration String :
+                </Typography>
+                <Typography
+                  id="modal-modal-description"
+                  sx={{ wordBreak: "break-all", fontWeight: "300" }}
+                >
+                  {registrationString}
+                </Typography>
+              </>
+            ) : (
+              <>
+                <Typography mt={1} sx={{ fontWeight: "400", fontSize: "1.1rem" }}>
+                  Address :
+                </Typography>
+                <Typography
+                  id="modal-modal-description"
+                  sx={{ wordBreak: "break-all", fontWeight: "300" }}
+                >
+                  {toAddress}
+                </Typography>
+                <Typography
+                  mt={1}
+                  sx={{ color: "#77778B", fontWeight: "400", fontSize: "1.1rem" }}
+                >
+                  Amount :{" "}
+                  <Typography
+                    component={"span"}
+                    sx={{ color: theme.palette.text.primary }}
+                  >
+                    {amount}
+                  </Typography>
+                </Typography>
+              </>
+            )}
             {txnStatus === 'confirmation' ?
               <Box
                 display="flex"
