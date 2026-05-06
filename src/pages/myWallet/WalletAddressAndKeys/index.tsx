@@ -50,10 +50,10 @@ export default function WalletAddressAndKeys() {
           flexDirection: "row",
         }}
       >
-            
-        <Box className={!seedVisible ? "address-wrapper" : ""} onClick={() => setSeedVisible(!seedVisible)}>
+
+        <Box className={!seedVisible ? "address-wrapper" : ""} onClick={() => setSeedVisible(!seedVisible)} sx={{ cursor: 'pointer' }}>
           <Typography
-            sx={{ fontWeight: 600, color: theme.palette.text.primary }}
+            sx={{ fontWeight: 600, color: theme.palette.text.primary, fontSize: '18px' }}
           >
             Address
           </Typography>
@@ -63,6 +63,8 @@ export default function WalletAddressAndKeys() {
             }
             sx={{
               color: (theme: any) => theme.palette.text.secondary,
+              fontSize: '14px',
+              marginTop: '4px'
             }}
           >
             {walletDetails.address_string}
@@ -72,11 +74,11 @@ export default function WalletAddressAndKeys() {
           <IconButton onClick={() => copyText(walletDetails.address_string)}>
             <ContentCopyIcon
               className="copyIcon"
-              sx={{ fontSize: "1.4rem", cursor: "pointer" }}
+              sx={{ fontSize: "1.4rem", cursor: "pointer", color: theme.palette.primary.main }}
             ></ContentCopyIcon>
           </IconButton>
           <ArrowRightIcon
-            sx={{ fill: "#8787A8", cursor: "pointer" }}
+            sx={{ fill: "#8787A8", cursor: "pointer", fontSize: '2rem' }}
             className={seedVisible ? "rotate" : "rotateUp"}
             onClick={() => setSeedVisible(!seedVisible)}
           />

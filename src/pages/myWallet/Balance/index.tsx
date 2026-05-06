@@ -104,88 +104,121 @@ export default function Balance() {
 
   return (
     <Box className="balanceWrapper" sx={{
-      background: (theme) => theme.palette.success.light,
-      borderRadius: '15px',
-      padding: '16px 24px',
+      background: (theme) => theme.palette.mode === 'dark' ? '#2B2B3C' : '#f5f5f5',
+      borderRadius: '25px',
+      padding: '24px',
       display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between'
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      width: '100%',
+      boxSizing: 'border-box'
     }}>
-      <Box>
-        <Box className="balanceTxt" sx={{ display: 'flex', alignItems: 'center' }}>
-          <SvgIcon
-            height="14"
-            viewBox="0 0 22.706 22.706"
-            sx={{ width: '14px', height: '14px', fill: (theme) => theme.palette.text.primary }}
-          >
-            <path d="M20.566,5.676H4.032a2.128,2.128,0,0,1-2.018-.957L19.867,2.838v-.7A2.139,2.139,0,0,0,17.728,0L2.14,2.9C.843,3.134,0,3.858,0,5.037V20.566a2.139,2.139,0,0,0,2.14,2.14H20.566a2.139,2.139,0,0,0,2.14-2.14V7.816A2.139,2.139,0,0,0,20.566,5.676ZM18.921,16.083a1.892,1.892,0,1,1,1.892-1.892A1.891,1.891,0,0,1,18.921,16.083Z" />
-          </SvgIcon>
-          <Typography className="text" sx={{
-            fontWeight: 300,
-            color: (theme) => theme.palette.text.primary,
-            fontSize: '1.5rem',
-            paddingLeft: '12px',
-          }}>Total Balance</Typography>
-        </Box>
-        <Box className="balance" sx={{
-          fontWeight: 600, fontSize: "1.6rem", display: 'flex', alignItems: 'center', marginTop: '8px', color: (theme) => theme.palette.text.primary,
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <SvgIcon
+          height="14"
+          viewBox="0 0 22.706 22.706"
+          sx={{ width: '16px', height: '16px', fill: (theme) => theme.palette.text.secondary }}
+        >
+          <path d="M20.566,5.676H4.032a2.128,2.128,0,0,1-2.018-.957L19.867,2.838v-.7A2.139,2.139,0,0,0,17.728,0L2.14,2.9C.843,3.134,0,3.858,0,5.037V20.566a2.139,2.139,0,0,0,2.14,2.14H20.566a2.139,2.139,0,0,0,2.14-2.14V7.816A2.139,2.139,0,0,0,20.566,5.676ZM18.921,16.083a1.892,1.892,0,1,1,1.892-1.892A1.891,1.891,0,0,1,18.921,16.083Z" />
+        </SvgIcon>
+        <Typography sx={{
+          fontWeight: 400,
+          color: (theme) => theme.palette.text.secondary,
+          fontSize: '18px',
+          paddingLeft: '10px',
+          fontFamily: 'Poppins'
+        }}>Balance</Typography>
+      </Box>
+
+      <Box sx={{
+        display: 'flex', alignItems: 'baseline', marginTop: '12px', marginBottom: '24px'
+      }}>
+        <Typography sx={{
+          fontWeight: 600,
+          fontSize: '1.5rem',
+          color: (theme) => theme.palette.text.primary,
+          lineHeight: 1
         }}>
           {totalBalance}
-          <Typography
-            className="currency"
-            sx={{
-              fontWeight: 600, fontSize: "1.6rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
-              marginRight: '5px',
-              marginLeft: '5px',
-            }}
-          >
+        </Typography>
+        <Typography
+          sx={{
+            fontWeight: 600,
+            color: (theme) => theme.palette.primary.main,
+            marginLeft: '12px',
+            lineHeight: 1
+          }}
+        >
+          BDX
+        </Typography>
+      </Box>
+
+      <Box sx={{
+        backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#1c1c26' : '#e0e0e0',
+        borderRadius: '20px',
+        padding: '16px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: { xs: 2, md: 6 },
+        flexWrap: 'wrap',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        fontSize:'bold'
+
+      }}>
+        {/* Unlocked Balance */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: '#00C708' }} />
+          <Typography sx={{
+            color: (theme) => theme.palette.text.secondary,
+            fontSize: '15px',
+            whiteSpace: 'nowrap',
+            fontWeight: 'bold'
+          }}>
+            Unlocked Balance
+          </Typography>
+          <Typography sx={{
+            color: (theme) => theme.palette.text.primary,
+            fontSize: '15px',
+            fontWeight: 600,
+            ml: 0.5
+          }}>
+            {unlockedBalance}
+          </Typography>
+          <Typography sx={{
+            color: (theme) => theme.palette.primary.main,
+            fontSize: '15px',
+            fontWeight: 600
+          }}>
             BDX
           </Typography>
         </Box>
-        <Box className="unlockedBalanceTxt" sx={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
-          <Typography className="text" sx={{
-            fontWeight: 300,
-            color: (theme) => theme.palette.text.primary,
-            fontSize: '1rem',
-            paddingLeft: '0px',
-          }}>Unlocked Balance</Typography>
-        </Box>
-        <Box className="balance" sx={{
-          fontWeight: 600, fontSize: "1.2rem", display: 'flex', alignItems: 'center', marginTop: '4px', color: (theme) => theme.palette.text.primary,
-        }}>
-          {unlockedBalance}
-          <Typography
-            className="currency"
-            sx={{
-              fontWeight: 600, fontSize: "1.2rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
-              marginRight: '5px',
-              marginLeft: '5px',
-            }}
-          >
-            BDX
+
+        {/* Locked Balance */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: '#2879FB' }} />
+          <Typography sx={{
+            color: (theme) => theme.palette.text.secondary,
+            fontSize: '15px',
+            whiteSpace: 'nowrap',
+            fontWeight: 'bold'
+          }}>
+            Locked Balance
           </Typography>
-        </Box>
-        <Box className="lockedBalanceTxt" sx={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
-          <Typography className="text" sx={{
-            fontWeight: 300,
+          <Typography sx={{
             color: (theme) => theme.palette.text.primary,
-            fontSize: '1rem',
-            paddingLeft: '0px',
-          }}>Locked Balance</Typography>
-        </Box>
-        <Box className="lockedBalance" sx={{
-          fontWeight: 600, fontSize: "1.2rem", display: 'flex', alignItems: 'center', marginTop: '4px', color: (theme) => theme.palette.text.primary,
-        }}>
-          {lockedBalance ? beldex_amount_format_utils.formatMoney(new JSBigInt(lockedBalance)) : '0'}
-          <Typography
-            className="currency"
-            sx={{
-              fontWeight: 600, fontSize: "1.2rem", color: (theme) => theme.palette.mode === 'dark' ? '#20d030' : '#19AD1C',
-              marginRight: '5px',
-              marginLeft: '5px',
-            }}
-          >
+            fontSize: '15px',
+            fontWeight: 600,
+            ml: 0.5
+          }}>
+            {lockedBalance ? beldex_amount_format_utils.formatMoney(new JSBigInt(lockedBalance)) : '0'}
+          </Typography>
+          <Typography sx={{
+            color: (theme) => theme.palette.primary.main,
+            fontSize: '15px',
+            fontWeight: 600
+          }}>
             BDX
           </Typography>
         </Box>

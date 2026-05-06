@@ -220,7 +220,9 @@ export default function TransactionHistory() {
         borderRadius: "20px",
         // height: isMobileMode ? "592px" : '545px',
         // height:'67%'
-        height: isMobileMode ? "unset" : isTablet ? "560px" : 'calc(100vh - 356px)'
+        flex: isMobileMode ? "unset" : 1,
+        minHeight: 0,
+        height: isMobileMode ? "unset" : "auto",
       }}
       mt={2}
     >
@@ -281,6 +283,16 @@ export default function TransactionHistory() {
               height: isMobileMode ? '75%' : "87%",
               overflowY: "auto",
               padding: "0 10px",
+              '&::-webkit-scrollbar': {
+                width: '6px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: (theme: any) => theme.palette.mode === 'dark' ? '#585870' : '#D1D1D1',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'transparent',
+              },
             }}
           >
             <TransactionList

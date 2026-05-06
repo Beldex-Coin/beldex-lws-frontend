@@ -535,28 +535,63 @@ const SendFund = () => {
       }}
     >
       <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
+        sx={{
+          display: "flex",
+          backgroundColor: "transparent",
+          borderRadius: "12px",
+          border: (theme) => `2px solid ${theme.palette.mode === "dark" ? "#32324A" : "#D1D1D1"}`,
+          padding: "7px",
+          marginTop: isMobileMode ? "10px" : "20px",
+          height: "60px", // Increased height to accommodate larger padding
+          alignItems: "center",
+        }}
       >
-        <SendIcon
+        <Button
+          fullWidth
           sx={{
-            color: theme.palette.text.primary,
-            transform: "rotate(-48deg)",
-            fontSize: 18,
+            height: "100%",
+            borderRadius: "10px",
+            backgroundColor: !registrationToggle ? (theme.palette.mode === "dark" ? "#32324A" : "#FFFFFF") : "transparent",
+            color: !registrationToggle ? theme.palette.text.primary : "#8787A8",
+            textTransform: "none",
+            fontWeight: 600,
+            transition: "all 0.3s ease",
+            "&:hover": {
+              backgroundColor: !registrationToggle ? (theme.palette.mode === "dark" ? "#383854" : "#F9F9F9") : "transparent",
+            },
+            padding: '8px',
+            whiteSpace: 'nowrap',
           }}
-        />
-        <Typography
-          mt={1}
-          sx={{
-            fontSize: 18,
-            fontWeight: "bold",
-            color: theme.palette.text.primary,
+          onClick={() => {
+            setRegistrationToggle(false);
+            setPriority(5);
           }}
         >
           Send BDX
-        </Typography>
+        </Button>
+        <Button
+          fullWidth
+          sx={{
+            height: "100%",
+            borderRadius: "10px",
+            backgroundColor: registrationToggle ? (theme.palette.mode === "dark" ? "#32324A" : "#FFFFFF") : "transparent",
+            color: registrationToggle ? theme.palette.text.primary : "#8787A8",
+            textTransform: "none",
+            fontWeight: 600,
+            transition: "all 0.3s ease",
+            "&:hover": {
+              backgroundColor: registrationToggle ? (theme.palette.mode === "dark" ? "#383854" : "#F9F9F9") : "transparent",
+            },
+            padding: '8px',
+            whiteSpace: 'nowrap',
+          }}
+          onClick={() => {
+            setRegistrationToggle(true);
+            setPriority(1);
+          }}
+        >
+          Register Masternode
+        </Button>
       </Box>
       <Box
         mt={2}
@@ -794,20 +829,6 @@ const SendFund = () => {
               + Add Payment ID
             </Typography>
           )}
-          <Typography
-            mt={2}
-            mb={1}
-            sx={{
-              color: "#289AFB",
-              fontWeight: 400,
-              fontSize: "1rem",
-              textDecorationLine: "underline",
-              cursor: "pointer",
-            }}
-            onClick={() => { setRegistrationToggle(true); setPriority(1); }}
-          >
-            + Register Master Node
-          </Typography>
         </>
       ) : (
         <>
@@ -862,25 +883,6 @@ const SendFund = () => {
           >
             Paste the full master node registration string here. The send flow
             will submit it as a registration transaction.
-          </Typography>
-          <Typography
-            mt={2}
-            mb={1}
-            sx={{
-              color: "#289AFB",
-              fontWeight: 400,
-              fontSize: "1rem",
-              textDecorationLine: "underline",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setRegistrationToggle(false);
-              setRegistrationString("");
-              setErrRegistration("");
-              setPriority(5);
-            }}
-          >
-            Back to normal transfer
           </Typography>
         </>
       )}
