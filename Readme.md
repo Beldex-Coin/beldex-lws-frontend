@@ -23,7 +23,7 @@ A high-performance, secure, and visually stunning web interface for the **Beldex
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/keira-eng/beldex-lws-frontend.git
+    git clone https://github.com/Beldex-Coin/beldex-lws-frontend.git
     cd beldex-lws-frontend
     ```
 
