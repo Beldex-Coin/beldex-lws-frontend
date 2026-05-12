@@ -52,14 +52,21 @@ const MyWallet = () => {
           overflow: isMobileMode ? "unset" : 'hidden'
         }}
       >
-        <Box sx={{ width: "100%", overflow: 'auto' }}>
+        <Box sx={{ 
+          width: "100%", 
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          overflow: 'hidden',
+        }}>
           <Balance />
           <WalletAddressAndKeys />
           <TransactionHistory />
         </Box>
         <Box
           sx={{
-            minWidth: "320px",
+            width: isMobileMode ? "100%" : "450px",
+            minWidth: isMobileMode ? "unset" : "450px",
             background: (theme) => theme.palette.success.main,
             borderRadius: "25px",
             padding: '30px 10px',

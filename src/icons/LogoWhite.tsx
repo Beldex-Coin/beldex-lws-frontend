@@ -10,7 +10,7 @@ const LogoWhite = (props: any) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_1207_201)">
+        <g clipPath="url(#clip0_1207_201)">
           <path
             d="M0.0302734 26.5898V27.1598L0.0602734 26.0898C0.0502734 26.2498 0.0302734 26.4098 0.0302734 26.5898Z"
             fill="#0A0A0A"
@@ -66,8 +66,8 @@ const LogoWhite = (props: any) => {
             y2="9.94"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#1668BF" />
-            <stop offset="1" stop-color="#71B1E0" />
+            <stop stopColor="#1668BF" />
+            <stop offset="1" stopColor="#71B1E0" />
           </linearGradient>
           <linearGradient
             id="paint1_linear_1207_201"
@@ -77,8 +77,8 @@ const LogoWhite = (props: any) => {
             y2="35.2901"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#0F6192" />
-            <stop offset="1" stop-color="#1E7AB0" stop-opacity="0.5" />
+            <stop stopColor="#0F6192" />
+            <stop offset="1" stopColor="#1E7AB0" stopOpacity="0.5" />
           </linearGradient>
           <linearGradient
             id="paint2_linear_1207_201"
@@ -88,8 +88,8 @@ const LogoWhite = (props: any) => {
             y2="49.18"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#52FA5A" />
-            <stop offset="1" stop-color="#36B43C" />
+            <stop stopColor="#52FA5A" />
+            <stop offset="1" stopColor="#36B43C" />
           </linearGradient>
           <linearGradient
             id="paint3_linear_1207_201"
@@ -99,8 +99,8 @@ const LogoWhite = (props: any) => {
             y2="35.7"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#31A036" />
-            <stop offset="1" stop-color="#45D94C" />
+            <stop stopColor="#31A036" />
+            <stop offset="1" stopColor="#45D94C" />
           </linearGradient>
           <linearGradient
             id="paint4_linear_1207_201"
@@ -110,11 +110,11 @@ const LogoWhite = (props: any) => {
             y2="35.71"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#31A036" />
-            <stop offset="0.24" stop-color="#33A638" />
-            <stop offset="0.54" stop-color="#39B63F" />
-            <stop offset="0.89" stop-color="#42D149" />
-            <stop offset="1" stop-color="#46DB4D" />
+            <stop stopColor="#31A036" />
+            <stop offset="0.24" stopColor="#33A638" />
+            <stop offset="0.54" stopColor="#39B63F" />
+            <stop offset="0.89" stopColor="#42D149" />
+            <stop offset="1" stopColor="#46DB4D" />
           </linearGradient>
           <linearGradient
             id="paint5_linear_1207_201"
@@ -124,9 +124,9 @@ const LogoWhite = (props: any) => {
             y2="25.0099"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#51F859" />
-            <stop offset="0.51" stop-color="#231F20" />
-            <stop offset="1" stop-color="#51F859" />
+            <stop stopColor="#51F859" />
+            <stop offset="0.51" stopColor="#231F20" />
+            <stop offset="1" stopColor="#51F859" />
           </linearGradient>
           <linearGradient
             id="paint6_linear_1207_201"
@@ -136,8 +136,8 @@ const LogoWhite = (props: any) => {
             y2="19.6099"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#156595" />
-            <stop offset="1" stop-color="#5A9BC6" />
+            <stop stopColor="#156595" />
+            <stop offset="1" stopColor="#5A9BC6" />
           </linearGradient>
           <clipPath id="clip0_1207_201">
             <rect width="51.41" height="58.89" fill="white" />
