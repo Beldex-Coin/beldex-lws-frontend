@@ -1,6 +1,6 @@
 {
   "name": "my-beldex-wallet",
-  "version": "1.0.0 Beta",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@bdxi/beldex-app-bridge": "^3.0.0",
@@ -54,7 +54,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run build && webpack-dev-server --port 8080 --config webpack.config.js",
+    "start": "npm run build && webpack-dev-server --port 8000 --config webpack.config.js",
     "build": "webpack --config webpack.config.js --mode=production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

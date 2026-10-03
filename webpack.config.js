@@ -6,7 +6,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
 function readServerUrlFromEnvFile() {
-  const envFiles = ['.env', '.env.defaults'];
+  const envFiles = ['.env', '.env.default'];
 
   for (const envFile of envFiles) {
     const envPath = path.join(__dirname, envFile);
@@ -15,14 +15,14 @@ function readServerUrlFromEnvFile() {
     }
 
     const envContents = fs.readFileSync(envPath, 'utf8');
-    const serverUrlMatch = envContents.match(/^SERVER_URL=(.+)$/m);
+    const serverUrlMatch = envContents.match(/^\s*SERVER_URL\s*=\s*(.+)$/m);
 
     if (serverUrlMatch) {
       return serverUrlMatch[1].trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
     }
   }
 
-  return 'lwsapi.beldex.dev';
+  return 'wsapi.beldex.io';
 }
 
 const devProxyTarget = `https://${readServerUrlFromEnvFile()}`;
@@ -33,7 +33,8 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'index_bundle.js',
+    filename: 'index_bundle.[contenthash:8].js',
+    chunkFilename: '[name].[contenthash:8].js',
     publicPath: '/'
   },
   devServer: {
@@ -122,7 +123,8 @@ module.exports = {
       ]
     }),
     new Dotenv({
-      defaults: true
+      path: path.join(__dirname, '.env'),
+      defaults: path.join(__dirname, '.env.default')
     })
     // new webpack.ProvidePlugin({dist
     //   process: 'process/browser',

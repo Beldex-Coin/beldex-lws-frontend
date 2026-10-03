@@ -9,7 +9,8 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'index_bundle.js',
+    filename: 'index_bundle.[contenthash:8].js',
+    chunkFilename: '[name].[contenthash:8].js',
     publicPath: '/'
   },
   devServer: {
@@ -89,7 +90,8 @@ module.exports = {
       ]
     }),
     new Dotenv({
-      defaults: true
+      path: path.join(__dirname, '.env'),
+      defaults: path.join(__dirname, '.env.default')
     })
     // new webpack.ProvidePlugin({dist
     //   process: 'process/browser',
